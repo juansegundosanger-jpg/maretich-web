@@ -7,7 +7,7 @@ import { RoomEnvironment } from 'three/addons/RoomEnvironment.js';
 const W = 0.9, H = 2.1, D = 0.055;          // hoja en metros
 const FRAME = 0.07, FRAME_D = 0.13;           // marco
 
-export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {}) {
+export function createDoor(canvas, { texture = 'assets/img/puerta.jpg' } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -21,7 +21,7 @@ export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
   const camera = new THREE.PerspectiveCamera(28, 1, 0.1, 50);
-  camera.position.set(0, 0, 6.2);
+  camera.position.set(0, 0, 6.1);
 
   // Luces: clave cálida desde la izquierda, relleno frío suave
   const key = new THREE.DirectionalLight(0xfff1e0, 2.4);
@@ -41,7 +41,7 @@ export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {
 
   const face = new THREE.MeshStandardMaterial({ map: faceTex, roughness: 0.62, metalness: 0 });
   const edge = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x8a6243, roughness: 0.7 });
-  const frameMat = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x5a3d2a, roughness: 0.65 });
+  const frameMat = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x4a3a30, roughness: 0.7 });
   const metal = new THREE.MeshStandardMaterial({ color: 0x1d1a18, roughness: 0.32, metalness: 0.85 });
 
   // ---------- Geometría ----------
@@ -83,7 +83,15 @@ export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {
     g.traverse((m) => { if (m.isMesh) m.castShadow = true; });
     return g;
   };
-  door.add(makeHandle(1), makeHandle(-1));
+  // tirador de madera horizontal, alineado con el que se ve en la foto
+  const pullMat = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x8a5a36, roughness: 0.55 });
+  const PX0 = 118 / 376, PX1 = 307 / 376, PY = 467 / 770;
+  [1, -1].forEach((side) => {
+    const pull = new THREE.Mesh(new THREE.BoxGeometry((PX1 - PX0) * W, 0.022, 0.026), pullMat);
+    pull.position.set(((PX0 + PX1) / 2 - 0.5) * W * side, (0.5 - PY) * H, side * (D / 2 + 0.013));
+    pull.castShadow = true;
+    door.add(pull);
+  });
 
   // Sombra de contacto en el piso
   const floor = new THREE.Mesh(new THREE.PlaneGeometry(6, 6), new THREE.ShadowMaterial({ opacity: 0.18 }));
@@ -108,9 +116,18 @@ export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {
     camera.aspect = w / h;
     camera.updateProjectionMatrix();
     const narrow = w < 900;
-    layoutX = narrow ? 0 : Math.min(1.25, camera.aspect * 0.62);
-    pivot.position.set(layoutX, narrow ? 0.35 : 0, 0);
-    pivot.scale.setScalar(narrow ? 0.78 : 1);
+    // alto visible en el plano de la puerta; la puerta ocupa ~82% del alto (como en el Figma)
+    const visH = 2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
+    const visW = visH * camera.aspect;
+    if (narrow) {
+      layoutX = 0;
+      pivot.position.set(0, visH * 0.14, 0);
+      pivot.scale.setScalar(0.62);
+    } else {
+      layoutX = (0.307 - 0.5) * visW;          // centro de la puerta al 30,7% del ancho
+      pivot.position.set(layoutX, -0.02, 0);
+      pivot.scale.setScalar(1);
+    }
   }
 
   // Interacción: el cursor sobre la puerta la hace girar de -180° a 180°
@@ -135,7 +152,7 @@ export function createDoor(canvas, { texture = 'assets/img/door-photo.jpg' } = {
     if (visible) {
       const ease = 1 - Math.pow(0.0015, dt);   // suavizado independiente del framerate
       // pose base guiada por el scroll
-      const baseY = -0.55 * reveal + Math.sin(elapsed * 0.4) * 0.05 * reveal;
+      const baseY = 0.5 * reveal + Math.sin(elapsed * 0.4) * 0.05 * reveal;
       const baseX = 0.06 * reveal;
       let ty = baseY + drag.offset, tx = baseX;
       if (live && pointer.inside && !drag.on && window.matchMedia('(hover: hover)').matches) {
