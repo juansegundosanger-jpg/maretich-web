@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Maretich · Aberturas de madera</title>
+  <meta name="description" content="Fábrica de aberturas de madera en Córdoba desde hace 40 años. Puertas a medida y pre-diseñadas para casas, edificios y desarrollos de todo el país.">
+  <meta name="theme-color" content="#38261c">
+  <link rel="icon" href="assets/isologo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <script type="importmap">
+    { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
+  </script>
+</head>
+<body class="is-loading">
+
+  <!-- ===== Intro: isologo | logotipo se separan y abren la imagen ===== -->
+  <div class="intro" aria-hidden="true">
+    <div class="intro__half intro__half--l"><div class="intro__mark intro__mark--iso" data-svg="assets/isologo.svg"></div></div>
+    <div class="intro__half intro__half--r"><div class="intro__mark intro__mark--logo" data-svg="assets/logotipo.svg"></div></div>
+  </div>
+
+  <!-- ===== Navegación fija ===== -->
+  <header class="nav" data-theme="light">
+    <a href="#inicio" class="nav__logo" aria-label="Maretich, inicio"><span data-svg="assets/logo-full.svg"></span></a>
+    <nav class="nav__menu" aria-label="Principal">
+      <a href="#lineas">Catálogo</a>
+      <a href="#proyectos">Proyectos</a>
+      <a href="#tu-obra">Tu obra</a>
+      <a href="#empresa">Empresa</a>
+      <a href="#novedades">Novedades</a>
+      <a href="#contacto">Contacto</a>
+    </nav>
+    <a class="btn btn--wa nav__wa" href="https://wa.me/?text=Hola.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio%20y%20quiero%20hacer%20una%20consulta." target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg><span>WhatsApp</span>
+    </a>
+    <button class="nav__burger" aria-label="Abrir menú" aria-expanded="false"><span></span><span></span></button>
+  </header>
+
+  <a class="wa-float" href="https://wa.me/?text=Hola.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio%20y%20quiero%20hacer%20una%20consulta." target="_blank" rel="noopener" aria-label="Consultar por WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/></svg>
+  </a>
+
+  <div id="smooth-wrapper">
+  <div id="smooth-content">
+  <main>
+
+    <!-- ===== 01 Hero ===== -->
+    <section class="hero" id="inicio" data-nav="light">
+      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/img/pivot-dark.jpg">
+        <source src="https://videos.pexels.com/video-files/7578554/7578554-uhd_2560_1440_30fps.mp4" type="video/mp4">
+      </video>
+      <div class="hero__shade"></div>
+      <div class="hero__copy">
+        <p class="eyebrow">Fábrica de aberturas de madera · Córdoba, desde hace 40 años</p>
+        <h1 class="hero__title" data-split>Un marco firme en todo lo que hacemos.</h1>
+      </div>
+      <div class="hero__scroll" aria-hidden="true"><span>Scroll</span><i></i></div>
+    </section>
+
+    <!-- ===== 02 Showcase: imagen chica que crece, proyectos, puerta 3D ===== -->
+    <section class="showcase" data-nav="dark">
+      <div class="showcase__stage">
+        <div class="showcase__frame">
+          <img src="assets/img/living.jpg" alt="" class="showcase__img">
+          <img src="assets/img/pivot-ext.jpg" alt="" class="showcase__img">
+          <img src="assets/img/bordo-door.jpg" alt="" class="showcase__img">
+          <img src="assets/img/corridor-wood.jpg" alt="" class="showcase__img">
+          <img src="assets/img/door-photo.jpg" alt="" class="showcase__img showcase__img--door">
+        </div>
+        <div class="showcase__caption" aria-live="polite">
+          <span class="showcase__count">01 / 05</span>
+          <span class="showcase__name">Casa Altos C</span>
+        </div>
+        <div class="door3d">
+          <canvas class="door3d__canvas" aria-label="Puerta de madera en 3D. Pasá el cursor o arrastrá para girarla." role="img"></canvas>
+          <p class="door3d__hint">Mové el cursor para verla de todos lados</p>
+        </div>
+        <div class="showcase__text">
+          <p class="eyebrow eyebrow--dark">Desde 1985</p>
+          <h2 class="showcase__title" data-split-chars>Diseñamos aberturas<br><em>de madera.</em></h2>
+          <p class="showcase__body">Relevamos la obra, diseñamos cada pieza y la fabricamos en Córdoba, con madera de bosques reforestados. De principio a fin, bajo un marco firme.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== 03 Tu obra: Cada obra tiene su puerta ===== -->
+    <section class="obra overlap" id="tu-obra" data-nav="dark">
+      <div class="obra__stage">
+        <h2 class="obra__title">Cada obra tiene<br>su puerta.</h2>
+        <div class="obra__flap">
+          <div class="obra__item" data-i="0">
+            <p class="eyebrow eyebrow--light">01 · Viviendas familiares</p>
+            <h3>Estoy haciendo mi casa.</h3>
+            <p>Puertas de ingreso e interiores a medida, relevadas en obra. Consultanos con el plano en la mano: llegamos con tiempo y sin apuro.</p>
+            <a class="link-arrow" href="#viviendas-familiares">Ver viviendas familiares</a>
+          </div>
+          <div class="obra__item" data-i="1">
+            <p class="eyebrow eyebrow--light">02 · Grandes obras</p>
+            <h3>Construyo edificios y desarrollos.</h3>
+            <p>Más de 145 entregas por mes, condominios terminados y logística a todo el país. Consultanos al armar el pliego.</p>
+            <a class="link-arrow" href="#grandes-obras">Ver grandes obras</a>
+          </div>
+          <div class="obra__item" data-i="2">
+            <p class="eyebrow eyebrow--light">03 · Inversores</p>
+            <h3>Invierto en un proyecto de varias unidades.</h3>
+            <p>La línea Pre-diseñada como decisión segura: costo y plazo previsibles por unidad. Consultanos al definir el proyecto.</p>
+            <a class="link-arrow" href="#inversores">Ver inversores</a>
+          </div>
+        </div>
+        <figure class="obra__img" data-i="0"><img src="assets/img/living.jpg" alt="Living de una casa con puertas de madera a medida"></figure>
+        <figure class="obra__img" data-i="1"><img src="assets/img/corridor-wood.jpg" alt="Pasillo con puertas de madera en un edificio"></figure>
+        <figure class="obra__img" data-i="2"><img src="assets/img/pre-light.jpg" alt="Unidad con puertas de la línea Pre-diseñada"></figure>
+      </div>
+    </section>
+
+    <!-- ===== 04 Líneas ===== -->
+    <section class="lineas" id="lineas" data-nav="dark">
+      <header class="sec-head">
+        <p class="eyebrow eyebrow--dark">Catálogo</p>
+        <h2 class="sec-title" data-split-lines>Dos líneas,<br>el mismo criterio.</h2>
+      </header>
+      <div class="lineas__grid">
+        <article class="linea linea--medida">
+          <a class="linea__media" href="#a-medida" data-slideshow>
+            <img src="assets/img/pivot-dark.jpg" alt="Puerta pivotante de madera maciza, línea A medida">
+            <img src="assets/img/pivot-ext2.jpg" alt="">
+            <img src="assets/img/door-warm.jpg" alt="">
+            <img src="assets/img/curtain.jpg" alt="">
+          </a>
+          <div class="linea__info">
+            <p class="linea__meta"><span>01/. Línea A medida</span><span>76 modelos</span></p>
+            <h3>Aberturas únicas para cada espacio.</h3>
+            <p class="linea__links"><a href="#a-medida-interior">Interior</a><a href="#a-medida-exterior">Exterior</a><a href="#a-medida-herrajes">Herrajes</a></p>
+          </div>
+        </article>
+        <article class="linea linea--pre">
+          <a class="linea__media" href="#pre-disenada" data-slideshow>
+            <img src="assets/img/white-door.jpg" alt="Puerta interior blanca, línea Pre-diseñada">
+            <img src="assets/img/pre-white.jpg" alt="">
+            <img src="assets/img/hall.jpg" alt="">
+            <img src="assets/img/pre-white2.jpg" alt="">
+          </a>
+          <div class="linea__info">
+            <p class="linea__meta"><span>02/. Línea Pre-diseñada</span><span>63 modelos</span></p>
+            <h3>Una selección de diseños resueltos.</h3>
+            <p class="linea__links"><a href="#pre-disenada-interior">Interior</a><a href="#pre-disenada-exterior">Exterior</a><a href="#pre-disenada-herrajes">Herrajes</a></p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===== 05 Proyectos (5 de 10) ===== -->
+    <section class="proyectos" id="proyectos" data-nav="dark">
+      <header class="sec-head sec-head--row">
+        <div>
+          <p class="eyebrow eyebrow--dark">Proyectos</p>
+          <h2 class="sec-title" data-split-lines>Obras elegidas.</h2>
+        </div>
+        <a class="link-arrow link-arrow--dark" href="#proyectos-todos">Ver los diez proyectos</a>
+      </header>
+      <ul class="proy__list" role="list">
+        <li class="proy"><a href="#casa-altos-c"><figure><img src="assets/img/pivot-ext.jpg" alt="Casa Altos C"></figure><span class="proy__name">Casa Altos C</span><span class="proy__meta">A medida · Listello</span></a></li>
+        <li class="proy"><a href="#casa-ashi"><figure><img src="assets/img/bordo-door.jpg" alt="Casa Ashi"></figure><span class="proy__name">Casa Ashi</span><span class="proy__meta">A medida · Milord</span></a></li>
+        <li class="proy"><a href="#condominio-foresta"><figure><img src="assets/img/pre-light.jpg" alt="Condominio Foresta"></figure><span class="proy__name">Condominio Foresta</span><span class="proy__meta">Pre-diseñada</span></a></li>
+        <li class="proy"><a href="#terron-o"><figure><img src="assets/img/curtain.jpg" alt="Terron O"></figure><span class="proy__name">Terron O</span><span class="proy__meta">A medida · Bastonata</span></a></li>
+        <li class="proy"><a href="#condominio-pacifico"><figure><img src="assets/img/corridor-dark.jpg" alt="Condominio Pacífico"></figure><span class="proy__name">Condominio Pacífico</span><span class="proy__meta">Pre-diseñada</span></a></li>
+      </ul>
+    </section>
+
+    <!-- ===== 06 Empresa ===== -->
+    <section class="empresa" id="empresa" data-nav="dark">
+      <div class="empresa__head">
+        <p class="eyebrow eyebrow--dark">La fábrica</p>
+        <h2 class="sec-title" data-split-lines>El oficio de la madera<br>en cada detalle.</h2>
+        <p class="empresa__body" data-fade>Madera de bosques reforestados, 80% de energía solar y una fábrica que no desperdicia. Cuarenta años perfeccionando procesos con un equipo que entiende el material.</p>
+      </div>
+      <dl class="stats">
+        <div class="stat"><dd><span class="count" data-to="40">0</span></dd><dt>años de fábrica en Córdoba</dt></div>
+        <div class="stat"><dd><span class="count" data-to="139">0</span></dd><dt>modelos en catálogo</dt></div>
+        <div class="stat"><dd>+<span class="count" data-to="145">0</span></dd><dt>entregas por mes</dt></div>
+        <div class="stat"><dd><span class="count" data-to="80">0</span>%</dd><dt>de energía solar</dt></div>
+      </dl>
+    </section>
+
+    <!-- ===== 07 Tira de imágenes ===== -->
+    <section class="tira" aria-label="Galería" data-nav="dark">
+      <div class="tira__track">
+        <img src="assets/img/door-warm.jpg" alt=""><img src="assets/img/hall-stone.jpg" alt=""><img src="assets/img/pivot-ext2.jpg" alt=""><img src="assets/img/white-door2.jpg" alt=""><img src="assets/img/bench.jpg" alt=""><img src="assets/img/door-photo.jpg" alt=""><img src="assets/img/curtain.jpg" alt=""><img src="assets/img/pre-white.jpg" alt="">
+      </div>
+    </section>
+
+  </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="footer" id="contacto" data-nav="light">
+      <div class="footer__top">
+        <span class="footer__logo" data-svg="assets/logo-full.svg"></span>
+        <p class="footer__claim">Madera seleccionada desde el origen.</p>
+      </div>
+      <div class="footer__cols">
+        <div><p class="eyebrow">Catálogo</p><a href="#a-medida">A medida</a><a href="#pre-disenada">Pre-diseñada</a><a href="#herrajes">Herrajes</a></div>
+        <div><p class="eyebrow">Tu obra</p><a href="#viviendas-familiares">Viviendas familiares</a><a href="#grandes-obras">Grandes obras</a><a href="#inversores">Inversores</a></div>
+        <div><p class="eyebrow">Maretich</p><a href="#proyectos">Proyectos</a><a href="#empresa">Empresa</a><a href="#novedades">Novedades</a><a href="#garantia">Garantía</a></div>
+        <div><p class="eyebrow">Fábrica</p><p>Raúl Gorordo 820, Córdoba</p><p>+54 3543 425999</p><p>info@maretich.com.ar</p></div>
+      </div>
+      <div class="footer__bottom"><span>© 2027 Maretich Aberturas de madera</span><span><a href="https://instagram.com/maretichaberturas" target="_blank" rel="noopener">Instagram</a><a href="#privacidad">Privacidad</a></span></div>
+    </footer>
+  </div>
+  </div>
+
+  <script src="vendor/gsap.min.js"></script>
+  <script src="vendor/ScrollTrigger.min.js"></script>
+  <script src="vendor/ScrollSmoother.min.js"></script>
+  <script src="vendor/SplitText.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
