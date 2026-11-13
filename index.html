@@ -47,10 +47,13 @@
   <main>
 
     <!-- 01 · Hero -->
-    <section class="hero" id="inicio">
-      <video class="hero__video" autoplay muted loop playsinline preload="auto" poster="assets/img/hero.jpg">
-        <source src="https://videos.pexels.com/video-files/7578541/7578541-uhd_2560_1440_30fps.mp4" type="video/mp4">
-      </video>
+    <section class="hero" id="inicio" data-nav="light">
+      <div class="hero__videos">
+        <video class="hero__video is-active" muted playsinline preload="auto" poster="assets/video/hero-1.jpg"><source src="assets/video/hero-1.mp4" type="video/mp4"></video>
+        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-2.jpg"><source src="assets/video/hero-2.mp4" type="video/mp4"></video>
+        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-3.jpg"><source src="assets/video/hero-3.mp4" type="video/mp4"></video>
+        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-4.jpg"><source src="assets/video/hero-4.mp4" type="video/mp4"></video>
+      </div>
       <div class="hero__shade"></div>
       <div class="hero__copy">
         <h1 class="hero__title">Un <em>marco firme</em><br>en todo lo que<br>hacemos.</h1>
@@ -59,7 +62,7 @@
     </section>
 
     <!-- 02 · Carrusel que crece → 03 · la puerta pasa a 3D -->
-    <section class="showcase" aria-label="Obras y puerta en 3D">
+    <section class="showcase" aria-label="Obras y puerta en 3D" data-nav="light">
       <div class="showcase__stage">
         <div class="showcase__frame">
           <img src="assets/img/carrusel-1.jpg" alt="Casa El Bosque" class="showcase__img">
@@ -84,14 +87,14 @@
 
     <!-- 04 · Cada obra tiene su puerta -->
     <section class="obra" id="tu-obra">
-      <div class="obra__intro">
+      <div class="obra__intro" data-nav="light">
         <h2 class="obra__title">Cada obra<br><em>tiene su puerta.</em></h2>
       </div>
-      <div class="obra__stage">
+      <div class="obra__stage" data-nav="dark">
         <div class="obra__card">
-          <div class="obra__item"><p class="label">01 Viviendas familiares</p><h3>Estoy<br>haciendo<br>mi casa</h3></div>
-          <div class="obra__item"><p class="label">02 Grandes obras</p><h3>Construyo<br>edificios y<br>desarrollos.</h3></div>
-          <div class="obra__item"><p class="label">03 Inversores</p><h3>Invierto en<br>un proyecto<br>de varias<br>unidades.</h3></div>
+          <div class="obra__item"><p class="label">01 Viviendas familiares</p><h3>Estoy haciendo<br>mi casa.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Vivienda.%20Quiero%20consultar%20por%20puertas%20para%20mi%20casa." target="_blank" rel="noopener">Consultar por mi casa <span aria-hidden="true">→</span></a></div>
+          <div class="obra__item"><p class="label">02 Grandes obras</p><h3>Construyo edificios<br>y desarrollos.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Obra%20grande.%20Consulto%20por%20aberturas%20para%20un%20desarrollo." target="_blank" rel="noopener">Consultar por mi obra <span aria-hidden="true">→</span></a></div>
+          <div class="obra__item"><p class="label">03 Inversores</p><h3>Invierto en un proyecto<br>de varias unidades.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Inversor.%20Consulto%20por%20un%20proyecto%20de%20varias%20unidades." target="_blank" rel="noopener">Consultar por mi proyecto <span aria-hidden="true">→</span></a></div>
         </div>
         <a class="obra__img" href="#viviendas-familiares" aria-label="Viviendas familiares"><img src="assets/img/obra-1.jpg" alt=""></a>
         <a class="obra__img" href="#grandes-obras" aria-label="Grandes obras"><img src="assets/img/obra-2.jpg" alt=""></a>
@@ -101,7 +104,7 @@
 
     <!-- 05 · Líneas -->
     <div id="lineas">
-      <section class="linea" data-line="medida">
+      <section class="linea" data-line="medida" data-nav="light">
         <div class="linea__slides" data-slideshow>
           <img src="assets/img/medida-1.jpg" alt="Puerta de la línea A medida">
           <img src="assets/img/medida-2.jpg" alt="">
@@ -118,7 +121,7 @@
         </div>
         <div class="linea__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </section>
-      <section class="linea" data-line="pre">
+      <section class="linea" data-line="pre" data-nav="light">
         <div class="linea__slides" data-slideshow>
           <img src="assets/img/pre-1.jpg" alt="Puerta de la línea Pre-diseñada">
           <img src="assets/img/pre-2.jpg" alt="">
@@ -138,7 +141,7 @@
     </div>
 
     <!-- 06 · Proyectos seleccionados -->
-    <section class="proyectos" id="proyectos">
+    <section class="proyectos" id="proyectos" data-nav="dark">
       <header class="proyectos__head">
         <p class="label label--ink" data-reveal>Proyectos seleccionados</p>
         <h2 class="sec-title" data-lines>Casas, edificios y desarrollos,<br>en Córdoba y en todo el país.</h2>
@@ -154,7 +157,7 @@
     </section>
 
     <!-- 07 · Sobre la empresa -->
-    <section class="empresa" id="empresa">
+    <section class="empresa" id="empresa" data-nav="dark">
       <p class="label label--ink" data-reveal>Sobre la empresa</p>
       <h2 class="sec-title" data-lines>El oficio de la madera<br>en cada detalle.</h2>
       <span class="empresa__rule" aria-hidden="true"></span>
@@ -168,14 +171,14 @@
     </section>
 
     <!-- 08 · Tira -->
-    <section class="tira" aria-label="Aberturas de madera">
+    <section class="tira" aria-label="Aberturas de madera" data-nav="dark">
       <div class="tira__track"><span class="tira__item" data-svg="assets/bajada.svg"></span><span class="tira__item" data-svg="assets/bajada.svg"></span><span class="tira__item" data-svg="assets/bajada.svg"></span><span class="tira__item" data-svg="assets/bajada.svg"></span></div>
     </section>
 
   </main>
 
     <!-- Footer -->
-    <footer class="footer" id="contacto">
+    <footer class="footer" id="contacto" data-nav="light">
       <div class="footer__info">
         <span class="footer__iso" data-svg="assets/isologo.svg"></span>
         <p>Aberturas de madera<br><br>Raul Gorordo 820 -<br>Córdoba - Argentina</p>

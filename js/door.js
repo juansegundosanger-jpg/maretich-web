@@ -4,8 +4,7 @@
 import * as THREE from 'three';
 import { RoomEnvironment } from 'three/addons/RoomEnvironment.js';
 
-const W = 0.9, H = 2.1, D = 0.055;          // hoja en metros
-const FRAME = 0.07, FRAME_D = 0.13;           // marco
+const H = 2.1, W = H * (376 / 770), D = 0.055;  // hoja: misma proporción que la foto de la puerta
 
 export function createDoor(canvas, { texture = 'assets/img/puerta.jpg' } = {}) {
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
@@ -41,8 +40,6 @@ export function createDoor(canvas, { texture = 'assets/img/puerta.jpg' } = {}) {
 
   const face = new THREE.MeshStandardMaterial({ map: faceTex, roughness: 0.62, metalness: 0 });
   const edge = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x8a6243, roughness: 0.7 });
-  const frameMat = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x4a3a30, roughness: 0.7 });
-  const metal = new THREE.MeshStandardMaterial({ color: 0x1d1a18, roughness: 0.32, metalness: 0.85 });
 
   // ---------- Geometría ----------
   const pivot = new THREE.Group();       // gira todo el conjunto
@@ -58,31 +55,7 @@ export function createDoor(canvas, { texture = 'assets/img/puerta.jpg' } = {}) {
   for (let i = 20; i < 24; i++) uv.setX(i, 1 - uv.getX(i));
   door.add(slab);
 
-  // Marco
-  const frame = new THREE.Group();
-  const jambL = new THREE.Mesh(new THREE.BoxGeometry(FRAME, H + FRAME, FRAME_D), frameMat);
-  jambL.position.set(-(W / 2 + FRAME / 2 + 0.004), FRAME / 2, 0);
-  const jambR = jambL.clone(); jambR.position.x *= -1;
-  const head = new THREE.Mesh(new THREE.BoxGeometry(W + FRAME * 2 + 0.008, FRAME, FRAME_D), frameMat);
-  head.position.set(0, H / 2 + FRAME / 2 + 0.004, 0);
-  [jambL, jambR, head].forEach((m) => { m.castShadow = true; m.receiveShadow = true; frame.add(m); });
-  door.add(frame);
 
-  // Manija tipo palanca, de ambos lados
-  const makeHandle = (side) => {
-    const g = new THREE.Group();
-    const rose = new THREE.Mesh(new THREE.CylinderGeometry(0.026, 0.026, 0.012, 32), metal);
-    rose.rotation.x = Math.PI / 2;
-    const neck = new THREE.Mesh(new THREE.CylinderGeometry(0.009, 0.009, 0.05, 16), metal);
-    neck.rotation.x = Math.PI / 2; neck.position.z = 0.03;
-    const lever = new THREE.Mesh(new THREE.BoxGeometry(0.13, 0.016, 0.016), metal);
-    lever.position.set(-0.058, 0, 0.055);
-    g.add(rose, neck, lever);
-    g.position.set(W / 2 - 0.08, -0.06, side * (D / 2 + 0.006));
-    if (side < 0) g.rotation.y = Math.PI;
-    g.traverse((m) => { if (m.isMesh) m.castShadow = true; });
-    return g;
-  };
   // tirador de madera horizontal, alineado con el que se ve en la foto
   const pullMat = new THREE.MeshStandardMaterial({ map: edgeTex, color: 0x8a5a36, roughness: 0.55 });
   const PX0 = 118 / 376, PX1 = 307 / 376, PY = 467 / 770;
