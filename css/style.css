@@ -116,7 +116,7 @@ body:not(.is-loading) .intro{display:none}
 @media (hover:hover) and (pointer:fine){.obra__cta:hover{background:#5e2232}.obra__cta:hover span{transform:translateX(4px)}}
 /* títulos de los 3 tipos de obra: abajo a la izquierda, del margen al medianil; se marca el activo */
 .ob__titles{position:absolute;left:var(--pad);right:calc(100% - 33.8% + 1.6vw);bottom:13.3%;z-index:10;list-style:none;margin:0;padding:0;opacity:0}
-.ob__t{display:flex;align-items:baseline;gap:.4em;font-family:var(--wide);font-size:var(--tf,26px);line-height:1.12;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;color:#fff;transition:color .6s ease}
+.ob__t{display:flex;align-items:baseline;gap:.4em;font-family:var(--wide);font-size:var(--tf,26px);line-height:1.12;letter-spacing:.01em;text-transform:uppercase;white-space:nowrap;color:rgba(56,38,28,.3);transition:color .6s ease}
 .ob__t i{font-family:var(--serif);font-style:italic;text-transform:none;letter-spacing:0;font-size:.92em}
 .ob__t.is-on{color:var(--nogal)}
 @media (min-width:901px){.ob__lab{display:none !important}}
