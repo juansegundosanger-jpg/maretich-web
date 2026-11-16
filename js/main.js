@@ -138,10 +138,11 @@ function initDisenamos() {
   gsap.set(desc, { yPercent: 120 });
   gsap.set(media, { clipPath: 'inset(50% 50% 50% 50% round 18px)' });
   gsap.set(imgs.slice(1), { autoAlpha: 0 });
+  let ready = false;
 
   gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%' } })
     .to(lines, { yPercent: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out' })
-    .to(media, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.4, ease: 'expo.inOut' }, 0.35)
+    .to(media, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.4, ease: 'expo.inOut', onComplete: () => { gsap.set(media, { clearProps: 'clipPath' }); ready = true; } }, 0.35)
     .to(desc, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out' }, 0.9)
     .from('.dis__btn', { autoAlpha: 0, y: 12, duration: 0.9, ease: EASE_OUT }, 1.2);
 
@@ -152,12 +153,52 @@ function initDisenamos() {
   }));
 
   // las fotos se suceden con un corte seco, sin transición
-  let i = 0, timer = null;
+  let i = 0, timer = null, active = false, fanned = false;
   const next = () => {
+    if (fanned) return;
     const cur = imgs[i]; i = (i + 1) % imgs.length;
     gsap.set(imgs[i], { autoAlpha: 1 }); gsap.set(cur, { autoAlpha: 0 });
   };
-  ScrollTrigger.create({ trigger: media, start: 'top bottom', end: 'bottom top', onToggle: (s) => { clearInterval(timer); timer = null; if (s.isActive && !reduce) timer = setInterval(next, 2000); } });
+  ScrollTrigger.create({ trigger: media, start: 'top bottom', end: 'bottom top', onToggle: (s) => { active = s.isActive; clearInterval(timer); timer = null; if (active && !reduce) timer = setInterval(next, 2000); } });
+
+  // al pasar el mouse por el cuadro, todas las fotos se despliegan en horizontal como cartas (superpuestas);
+  // la carta que tiene el cursor encima se agranda
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const n = imgs.length, mid = (n - 1) / 2;
+  const fanPose = (k) => {
+    const d = k - mid, w = media.offsetWidth;
+    return { x: d * w * 0.46, y: d * d * 5, rotation: d * 3.5, scale: 1 };
+  };
+  const open = () => {
+    if (!ready || fanned) return;
+    fanned = true;
+    media.classList.add('is-fan');
+    imgs.forEach((im, k) => gsap.set(im, { autoAlpha: 1, zIndex: k + 1 }));
+    imgs.forEach((im, k) => gsap.to(im, { ...fanPose(k), duration: 0.8, ease: 'expo.out', delay: Math.abs(k - mid) * 0.03, overwrite: 'auto' }));
+  };
+  const close = () => {
+    if (!fanned) return;
+    imgs.forEach((im, k) => gsap.to(im, { x: 0, y: 0, rotation: 0, scale: 1, duration: 0.6, ease: 'expo.inOut', overwrite: 'auto',
+      onComplete: k === n - 1 ? () => {
+        if (media.matches(':hover')) return;   // si el cursor volvió mientras se cerraba, no cortar
+        fanned = false; media.classList.remove('is-fan');
+        imgs.forEach((x, j) => gsap.set(x, { autoAlpha: j === i ? 1 : 0, zIndex: 'auto' }));
+      } : undefined }));
+  };
+  media.addEventListener('pointerenter', open);
+  media.addEventListener('pointerleave', close);
+  imgs.forEach((im, k) => {
+    im.addEventListener('pointerenter', () => {
+      if (!fanned) return;
+      gsap.set(im, { zIndex: n + 5 });
+      gsap.to(im, { ...fanPose(k), y: fanPose(k).y - 16, rotation: 0, scale: 1.22, duration: 0.5, ease: 'expo.out', overwrite: 'auto' });
+    });
+    im.addEventListener('pointerleave', () => {
+      if (!fanned) return;
+      gsap.set(im, { zIndex: k + 1 });
+      if (media.matches(':hover')) gsap.to(im, { ...fanPose(k), duration: 0.5, ease: 'expo.out', overwrite: 'auto' });
+    });
+  });
 }
 
 // ---------- 03 Cada obra tiene su puerta (túnel) ----------
