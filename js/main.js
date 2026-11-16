@@ -338,7 +338,11 @@ function initObras() {
 // mientras el título viaja a su lugar del diseño, y después aparece el resto del texto.
 function initLineas() {
   const sections = $$('.linea');
-  sections.forEach((sec) => {
+  sections.forEach((sec, idx) => {
+    const last = idx === sections.length - 1;
+    // borde de arriba: semicírculo que se vuelve recto al terminar de entrar
+    gsap.fromTo(sec, { borderTopLeftRadius: '50% 34vh', borderTopRightRadius: '50% 34vh' }, { borderTopLeftRadius: '50% 0vh', borderTopRightRadius: '50% 0vh', ease: 'none',
+      scrollTrigger: { trigger: sec, start: 'top bottom', end: 'top top', scrub: true, invalidateOnRefresh: true } });
     const v = $('.linea__video', sec);
     const media = $('.linea__media', sec);
     const label = $('.linea__label', sec);
@@ -367,7 +371,7 @@ function initLineas() {
 
     // cada línea se fija en pantalla: al scrollear el título viaja a su lugar, se abre el video y entra el texto;
     // recién al terminar se libera y llega la siguiente (sin superponerse)
-    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: last ? '+=140%' : '+=240%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
       .to({}, { duration: 0.15 })
       .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
       .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa', force3D: false }, 0.15)
@@ -375,6 +379,8 @@ function initLineas() {
       .to(t.lines, { yPercent: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.0)
       .to(rest, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out' }, 1.15)
       .to({}, { duration: 0.35 });
+    // si viene otra línea, esta queda fija una pantalla más mientras la siguiente sube por encima
+    if (!last) tl.to({}, { duration: tl.duration() * (100 / 140) });
     playWhileVisible(tl.scrollTrigger);
   });
 }
