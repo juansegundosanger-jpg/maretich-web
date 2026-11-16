@@ -136,12 +136,12 @@ function initDisenamos() {
 
   gsap.set(lines, { yPercent: 120 });
   gsap.set(desc, { yPercent: 120 });
-  gsap.set(media, { clipPath: 'inset(50% 50% 50% 50%)' });
+  gsap.set(media, { clipPath: 'inset(50% 50% 50% 50% round 18px)' });
   gsap.set(imgs.slice(1), { autoAlpha: 0 });
 
   gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 70%' } })
     .to(lines, { yPercent: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out' })
-    .to(media, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'expo.inOut' }, 0.35)
+    .to(media, { clipPath: 'inset(0% 0% 0% 0% round 18px)', duration: 1.4, ease: 'expo.inOut' }, 0.35)
     .to(desc, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out' }, 0.9)
     .from('.dis__btn', { autoAlpha: 0, y: 12, duration: 0.9, ease: EASE_OUT }, 1.2);
 
