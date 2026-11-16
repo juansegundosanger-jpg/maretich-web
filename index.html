@@ -13,6 +13,12 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  </script>
 </head>
 <body class="is-loading">
 

@@ -71,7 +71,7 @@ body.is-loading{overflow:hidden}
 .hero__sub{margin-top:clamp(18px,2vw,28px);font-size:clamp(14px,1.1vw,16px);line-height:1.35;font-weight:400;letter-spacing:.01em}
 
 /* ---------- Intro (recorrido de Casa Momo con isologo + logotipo) ---------- */
-.intro{position:fixed;inset:0;z-index:100;pointer-events:none;color:var(--gris)}
+.intro{position:fixed;inset:0;z-index:100;color:var(--gris);background:var(--nogal)}
 .intro span{position:absolute;left:0;top:0;transform-origin:0 0;will-change:transform}
 body:not(.is-loading) .intro{display:none}
 

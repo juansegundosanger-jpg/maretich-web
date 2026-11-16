@@ -43,8 +43,11 @@ function initSmooth() {
 function playIntro() {
   const iso = $('.intro__iso'), logo = $('.intro__logo');
   const navLogo = $('.nav__logo');
-  const done = () => { document.body.classList.remove('is-loading'); $('.wa-float').classList.add('is-in'); };
+  const done = () => { document.body.classList.remove('is-loading'); $('.wa-float').classList.add('is-in'); if (smoother) smoother.paused(false); };
   const copy = new SplitText('.hero__title', { type: 'lines', mask: 'lines' });
+  // siempre desde arriba de todo y sin dejar scrollear mientras corre la intro
+  window.scrollTo(0, 0);
+  if (smoother) { smoother.scrollTop(0); smoother.paused(true); }
   if (reduce) { done(); return; }
 
   // proporciones de los dibujos (medidas sobre los SVG): caja del trazo dentro de cada archivo
@@ -90,7 +93,8 @@ function playIntro() {
     // 2. se separan hacia los bordes
     .to(iso, { ...s2.iso, duration: 1.6, ease: 'casa' }, 1.5)
     .to(logo, { ...s2.logo, duration: 1.6, ease: 'casa' }, 1.5)
-    // 3. el video crece desde el centro y la marca vuelve a juntarse arriba a la izquierda
+    // 3. el fondo plano da lugar al hero: el video crece desde el centro y la marca vuelve a juntarse arriba a la izquierda
+    .set('.intro', { backgroundColor: 'rgba(56,38,28,0)' }, 2.9)
     .to('.hero__media', { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 2.9)
     .to(iso, { ...s3.iso, duration: 1.6, ease: 'casa' }, 2.9)
     .to(logo, { ...s3.logo, duration: 1.6, ease: 'casa' }, 2.9)
