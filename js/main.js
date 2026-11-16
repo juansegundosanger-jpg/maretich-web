@@ -202,18 +202,22 @@ function initObras() {
   const heroPieces = $$('.ob__hp', stage);
   const texts = $$('.ob__text', stage).map((t) => $$('.ob__p', t));
   const textBoxes = $$('.ob__text', stage);
-  const label = $('.ob__count', stage);
-  const col = $('.ob__col', stage);
+  const label = $('.ob__titles', stage);
+  const tItems = $$('.ob__t', stage);
+  // tamaño de los títulos: el más largo ocupa del margen al medianil
+  const fitTitles = () => { label.style.setProperty('--tf', '100px'); const w = Math.max(...tItems.map((t) => t.scrollWidth)); label.style.setProperty('--tf', (100 * label.clientWidth / w) + 'px'); };
+  fitTitles(); window.addEventListener('resize', fitTitles);
   const d = imgs.length;
   const R = 18;
   const S = {
     desktop: {
       hero: { left: 0, top: 0, width: 100, height: 100, borderRadius: 0, opacity: 1 },
-      main: { left: 27, top: 3.4, width: 45, height: 93.2, borderRadius: 28, opacity: 1 },
-      prev: { left: 16.6, top: 3.4, width: 8.6, height: 18, borderRadius: R, opacity: 1 },
-      next: { left: 74, top: 78.6, width: 8.6, height: 18, borderRadius: R, opacity: 1 },
-      out: { left: 16.6, top: 3.4, width: 8.6, height: 18, borderRadius: R, opacity: 0 },
-      wait: { left: 74, top: 78.6, width: 8.6, height: 18, borderRadius: R, opacity: 0 },
+      // posiciones del frame "OBRAS 3" del Figma
+      main: { left: 33.8, top: 13.1, width: 34.4, height: 73.6, borderRadius: 28, opacity: 1 },
+      prev: { left: 16.6, top: 13.1, width: 11.4, height: 24.2, borderRadius: R, opacity: 1 },
+      next: { left: 71.7, top: 62.5, width: 11.4, height: 24.2, borderRadius: R, opacity: 1 },
+      out: { left: 16.6, top: 13.1, width: 11.4, height: 24.2, borderRadius: R, opacity: 0 },
+      wait: { left: 71.7, top: 62.5, width: 11.4, height: 24.2, borderRadius: R, opacity: 0 },
     },
     mobile: {
       hero: { left: 0, top: 0, width: 100, height: 100, borderRadius: 0, opacity: 1 },
@@ -268,10 +272,9 @@ function initObras() {
       if (prevIdx(e) !== prevIdx(e - 1)) { w.set(imgs[prevIdx(e)], { zIndex: 3 }, t); w.set(imgs[prevIdx(e - 1)], { zIndex: 2 }, t); }
       if (first) w.fromTo(heroPieces, { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'power2.in', immediateRender: false }, t);
       else w.fromTo(texts[e - 2], { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.2, stagger: 0.03, ease: 'power2.in', immediateRender: false }, t);
-      w.call(((k) => () => textBoxes.forEach((b, j) => b.classList.toggle('is-on', j === k)))(e - 1), null, t + 0.3);
+      w.call(((k) => () => { textBoxes.forEach((b, j) => b.classList.toggle('is-on', j === k)); })(e - 1), null, t + 0.3);
       w.to(texts[e - 1], { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out' }, t + (first ? 0.55 : 0.35));
       if (first) w.to(label, { opacity: 1, duration: 0.6 }, t + 0.6);
-      else w.to(col, { yPercent: -(100 / d) * (e - 1), duration: 0.6, ease: 'power3.inOut' }, t);
       w.set({}, {}, t + 1.2);
       w.addLabel('s' + e, t + 1.2);
     }
@@ -282,7 +285,7 @@ function initObras() {
       onUpdate: (self) => {
         const p = self.progress * F, a = (p - 100 - 30) / 110;
         const k = a >= 0.6 ? Math.min(d, Math.floor(a - 0.6) + 1) : p >= 90 ? 0 : -1;
-        if (k !== current) { current = k; if (player) player.kill(); player = w.tweenTo(label_(k), { ease: 'none' }); }
+        if (k !== current) { current = k; tItems.forEach((b, j) => b.classList.toggle('is-on', j === k - 1)); if (player) player.kill(); player = w.tweenTo(label_(k), { ease: 'none' }); }
       },
     });
   });
