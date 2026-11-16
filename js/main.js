@@ -295,33 +295,85 @@ function initObras() {
 }
 
 // ---------- 05 Líneas: un video en cada una ----------
+// Entrada como el loading: sobre fondo plano aparece "Línea a medida" grande al centro; el video crece desde el centro
+// mientras el título viaja a su lugar del diseño, y después aparece el resto del texto.
 function initLineas() {
   const sections = $$('.linea');
   ScrollTrigger.create({ trigger: sections[0], start: 'top top', end: 'bottom top', pin: true, pinSpacing: false });
-  sections.forEach((sec, k) => {
+  sections.forEach((sec) => {
     const v = $('.linea__video', sec);
+    const media = $('.linea__media', sec);
+    const label = $('.linea__label', sec);
+    const copy = $('.linea__copy', sec);
     ScrollTrigger.create({
       trigger: sec, start: 'top bottom', end: 'bottom top',
-      onToggle: (s) => { if (s.isActive) { if (v.preload !== 'auto') { v.preload = 'auto'; } const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); },
+      onToggle: (s) => { if (s.isActive) { if (v.preload !== 'auto') v.preload = 'auto'; const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); },
     });
-    gsap.fromTo(v, { scale: 1.12 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'top top', scrub: true } });
     const t = new SplitText($('.linea__title', sec), { type: 'lines', mask: 'lines' });
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: k ? 'top 55%' : 'top 70%' } })
-      .from($('.linea__label', sec), { autoAlpha: 0, x: -20, duration: 0.9, ease: EASE_OUT })
-      .from(t.lines, { yPercent: 110, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 0.1)
-      .from([$('.linea__body', sec), $('.linea__links', sec), $('.pill', sec)], { autoAlpha: 0, y: 16, duration: 1, stagger: 0.08, ease: EASE_OUT }, 0.35);
+    const rest = [$('.linea__body', sec), $('.linea__links', sec), $('.pill', sec)];
+
+    // dónde está el título en el diseño y cuánto hay que moverlo para que arranque grande al centro
+    const big = () => {
+      const lx = copy.offsetLeft + label.offsetLeft, ly = copy.offsetTop + label.offsetTop;
+      const w = label.offsetWidth, h = label.offsetHeight;
+      const s = Math.min(4.2, (sec.clientWidth * 0.62) / w);
+      return { x: sec.clientWidth / 2 - (lx + w / 2), y: sec.clientHeight / 2 - (ly + h / 2), scale: s };
+    };
+    if (reduce) return;
+    gsap.set(media, { scale: 0, borderRadius: 2000, opacity: 0 });
+    gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0 });
+    gsap.set(t.lines, { yPercent: 110 });
+    gsap.set(rest, { autoAlpha: 0, y: 16 });
+
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 12%', once: true } })
+      .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 0.45)
+      .to(label, { x: 0, y: 0, scale: 1, duration: 1.6, ease: 'casa' }, 0.45)
+      .to(label, { '--ln': 1, duration: 0.8, ease: 'power3.inOut' }, 1.55)
+      .to(t.lines, { yPercent: 0, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 1.45)
+      .to(rest, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, ease: EASE_OUT }, 1.7);
   });
 }
 
-// ---------- 06 Proyectos ----------
+// ---------- 06 Proyectos — como la lista de trabajos de Bulletproof ----------
+// Nombres grandes, escalonados; al pasar el mouse aparece la foto del proyecto siguiendo al cursor
+// y el texto se invierte al pasar por encima de la foto.
 function initProyectos() {
-  $$('.proy').forEach((p) => {
-    const tl = gsap.timeline({ scrollTrigger: { trigger: p, start: 'top 88%' } });
-    tl.from(p.querySelector('figure'), { clipPath: 'inset(100% 0% 0% 0% round 18px)', duration: 1.5, ease: 'power4.out' })
-      .from(p.querySelector('img'), { scale: 1.3, duration: 2, ease: 'power3.out' }, 0)
-      .from([p.querySelector('.proy__name'), p.querySelector('.proy__meta')], { autoAlpha: 0, y: 14, duration: 1, stagger: 0.08, ease: EASE_OUT }, 0.35);
-  });
+  const sec = $('.proyectos');
+  const list = $('.plist', sec);
+  const links = $$('.plist__item a', sec);
+  const poster = $('.plist__poster', sec);
+  const imgs = $$('.plist__imgs img', sec);
+  const capName = $('.plist__cap-name', sec), capMeta = $('.plist__cap-meta', sec);
+  const metas = list.dataset.metas.split('|');
+
+  gsap.from($$('.plist__name', sec), { yPercent: 115, duration: 1.3, stagger: 0.08, ease: EASE_OUT, scrollTrigger: { trigger: list, start: 'top 80%' } });
+  gsap.from($$('.plist__nr', sec), { autoAlpha: 0, duration: 0.8, stagger: 0.08, delay: 0.3, scrollTrigger: { trigger: list, start: 'top 80%' } });
+  // leve corrimiento horizontal con el scroll, una fila para cada lado
+  links.forEach((a, k) => gsap.fromTo(a, { x: () => (k % 2 ? -1 : 1) * window.innerWidth * 0.025 }, { x: () => (k % 2 ? 1 : -1) * window.innerWidth * 0.025, ease: 'none', scrollTrigger: { trigger: list, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true } }));
   gsap.from('.proyectos__more .pill', { autoAlpha: 0, y: 16, duration: 1, ease: EASE_OUT, scrollTrigger: { trigger: '.proyectos__more', start: 'top 92%' } });
+
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  const xTo = gsap.quickTo(poster, 'x', { duration: 0.65, ease: 'power3' });
+  const yTo = gsap.quickTo(poster, 'y', { duration: 0.65, ease: 'power3' });
+  const rTo = gsap.quickTo(poster, 'rotation', { duration: 0.8, ease: 'power3' });
+  let cur = -1, lastX = 0;
+  sec.addEventListener('pointermove', (e) => {
+    const r = sec.getBoundingClientRect();
+    xTo(e.clientX - r.left - poster.offsetWidth / 2);
+    yTo(e.clientY - r.top - poster.offsetHeight / 2);
+    rTo(gsap.utils.clamp(-6, 6, (e.clientX - lastX) * 0.4)); lastX = e.clientX;
+  });
+  const show = (i) => {
+    if (i === cur) return;
+    const prev = cur; cur = i;
+    capName.textContent = links[i].querySelector('.plist__name').textContent;
+    capMeta.textContent = metas[i];
+    gsap.to(poster, { opacity: 1, scale: 1, duration: 0.55, ease: 'power3.out', overwrite: 'auto' });
+    imgs.forEach((im, j) => gsap.set(im, { zIndex: j === i ? 2 : j === prev ? 1 : 0 }));
+    gsap.fromTo(imgs[i], { opacity: 1, clipPath: 'inset(100% 0% 0% 0%)', scale: 1.15 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 0.7, ease: 'power3.out', overwrite: true });
+  };
+  links.forEach((a, i) => a.addEventListener('pointerenter', () => show(i)));
+  list.addEventListener('pointerleave', () => { cur = -1; gsap.to(poster, { opacity: 0, scale: 0.6, duration: 0.4, ease: 'power3.in', overwrite: 'auto' }); });
 }
 
 // ---------- 07 Empresa: contadores suaves ----------

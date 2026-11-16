@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
   <script>
     // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -150,8 +150,10 @@
     <!-- 05 · Líneas, cada una con su video -->
     <div id="lineas">
       <section class="linea" data-line="medida" data-nav="light">
-        <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=6"><source src="assets/video/medida.mp4?v=6" type="video/mp4"></video>
-        <div class="linea__shade"></div>
+        <div class="linea__media">
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=6"><source src="assets/video/medida.mp4?v=6" type="video/mp4"></video>
+          <div class="linea__shade"></div>
+        </div>
         <div class="linea__copy">
           <p class="label linea__label">Línea a medida</p>
           <h2 class="linea__title">Aberturas únicas<br>para cada espacio.</h2>
@@ -161,8 +163,10 @@
         </div>
       </section>
       <section class="linea" data-line="pre" data-nav="light">
-        <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=6"><source src="assets/video/pre.mp4?v=6" type="video/mp4"></video>
-        <div class="linea__shade"></div>
+        <div class="linea__media">
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=6"><source src="assets/video/pre.mp4?v=6" type="video/mp4"></video>
+          <div class="linea__shade"></div>
+        </div>
         <div class="linea__copy">
           <p class="label linea__label">Línea pre-diseñada</p>
           <h2 class="linea__title">Una selección de<br>diseños resueltos.</h2>
@@ -179,13 +183,23 @@
         <p class="label label--ink" data-reveal>Proyectos seleccionados</p>
         <h2 class="sec-title" data-lines>Casas, edificios y desarrollos,<br>en Córdoba y en todo el país.</h2>
       </header>
-      <ul class="proy__list" role="list">
-        <li class="proy"><a href="#casa-altos-c"><figure><img src="assets/img/proy-1.jpg?v=6" alt="Casa Altos C"></figure><span class="proy__name">Casa Altos C</span><span class="proy__meta">A medida · Listello · [Río Cuarto, 2017]</span></a></li>
-        <li class="proy"><a href="#casa-ashi"><figure><img src="assets/img/proy-2.jpg?v=6" alt="Casa Ashi"></figure><span class="proy__name">Casa Ashi</span><span class="proy__meta">A medida · Milord · [Recoleta, 2024]</span></a></li>
-        <li class="proy"><a href="#condominio-foresta"><figure><img src="assets/img/proy-3.jpg?v=6" alt="Condominio Foresta"></figure><span class="proy__name">Condominio Foresta</span><span class="proy__meta">Pre-diseñada · 240 unidades ·<br>[Mendoza, 2022]</span></a></li>
-        <li class="proy"><a href="#edificio-capitalinas"><figure><img src="assets/img/proy-4.jpg?v=6" alt="Edificio Capitalinas"></figure><span class="proy__name">Edificio Capitalinas</span><span class="proy__meta">Pre-diseñada · 820 unidades ·<br>[Córdoba, 2022]</span></a></li>
-        <li class="proy"><a href="#casa-furca"><figure><img src="assets/img/proy-5.jpg?v=6" alt="Casa Furca"></figure><span class="proy__name">Casa Furca</span><span class="proy__meta">A medida · Milord · [Córdoba, 2019]</span></a></li>
+      <ul class="plist" role="list" data-metas='A medida · Listello · [Río Cuarto, 2017]|A medida · Milord · [Recoleta, 2024]|Pre-diseñada · 240 unidades · [Mendoza, 2022]|Pre-diseñada · 820 unidades · [Córdoba, 2022]|A medida · Milord · [Córdoba, 2019]'>
+        <li class="plist__item" style="--x:-5vw"><a href="#casa-altos-c" data-i="0"><span class="plist__nr">01</span><span class="plist__mask"><span class="plist__name">Casa Altos C</span></span></a></li>
+        <li class="plist__item" style="--x:3vw"><a href="#casa-ashi" data-i="1"><span class="plist__nr">02</span><span class="plist__mask"><span class="plist__name">Casa Ashi</span></span></a></li>
+        <li class="plist__item" style="--x:10vw"><a href="#condominio-foresta" data-i="2"><span class="plist__nr">03</span><span class="plist__mask"><span class="plist__name">Condominio Foresta</span></span></a></li>
+        <li class="plist__item" style="--x:-5vw"><a href="#edificio-capitalinas" data-i="3"><span class="plist__nr">04</span><span class="plist__mask"><span class="plist__name">Edificio Capitalinas</span></span></a></li>
+        <li class="plist__item" style="--x:2vw"><a href="#casa-furca" data-i="4"><span class="plist__nr">05</span><span class="plist__mask"><span class="plist__name">Casa Furca</span></span></a></li>
       </ul>
+      <div class="plist__poster" aria-hidden="true">
+        <div class="plist__imgs">
+          <img src="assets/img/proy-1.jpg?v=6" alt="">
+          <img src="assets/img/proy-2.jpg?v=6" alt="">
+          <img src="assets/img/proy-3.jpg?v=6" alt="">
+          <img src="assets/img/proy-4.jpg?v=6" alt="">
+          <img src="assets/img/proy-5.jpg?v=6" alt="">
+        </div>
+        <p class="plist__cap"><em class="plist__cap-name"></em><span class="plist__cap-meta"></span></p>
+      </div>
       <div class="proyectos__more"><a class="pill" href="#proyectos-todos">Ver todos los proyectos <span aria-hidden="true">→</span></a></div>
     </section>
 
@@ -231,6 +245,6 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/main.js?v=6"></script>
+  <script src="js/main.js?v=7"></script>
 </body>
 </html>

@@ -123,11 +123,12 @@ body:not(.is-loading) .intro{display:none}
 /* ---------- 05 Líneas ---------- */
 .linea{position:relative;height:100vh;height:100svh;min-height:600px;overflow:hidden;color:#fff;background:var(--nogal)}
 .linea + .linea{z-index:2;box-shadow:0 -30px 80px rgba(20,12,8,.35)}
+.linea__media{position:absolute;inset:0;overflow:hidden;will-change:transform}
 .linea__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .linea__shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(20,12,8,.62) 0%,rgba(20,12,8,.25) 42%,rgba(20,12,8,0) 68%)}
 .linea__copy{position:absolute;left:var(--pad);top:clamp(96px,12vh,110px);z-index:2;max-width:680px}
-.linea__label{position:relative;padding-bottom:8px;margin-bottom:clamp(18px,2.2vw,30px)}
-.linea__label::before{content:"";position:absolute;right:calc(100% - 9.6em);left:calc(-1 * var(--pad));bottom:0;height:1px;background:currentColor;opacity:.8}
+.linea__label{position:relative;display:inline-block;padding-bottom:8px;margin-bottom:clamp(18px,2.2vw,30px);will-change:transform}
+.linea__label::before{content:"";position:absolute;right:0;left:calc(-1 * var(--pad));bottom:0;height:1px;background:currentColor;opacity:.8;transform:scaleX(var(--ln,1));transform-origin:right}
 .linea__title{font-family:var(--serif);font-weight:400;font-size:clamp(42px,4.3vw,64px);line-height:.98}
 .linea__body{margin-top:clamp(16px,1.6vw,24px);font-size:clamp(15px,1.2vw,18px);line-height:1.35}
 .linea__links{display:flex;gap:clamp(16px,1.6vw,22px);margin-top:clamp(18px,2vw,28px);font-family:var(--wide);font-size:clamp(11px,.9vw,13px);text-transform:uppercase;letter-spacing:.03em}
@@ -135,33 +136,23 @@ body:not(.is-loading) .intro{display:none}
 @media (hover:hover) and (pointer:fine){.linea__links a:hover{opacity:.65}}
 .linea .pill{margin-top:clamp(22px,2.6vw,36px);min-height:44px;padding:0 20px;font-size:clamp(15px,1.15vw,17px)}
 
-/* ---------- 06 Proyectos (posiciones del Figma, más chicas) ---------- */
-.proyectos{position:relative;z-index:3;background:var(--white);padding:clamp(100px,8.8vw,126px) var(--pad) clamp(90px,8vw,120px)}
+/* ---------- 06 Proyectos — lista como el "work" de Bulletproof ---------- */
+.proyectos{position:relative;z-index:3;background:var(--white);padding:clamp(100px,8.8vw,126px) var(--pad) clamp(90px,8vw,120px);overflow:hidden}
 .proyectos__head .label{margin-bottom:clamp(22px,2.6vw,36px)}
-.proy__list{position:relative;list-style:none;margin:calc(100vw * 98 / 1440) 0 0;padding:0;height:calc(100vw * 2120 / 1440)}
-.proy{position:absolute}
-.proy a{display:block}
-.proy figure{overflow:hidden;border-radius:var(--radius);background:var(--gris);transition:opacity .6s var(--ease-out),filter .6s var(--ease-out)}
-.proy img{width:100%;height:100%;object-fit:cover;transition:transform 1s var(--ease-out)}
-.proy__name{display:block;margin-top:clamp(12px,1.2vw,18px);font-family:var(--serif);font-size:clamp(22px,2vw,30px);line-height:1;color:var(--bordo)}
-.proy__meta{display:block;margin-top:6px;font-family:var(--wide);font-size:clamp(10px,.75vw,11px);letter-spacing:.02em;line-height:1.3}
-/* coordenadas medidas en el Figma (1440 de ancho), relativas al bloque de proyectos */
-.proy:nth-child(1){left:calc(100vw * 4 / 1440);top:0;width:calc(100vw * 457 / 1440)}
-.proy:nth-child(1) figure{aspect-ratio:457/514}
-.proy:nth-child(2){left:calc(100vw * 729 / 1440);top:calc(100vw * 40 / 1440);width:calc(100vw * 463 / 1440)}
-.proy:nth-child(2) figure{aspect-ratio:463/811}
-.proy:nth-child(3){left:calc(100vw * 124 / 1440);top:calc(100vw * 720 / 1440);width:calc(100vw * 349 / 1440)}
-.proy:nth-child(3) figure{aspect-ratio:349/440}
-.proy:nth-child(4){left:calc(100vw * 615 / 1440);top:calc(100vw * 1085 / 1440);width:calc(100vw * 486 / 1440)}
-.proy:nth-child(4) figure{aspect-ratio:486/566}
-.proy:nth-child(5){left:calc(100vw * -2 / 1440);top:calc(100vw * 1440 / 1440);width:calc(100vw * 474 / 1440)}
-.proy:nth-child(5) figure{aspect-ratio:474/594}
-.proyectos__more{display:flex;justify-content:flex-end;margin-top:calc(100vw * -110 / 1440);padding-right:calc(100vw * 70 / 1440)}
-/* hover: desaparece sólo la foto de las demás; nombre y bajada quedan */
-@media (hover:hover) and (pointer:fine){
-  .proy__list:has(.proy:hover) .proy:not(:hover) figure{opacity:0;filter:blur(4px)}
-  .proy:hover img{transform:scale(1.035)}
-}
+.plist{position:relative;list-style:none;margin:clamp(60px,7vw,110px) 0 0;padding:0;display:flex;flex-direction:column;align-items:center}
+.plist__item{transform:translateX(var(--x,0));color:#c7d9e3;mix-blend-mode:difference}
+.plist__item a{display:flex;align-items:flex-end;gap:clamp(10px,1.2vw,18px);padding:.04em 0}
+/* el texto se invierte sobre la foto (diferencia), y sobre blanco queda en nogal */
+.plist__nr{font-family:var(--wide);font-size:clamp(10px,.8vw,12px);letter-spacing:.04em;padding-bottom:.9em}
+.plist__mask{display:block;overflow:hidden;padding:.06em .08em .12em;margin:-.06em -.08em -.12em}
+.plist__name{display:block;font-family:var(--serif);font-weight:400;font-size:clamp(46px,6.6vw,104px);line-height:.92;letter-spacing:-.02em;white-space:nowrap}
+.plist__poster{position:absolute;left:0;top:0;z-index:-1;width:clamp(200px,20vw,300px);aspect-ratio:256/333;pointer-events:none;opacity:0;transform:scale(.6)}
+.plist__imgs{position:absolute;inset:0;overflow:hidden;border-radius:var(--radius)}
+.plist__imgs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0}
+.plist__cap{position:absolute;left:14px;right:14px;bottom:12px;display:flex;flex-direction:column;gap:4px;color:#fff;text-shadow:0 1px 12px rgba(0,0,0,.35)}
+.plist__cap-name{font-family:var(--serif);font-size:18px}
+.plist__cap-meta{font-family:var(--wide);font-size:9px;letter-spacing:.06em;text-transform:uppercase}
+.proyectos__more{display:flex;justify-content:flex-end;margin-top:clamp(48px,5vw,80px)}
 
 /* ---------- 07 Empresa ---------- */
 .empresa{position:relative;z-index:3;background:var(--arena);padding:clamp(90px,8.4vw,120px) var(--pad) clamp(80px,7.5vw,108px)}
@@ -198,9 +189,10 @@ body:not(.is-loading) .intro{display:none}
   .hero__copy{top:auto;bottom:12vh;transform:none;right:var(--pad)}
   .ob__info{left:6%;right:6%;top:58%;bottom:12%}
   .ob__hero-title{font-size:12vw}
-  .proy__list{height:auto;display:grid;gap:48px}
-  .proy{position:static;width:auto !important}
-  .proyectos__more{justify-content:flex-start;margin-top:48px;padding:0}
+  .plist__item{transform:none}
+  .plist__name{font-size:11vw;white-space:normal}
+  .plist__poster{display:none}
+  .proyectos__more{justify-content:flex-start}
   .stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 24px;padding:0}
   .footer__info{flex-wrap:wrap}
 }
