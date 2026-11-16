@@ -139,7 +139,10 @@ body:not(.is-loading) .intro{display:none}
 .proyectos{position:relative;z-index:3;background:var(--white);padding:clamp(100px,8.8vw,126px) var(--pad) clamp(90px,8vw,120px);overflow:hidden}
 .proyectos__head .label{margin-bottom:clamp(22px,2.6vw,36px)}
 .plist{position:relative;list-style:none;margin:clamp(60px,7vw,110px) 0 0;padding:0;display:flex;flex-direction:column;align-items:center}
-.plist__item{transform:translateX(var(--x,0));color:#c7d9e3;mix-blend-mode:difference}
+.plist__item{transform:translateX(var(--x,0));color:var(--nogal)}
+/* copia blanca del texto, recortada a la foto: lo que queda dentro de la imagen se ve en blanco */
+.plist__nr,.plist__name{position:relative}
+.plist__nr::after,.plist__name::after{content:attr(data-t);position:absolute;left:0;top:0;color:#fff;clip-path:inset(var(--ct,100%) var(--cr,100%) var(--cb,100%) var(--cl,100%));pointer-events:none}
 .plist__item a{display:flex;align-items:flex-end;gap:clamp(10px,1.2vw,18px);padding:.04em 0}
 /* el texto se invierte sobre la foto (diferencia), y sobre blanco queda en nogal */
 .plist__nr{font-family:var(--wide);font-size:clamp(10px,.8vw,12px);letter-spacing:.04em;padding-bottom:.9em}
@@ -199,5 +202,6 @@ body:not(.is-loading) .intro{display:none}
 /* estado previo a la intro, para que no se vea nada antes de tiempo */
 body.is-loading .hero__media{opacity:0}
 body.is-loading .intro span{opacity:0}
-body.is-loading .nav{opacity:0}
+body.is-loading .nav{z-index:101}
+.nav__logo svg{overflow:visible}
 .ob__hero .mask{padding-left:.08em;margin-left:-.08em}

@@ -43,64 +43,57 @@ function initSmooth() {
 function playIntro() {
   const iso = $('.intro__iso'), logo = $('.intro__logo');
   const navLogo = $('.nav__logo');
-  const done = () => { document.body.classList.remove('is-loading'); $('.wa-float').classList.add('is-in'); if (smoother) smoother.paused(false); };
+  const done = () => { gsap.set('.lg-iso, .lg-word', { clearProps: 'filter' }); document.body.classList.remove('is-loading'); $('.wa-float').classList.add('is-in'); if (smoother) smoother.paused(false); };
   const copy = new SplitText('.hero__title', { type: 'lines', mask: 'lines' });
   // siempre desde arriba de todo y sin dejar scrollear mientras corre la intro
   window.scrollTo(0, 0);
   if (smoother) { smoother.scrollTop(0); smoother.paused(true); }
   if (reduce) { done(); return; }
 
-  // proporciones de los dibujos (medidas sobre los SVG): caja del trazo dentro de cada archivo
-  const ISO = { ar: 851 / 1000, gx: 0.043, gy: 0.042, gw: 0.911, gh: 0.767 };      // isologo
-  const LOG = { ar: 195 / 1000, gx: 0.015, gy: 0.025, gw: 0.962, gh: 0.153 };      // logotipo
+  // la marca de la intro ES el logo de la navegación: se anima su hoja y su "MARETICH" desde el centro
+  // hasta su lugar, y al final se suma el descriptivo "aberturas de madera" (marca completa, sin cortes)
+  const svg = $('svg', navLogo);
+  const gIso = $('.lg-iso', svg), gWord = $('.lg-word', svg), gDesc = $('.lg-desc', svg);
   const vw = window.innerWidth, vh = window.innerHeight;
+  const rIso = gIso.getBoundingClientRect(), rWord = gWord.getBoundingClientRect();
+  const u = svg.getBoundingClientRect().width / svg.viewBox.baseVal.width;   // px por unidad del svg
 
-  // estado 1 y 2: logotipo grande (como el "MOMO" de 200 px en 1600) y el isologo un poco más alto que las letras
-  const logoW = Math.min(vw * 0.42, 760);
-  const glyphH = LOG.gh * logoW;
-  const isoW = (glyphH * 1.33) / ISO.gh;
-  const gap = (68 / 1600) * vw;
-  const rowW = isoW * ISO.gw + gap + logoW * LOG.gw;
-  const cy = vh / 2;
-  const place = (el, M, w, gx, gcy) => ({ x: gx - M.gx * w, y: gcy - (M.gy + M.gh / 2) * w, width: w });
-  const s1 = {
-    iso: place(iso, ISO, isoW, (vw - rowW) / 2, cy),
-    logo: place(logo, LOG, logoW, (vw - rowW) / 2 + isoW * ISO.gw + gap, cy),
-  };
-  const edge = (48 / 1600) * vw;
-  const s2 = {
-    iso: place(iso, ISO, isoW, edge, cy),
-    logo: place(logo, LOG, logoW, vw - edge - logoW * LOG.gw, cy),
-  };
-  // estado 3: exactamente donde está el logo de la navegación (hoja y "MARETICH" dentro de logo-full.svg)
-  const n = navLogo.getBoundingClientRect(), W = n.width;
-  const isoW3 = (0.188 * W) / ISO.gw, logoW3 = (0.738 * W) / LOG.gw;
-  const s3 = {
-    iso: { x: n.left + 0.020 * W - ISO.gx * isoW3, y: n.top + 0.023 * W - ISO.gy * isoW3, width: isoW3 },
-    logo: { x: n.left + 0.243 * W - LOG.gx * logoW3, y: n.top + 0.042 * W - LOG.gy * logoW3, width: logoW3 },
-  };
+  // tamaños como antes: "MARETICH" grande y la hoja un poco más alta que las letras
+  const wordW = Math.min(vw * 0.42, 760) * 0.962;
+  const kWord = wordW / rWord.width;
+  const isoH = rWord.height * kWord * 1.33;
+  const kIso = isoH / rIso.height;
+  const isoW = rIso.width * kIso;
+  const gap = (68 / 1600) * vw, edge = (48 / 1600) * vw, cy = vh / 2;
+  const rowW = isoW + gap + wordW;
+  // lleva la caja de un grupo (escalado k) a la posición de pantalla (left, centro vertical)
+  const at = (r, k, left) => ({ x: (left - r.left) / u, y: (cy - (r.height * k) / 2 - r.top) / u, scale: k });
+  const s1 = { iso: at(rIso, kIso, (vw - rowW) / 2), word: at(rWord, kWord, (vw - rowW) / 2 + isoW + gap) };
+  const s2 = { iso: at(rIso, kIso, edge), word: at(rWord, kWord, vw - edge - wordW) };
+  const s3 = { x: 0, y: 0, scale: 1 };
 
-  gsap.set(iso, s1.iso); gsap.set(logo, s1.logo);
-  gsap.set(navLogo, { autoAlpha: 0 });
+  gsap.set([gIso, gWord], { transformOrigin: '0% 0%' });
+  gsap.set(gIso, s1.iso); gsap.set(gWord, s1.word);
+  gsap.set(gDesc.children, { autoAlpha: 0, y: 6 });
+  gsap.set('.intro span', { display: 'none' });
   gsap.set('.nav__menu, .nav__burger', { autoAlpha: 0, y: -8 });
   gsap.set('.hero__media', { scale: 0, borderRadius: 2000, opacity: 0 });
   gsap.set('.hero__copy', { autoAlpha: 0 });
 
   const tl = gsap.timeline({ onComplete: done });
-  tl.set('.intro span', { opacity: 1 }, 0)
+  tl
     // 1. aparecen
-    .fromTo([iso, logo], { yPercent: 40, skewY: 2, filter: 'blur(4px)', autoAlpha: 0 }, { yPercent: 0, skewY: 0, filter: 'blur(0px)', autoAlpha: 1, duration: 1.1, stagger: 0.08, ease: 'power3.out' }, 0.1)
+    .fromTo([gIso, gWord], { autoAlpha: 0, filter: 'blur(4px)' }, { autoAlpha: 1, filter: 'blur(0px)', duration: 1.1, stagger: 0.08, ease: 'power3.out' }, 0.1)
+    .fromTo(gIso, { y: s1.iso.y + 30 }, { y: s1.iso.y, duration: 1.1, ease: 'power3.out' }, 0.1)
+    .fromTo(gWord, { y: s1.word.y + 30 }, { y: s1.word.y, duration: 1.1, ease: 'power3.out' }, 0.18)
     // 2. se separan hacia los bordes y, en el hueco que dejan, se abre el hero (el video crece desde el centro)
-    .to(iso, { ...s2.iso, duration: 1.6, ease: 'casa' }, 1.5)
-    .to(logo, { ...s2.logo, duration: 1.6, ease: 'casa' }, 1.5)
+    .to(gIso, { ...s2.iso, duration: 1.6, ease: 'casa' }, 1.5)
+    .to(gWord, { ...s2.word, duration: 1.6, ease: 'casa' }, 1.5)
     .set('.intro', { backgroundColor: 'rgba(56,38,28,0)' }, 1.5)
     .to('.hero__media', { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 1.5)
-    // 3. la marca vuelve a juntarse arriba a la izquierda, donde queda como logo de la navegación
-    .to(iso, { ...s3.iso, duration: 1.6, ease: 'casa' }, 2.9)
-    .to(logo, { ...s3.logo, duration: 1.6, ease: 'casa' }, 2.9)
-    // queda el logo de la navegación (aparece la bajada "aberturas de madera")
-    .to(navLogo, { autoAlpha: 1, duration: 0.45, ease: 'power2.out' }, 4.45)
-    .to('.intro span', { opacity: 0, duration: 0.3 }, 4.6)
+    // 3. la marca se vuelve a juntar arriba a la izquierda y se queda: se le suma "aberturas de madera"
+    .to([gIso, gWord], { ...s3, duration: 1.6, ease: 'casa' }, 2.9)
+    .to(gDesc.children, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.025, ease: 'power3.out' }, 4.25)
     .to('.nav__menu, .nav__burger', { autoAlpha: 1, y: 0, duration: 0.9, ease: EASE_OUT }, 4.3)
     .set('.hero__copy', { autoAlpha: 1 }, 4.0)
     .from(copy.lines, { yPercent: 110, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 4.0)
@@ -152,16 +145,11 @@ function initDisenamos() {
     .to(desc, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out' }, 0.9)
     .from('.dis__btn', { autoAlpha: 0, y: 12, duration: 0.9, ease: EASE_OUT }, 1.2);
 
-  // las fotos se suceden con un fundido largo y un leve acercamiento
+  // las fotos se suceden con un corte seco, sin transición
   let i = 0, timer = null;
   const next = () => {
-    const cur = imgs[i]; i = (i + 1) % imgs.length; const nxt = imgs[i];
-    gsap.set(nxt, { zIndex: 2, autoAlpha: 0, scale: 1.08 });
-    gsap.set(cur, { zIndex: 1 });
-    gsap.timeline()
-      .to(nxt, { autoAlpha: 1, duration: 1.1, ease: 'sine.inOut' }, 0)
-      .to(nxt, { scale: 1, duration: 2, ease: 'power2.out' }, 0)
-      .set(cur, { autoAlpha: 0, zIndex: 0 });
+    const cur = imgs[i]; i = (i + 1) % imgs.length;
+    gsap.set(imgs[i], { autoAlpha: 1 }); gsap.set(cur, { autoAlpha: 0 });
   };
   ScrollTrigger.create({ trigger: media, start: 'top bottom', end: 'bottom top', onToggle: (s) => { clearInterval(timer); timer = null; if (s.isActive && !reduce) timer = setInterval(next, 2000); } });
 }
@@ -304,8 +292,9 @@ function initLineas() {
     const media = $('.linea__media', sec);
     const label = $('.linea__label', sec);
     const copy = $('.linea__copy', sec);
-    ScrollTrigger.create({
-      trigger: sec, start: 'top bottom', end: 'bottom top',
+    // el video sigue reproduciéndose todo el tiempo que la línea está en pantalla (incluido el tramo fijado)
+    const playWhileVisible = (pinST) => ScrollTrigger.create({
+      trigger: sec, start: 'top bottom', end: pinST ? () => pinST.end + window.innerHeight : 'bottom top',
       onToggle: (s) => { if (s.isActive) { if (v.preload !== 'auto') v.preload = 'auto'; const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); },
     });
     const t = new SplitText($('.linea__title', sec), { type: 'lines', mask: 'lines' });
@@ -318,7 +307,7 @@ function initLineas() {
       const s = Math.min(4.2, (sec.clientWidth * 0.62) / w);
       return { x: sec.clientWidth / 2 - (lx + w / 2), y: sec.clientHeight / 2 - (ly + h / 2), scale: s };
     };
-    if (reduce) return;
+    if (reduce) { playWhileVisible(); return; }
     gsap.set(media, { scale: 0, borderRadius: 2000, opacity: 0 });
     gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0 });
     gsap.set(t.lines, { yPercent: 110 });
@@ -326,7 +315,7 @@ function initLineas() {
 
     // cada línea se fija en pantalla: al scrollear el título viaja a su lugar, se abre el video y entra el texto;
     // recién al terminar se libera y llega la siguiente (sin superponerse)
-    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+    const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
       .to({}, { duration: 0.15 })
       .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
       .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa' }, 0.15)
@@ -334,6 +323,7 @@ function initLineas() {
       .to(t.lines, { yPercent: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.0)
       .to(rest, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out' }, 1.15)
       .to({}, { duration: 0.35 });
+    playWhileVisible(tl.scrollTrigger);
   });
 }
 
@@ -358,13 +348,27 @@ function initProyectos() {
   if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   const xTo = gsap.quickTo(poster, 'x', { duration: 0.65, ease: 'power3' });
   const yTo = gsap.quickTo(poster, 'y', { duration: 0.65, ease: 'power3' });
-  const rTo = gsap.quickTo(poster, 'rotation', { duration: 0.8, ease: 'power3' });
+  // recorta la copia blanca de cada texto al rectángulo de la foto, cuadro a cuadro
+  const texts = $$('.plist__nr, .plist__name', sec);
+  let clipping = false;
+  const clip = () => {
+    const pr = poster.getBoundingClientRect();
+    texts.forEach((el) => {
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--ct', Math.max(0, pr.top - r.top) + 'px');
+      el.style.setProperty('--cb', Math.max(0, r.bottom - pr.bottom) + 'px');
+      el.style.setProperty('--cl', Math.max(0, pr.left - r.left) + 'px');
+      el.style.setProperty('--cr', Math.max(0, r.right - pr.right) + 'px');
+      if (pr.width < 2 || pr.top > r.bottom || pr.bottom < r.top || pr.left > r.right || pr.right < r.left) el.style.setProperty('--ct', '100%');
+    });
+  };
+  const startClip = () => { if (!clipping) { clipping = true; gsap.ticker.add(clip); } };
+  const stopClip = () => { clipping = false; gsap.ticker.remove(clip); texts.forEach((el) => el.style.setProperty('--ct', '100%')); };
   let cur = -1, lastX = 0;
   sec.addEventListener('pointermove', (e) => {
     const r = sec.getBoundingClientRect();
     xTo(e.clientX - r.left - poster.offsetWidth / 2);
     yTo(e.clientY - r.top - poster.offsetHeight / 2);
-    rTo(gsap.utils.clamp(-6, 6, (e.clientX - lastX) * 0.4)); lastX = e.clientX;
   });
   const show = (i) => {
     if (i === cur) return;
@@ -375,8 +379,8 @@ function initProyectos() {
     imgs.forEach((im, j) => gsap.set(im, { zIndex: j === i ? 2 : j === prev ? 1 : 0 }));
     gsap.fromTo(imgs[i], { opacity: 1, clipPath: 'inset(100% 0% 0% 0%)', scale: 1.15 }, { clipPath: 'inset(0% 0% 0% 0%)', scale: 1, duration: 0.7, ease: 'power3.out', overwrite: true });
   };
-  links.forEach((a, i) => a.addEventListener('pointerenter', () => show(i)));
-  list.addEventListener('pointerleave', () => { cur = -1; gsap.to(poster, { opacity: 0, scale: 0.6, duration: 0.4, ease: 'power3.in', overwrite: 'auto' }); });
+  links.forEach((a, i) => a.addEventListener('pointerenter', () => { startClip(); show(i); }));
+  list.addEventListener('pointerleave', () => { cur = -1; gsap.to(poster, { opacity: 0, scale: 0.6, duration: 0.4, ease: 'power3.in', overwrite: 'auto', onComplete: () => { if (cur === -1) stopClip(); } }); });
 }
 
 // ---------- 07 Empresa: contadores suaves ----------
