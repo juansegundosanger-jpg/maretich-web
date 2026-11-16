@@ -16,8 +16,14 @@
 </head>
 <body class="is-loading">
 
+  <!-- Intro: el isologo y el logotipo hacen el recorrido de Casa Momo y terminan como logo de la navegación -->
+  <div class="intro" aria-hidden="true">
+    <span class="intro__iso" data-svg="assets/isologo.svg"></span>
+    <span class="intro__logo" data-svg="assets/logotipo.svg"></span>
+  </div>
+
   <!-- Navegación -->
-  <header class="nav in-hero" data-theme="light">
+  <header class="nav" data-theme="light">
     <a href="#inicio" class="nav__logo" aria-label="Maretich, inicio"><span data-svg="assets/logo-full.svg"></span></a>
     <nav class="nav__menu" id="menu" aria-label="Principal">
       <a href="#lineas">Catálogo</a>
@@ -46,12 +52,9 @@
         <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-4.jpg"><source src="assets/video/hero-4.mp4" type="video/mp4"></video>
         <div class="hero__shade"></div>
       </div>
-      <h1 class="sr-only">Maretich, aberturas de madera</h1>
-      <div class="hero__iso" aria-hidden="true"><span data-svg="assets/isologo.svg"></span></div>
-      <div class="hero__logo" aria-hidden="true"><span data-svg="assets/logotipo.svg"></span></div>
       <div class="hero__copy">
-        <p class="hero__title">Un <em>marco firme</em><br>en todo lo que hacemos.</p>
-        <p class="hero__sub">Puertas de madera a medida y pre-diseñadas, para casas,<br>edificios y desarrollos de todo el país.</p>
+        <h1 class="hero__title">Un <em>marco firme</em><br>en todo lo que<br>hacemos.</h1>
+        <p class="hero__sub">Puertas de madera a medida y pre-diseñadas,<br>para casas, edificios y desarrollos de todo<br>el país.</p>
       </div>
     </section>
 
@@ -221,6 +224,7 @@
   <script src="vendor/ScrollTrigger.min.js"></script>
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
+  <script src="vendor/CustomEase.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
