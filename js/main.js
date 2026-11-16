@@ -309,7 +309,8 @@ function initLineas() {
     };
     if (reduce) { playWhileVisible(); return; }
     gsap.set(media, { scale: 0, borderRadius: 2000, opacity: 0 });
-    gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0 });
+    // force3D:false para que el navegador redibuje el texto a cada tamaño (si no, al agrandarse se ve pixelado)
+    gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0, force3D: false });
     gsap.set(t.lines, { yPercent: 110 });
     gsap.set(rest, { autoAlpha: 0, y: 16 });
 
@@ -318,7 +319,7 @@ function initLineas() {
     const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
       .to({}, { duration: 0.15 })
       .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
-      .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa' }, 0.15)
+      .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa', force3D: false }, 0.15)
       .to(label, { '--ln': 1, duration: 0.35, ease: 'power2.inOut' }, 1.05)
       .to(t.lines, { yPercent: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.0)
       .to(rest, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out' }, 1.15)
