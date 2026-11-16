@@ -90,12 +90,12 @@ function playIntro() {
   tl.set('.intro span', { opacity: 1 }, 0)
     // 1. aparecen
     .fromTo([iso, logo], { yPercent: 40, skewY: 2, filter: 'blur(4px)', autoAlpha: 0 }, { yPercent: 0, skewY: 0, filter: 'blur(0px)', autoAlpha: 1, duration: 1.1, stagger: 0.08, ease: 'power3.out' }, 0.1)
-    // 2. se separan hacia los bordes
+    // 2. se separan hacia los bordes y, en el hueco que dejan, se abre el hero (el video crece desde el centro)
     .to(iso, { ...s2.iso, duration: 1.6, ease: 'casa' }, 1.5)
     .to(logo, { ...s2.logo, duration: 1.6, ease: 'casa' }, 1.5)
-    // 3. el fondo plano da lugar al hero: el video crece desde el centro y la marca vuelve a juntarse arriba a la izquierda
-    .set('.intro', { backgroundColor: 'rgba(56,38,28,0)' }, 2.9)
-    .to('.hero__media', { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 2.9)
+    .set('.intro', { backgroundColor: 'rgba(56,38,28,0)' }, 1.5)
+    .to('.hero__media', { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 1.5)
+    // 3. la marca vuelve a juntarse arriba a la izquierda, donde queda como logo de la navegación
     .to(iso, { ...s3.iso, duration: 1.6, ease: 'casa' }, 2.9)
     .to(logo, { ...s3.logo, duration: 1.6, ease: 'casa' }, 2.9)
     // queda el logo de la navegación (aparece la bajada "aberturas de madera")
@@ -159,11 +159,11 @@ function initDisenamos() {
     gsap.set(nxt, { zIndex: 2, autoAlpha: 0, scale: 1.08 });
     gsap.set(cur, { zIndex: 1 });
     gsap.timeline()
-      .to(nxt, { autoAlpha: 1, duration: 1.6, ease: 'sine.inOut' }, 0)
-      .to(nxt, { scale: 1, duration: 3, ease: 'power2.out' }, 0)
+      .to(nxt, { autoAlpha: 1, duration: 1.1, ease: 'sine.inOut' }, 0)
+      .to(nxt, { scale: 1, duration: 2, ease: 'power2.out' }, 0)
       .set(cur, { autoAlpha: 0, zIndex: 0 });
   };
-  ScrollTrigger.create({ trigger: media, start: 'top bottom', end: 'bottom top', onToggle: (s) => { clearInterval(timer); timer = null; if (s.isActive && !reduce) timer = setInterval(next, 3200); } });
+  ScrollTrigger.create({ trigger: media, start: 'top bottom', end: 'bottom top', onToggle: (s) => { clearInterval(timer); timer = null; if (s.isActive && !reduce) timer = setInterval(next, 2000); } });
 }
 
 // ---------- 03 Cada obra tiene su puerta (túnel) ----------
