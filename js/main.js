@@ -145,6 +145,12 @@ function initDisenamos() {
     .to(desc, { yPercent: 0, duration: 1.1, stagger: 0.08, ease: 'expo.out' }, 0.9)
     .from('.dis__btn', { autoAlpha: 0, y: 12, duration: 0.9, ease: EASE_OUT }, 1.2);
 
+  // el título se mueve mientras bajás: cada renglón se desliza hacia un lado distinto
+  $$('.dis__line', sec).forEach((l, k) => gsap.fromTo(l, { x: () => (k % 2 ? -1 : 1) * window.innerWidth * 0.06 }, {
+    x: () => (k % 2 ? 1 : -1) * window.innerWidth * 0.06, ease: 'none',
+    scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true },
+  }));
+
   // las fotos se suceden con un corte seco, sin transición
   let i = 0, timer = null;
   const next = () => {
