@@ -205,7 +205,7 @@ function initObras() {
   const label = $('.ob__titles', stage);
   const tItems = $$('.ob__t', stage);
   // tamaño de los títulos: el más largo ocupa del margen al medianil
-  const fitTitles = () => { label.style.setProperty('--tf', '100px'); const w = Math.max(...tItems.map((t) => t.scrollWidth)); label.style.setProperty('--tf', (100 * label.clientWidth / w) + 'px'); };
+  const fitTitles = () => { label.classList.add('is-fit'); label.style.setProperty('--tf', '100px'); const w = Math.max(...tItems.map((t) => t.scrollWidth)); label.style.setProperty('--tf', (100 * label.clientWidth / w) + 'px'); label.offsetWidth; label.classList.remove('is-fit'); };
   fitTitles(); window.addEventListener('resize', fitTitles);
   const d = imgs.length;
   const R = 18;
@@ -214,10 +214,11 @@ function initObras() {
       hero: { left: 0, top: 0, width: 100, height: 100, borderRadius: 0, opacity: 1 },
       // posiciones del frame "OBRAS 3" del Figma
       main: { left: 33.8, top: 13.1, width: 34.4, height: 73.6, borderRadius: 28, opacity: 1 },
-      prev: { left: 16.6, top: 13.1, width: 11.4, height: 24.2, borderRadius: R, opacity: 1 },
-      next: { left: 71.7, top: 62.5, width: 11.4, height: 24.2, borderRadius: R, opacity: 1 },
-      out: { left: 16.6, top: 13.1, width: 11.4, height: 24.2, borderRadius: R, opacity: 0 },
-      wait: { left: 71.7, top: 62.5, width: 11.4, height: 24.2, borderRadius: R, opacity: 0 },
+      // miniaturas más chicas para que no compitan con la foto principal
+      prev: { left: 20, top: 13.1, width: 7.4, height: 15.7, borderRadius: R, opacity: 1 },
+      next: { left: 71.7, top: 71, width: 7.4, height: 15.7, borderRadius: R, opacity: 1 },
+      out: { left: 20, top: 13.1, width: 7.4, height: 15.7, borderRadius: R, opacity: 0 },
+      wait: { left: 71.7, top: 71, width: 7.4, height: 15.7, borderRadius: R, opacity: 0 },
     },
     mobile: {
       hero: { left: 0, top: 0, width: 100, height: 100, borderRadius: 0, opacity: 1 },
