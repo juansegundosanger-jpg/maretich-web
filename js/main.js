@@ -299,7 +299,6 @@ function initObras() {
 // mientras el título viaja a su lugar del diseño, y después aparece el resto del texto.
 function initLineas() {
   const sections = $$('.linea');
-  ScrollTrigger.create({ trigger: sections[0], start: 'top top', end: 'bottom top', pin: true, pinSpacing: false });
   sections.forEach((sec) => {
     const v = $('.linea__video', sec);
     const media = $('.linea__media', sec);
@@ -325,12 +324,16 @@ function initLineas() {
     gsap.set(t.lines, { yPercent: 110 });
     gsap.set(rest, { autoAlpha: 0, y: 16 });
 
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 12%', once: true } })
-      .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 0.45)
-      .to(label, { x: 0, y: 0, scale: 1, duration: 1.6, ease: 'casa' }, 0.45)
-      .to(label, { '--ln': 1, duration: 0.8, ease: 'power3.inOut' }, 1.55)
-      .to(t.lines, { yPercent: 0, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 1.45)
-      .to(rest, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.08, ease: EASE_OUT }, 1.7);
+    // cada línea se fija en pantalla: al scrollear el título viaja a su lugar, se abre el video y entra el texto;
+    // recién al terminar se libera y llega la siguiente (sin superponerse)
+    gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: '+=140%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
+      .to({}, { duration: 0.15 })
+      .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
+      .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa' }, 0.15)
+      .to(label, { '--ln': 1, duration: 0.35, ease: 'power2.inOut' }, 1.05)
+      .to(t.lines, { yPercent: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.0)
+      .to(rest, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out' }, 1.15)
+      .to({}, { duration: 0.35 });
   });
 }
 
