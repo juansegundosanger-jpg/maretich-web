@@ -13,20 +13,11 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/style.css">
-  <script type="importmap">
-    { "imports": { "three": "./vendor/three/three.module.js", "three/addons/": "./vendor/three/addons/" } }
-  </script>
 </head>
 <body class="is-loading">
 
-  <!-- Intro: isologo | logotipo se separan y abren la imagen -->
-  <div class="intro" aria-hidden="true">
-    <div class="intro__half intro__half--l"><div class="intro__mark intro__mark--iso" data-svg="assets/isologo.svg"></div></div>
-    <div class="intro__half intro__half--r"><div class="intro__mark intro__mark--logo" data-svg="assets/logotipo.svg"></div></div>
-  </div>
-
   <!-- Navegación -->
-  <header class="nav" data-theme="light">
+  <header class="nav in-hero" data-theme="light">
     <a href="#inicio" class="nav__logo" aria-label="Maretich, inicio"><span data-svg="assets/logo-full.svg"></span></a>
     <nav class="nav__menu" id="menu" aria-label="Principal">
       <a href="#lineas">Catálogo</a>
@@ -46,71 +37,111 @@
   <div id="smooth-content">
   <main>
 
-    <!-- 01 · Hero -->
+    <!-- 01 · Hero: el isologo y el logotipo se separan y abren el video (como CASA | MOMO) -->
     <section class="hero" id="inicio" data-nav="light">
-      <div class="hero__videos">
+      <div class="hero__media">
         <video class="hero__video is-active" muted playsinline preload="auto" poster="assets/video/hero-1.jpg"><source src="assets/video/hero-1.mp4" type="video/mp4"></video>
         <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-2.jpg"><source src="assets/video/hero-2.mp4" type="video/mp4"></video>
         <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-3.jpg"><source src="assets/video/hero-3.mp4" type="video/mp4"></video>
         <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-4.jpg"><source src="assets/video/hero-4.mp4" type="video/mp4"></video>
+        <div class="hero__shade"></div>
       </div>
-      <div class="hero__shade"></div>
+      <h1 class="sr-only">Maretich, aberturas de madera</h1>
+      <div class="hero__iso" aria-hidden="true"><span data-svg="assets/isologo.svg"></span></div>
+      <div class="hero__logo" aria-hidden="true"><span data-svg="assets/logotipo.svg"></span></div>
       <div class="hero__copy">
-        <h1 class="hero__title">Un <em>marco firme</em><br>en todo lo que<br>hacemos.</h1>
-        <p class="hero__sub">Puertas de madera a medida y pre-diseñadas,<br>para casas, edificios y desarrollos de todo<br>el país.</p>
+        <p class="hero__title">Un <em>marco firme</em><br>en todo lo que hacemos.</p>
+        <p class="hero__sub">Puertas de madera a medida y pre-diseñadas, para casas,<br>edificios y desarrollos de todo el país.</p>
       </div>
     </section>
 
-    <!-- 02 · Carrusel que crece → 03 · la puerta pasa a 3D -->
-    <section class="showcase" aria-label="Obras y puerta en 3D" data-nav="light">
-      <div class="showcase__stage">
-        <div class="showcase__frame">
-          <img src="assets/img/carrusel-1.jpg" alt="Casa El Bosque" class="showcase__img">
-          <img src="assets/img/carrusel-2.jpg" alt="Casa Altos C" class="showcase__img">
-          <img src="assets/img/carrusel-3.jpg" alt="Casa Ashi" class="showcase__img">
-          <img src="assets/img/carrusel-4.jpg" alt="Condominio Foresta" class="showcase__img">
-          <img src="assets/img/carrusel-5.jpg" alt="Puerta de ingreso de madera" class="showcase__img">
-          <button class="showcase__arrow showcase__arrow--prev" aria-label="Imagen anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.5 6 8.5 12l6 6"/></svg></button>
-          <button class="showcase__arrow showcase__arrow--next" aria-label="Imagen siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9.5 6 6 6-6 6"/></svg></button>
-        </div>
-        <div class="door3d">
-          <canvas class="door3d__canvas" role="img" aria-label="Puerta de madera en 3D. Pasá el cursor por encima o arrastrá para girarla."></canvas>
-          <p class="door3d__hint">Pasá el cursor para girarla</p>
-        </div>
-        <div class="showcase__text">
-          <h2 class="showcase__title">Diseñamos y fabricamos aberturas de madera, y acompañamos cada etapa, <em>desde la planificación hasta la instalación final.</em></h2>
-          <span class="showcase__rule" aria-hidden="true"></span>
-          <p class="showcase__body">Trabajamos con arquitectos y equipos de obra desde el inicio, con maderas de bosques certificados y reforestados.</p>
+    <!-- 02 · Diseñamos y fabricamos (como "Unrivalled creativity") -->
+    <section class="dis" data-nav="dark">
+      <h2 class="dis__words">
+        <span class="dis__line dis__line--accent"><span>Diseñamos y fabricamos</span></span>
+        <span class="dis__line"><span>aberturas</span></span>
+        <span class="dis__line"><span>de madera.</span></span>
+      </h2>
+      <div class="dis__media" aria-hidden="true">
+        <img src="assets/img/galeria-1.jpg" alt="">
+        <img src="assets/img/galeria-2.jpg" alt="">
+        <img src="assets/img/galeria-3.jpg" alt="">
+        <img src="assets/img/galeria-4.jpg" alt="">
+        <img src="assets/img/galeria-5.jpg" alt="">
+        <img src="assets/img/galeria-6.jpg" alt="">
+      </div>
+      <p class="dis__desc">
+        <span class="dis__dl"><span>Acompañamos cada etapa, desde la planificación</span></span>
+        <span class="dis__dl"><span>hasta la instalación final, junto a arquitectos</span></span>
+        <span class="dis__dl"><span>y equipos de obra, con maderas reforestadas.</span></span>
+      </p>
+      <a class="pill dis__btn" href="#empresa">Conocé la fábrica <span aria-hidden="true">→</span></a>
+    </section>
+
+    <!-- 03 · Cada obra tiene su puerta (túnel de puertas, como "Feel at home") -->
+    <section class="tunel" data-nav="light" aria-label="Cada obra tiene su puerta">
+      <div class="tunel__stage">
+        <div class="tunel__art" aria-hidden="true"><span data-svg="assets/isologo.svg"></span></div>
+        <h2 class="tunel__title">Cada obra<br><em>tiene su puerta.</em></h2>
+        <div class="tunel__space" aria-hidden="true">
+          <img class="tunel__door" src="assets/img/puerta-1.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-2.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-3.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-6.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-5.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-4.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-2.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-1.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-6.webp" alt="">
+          <img class="tunel__door" src="assets/img/puerta-3.webp" alt="">
         </div>
       </div>
     </section>
 
-    <!-- 04 · Cada obra tiene su puerta -->
-    <section class="obra" id="tu-obra">
-      <div class="obra__intro" data-nav="light">
-        <h2 class="obra__title">Cada obra<br><em>tiene su puerta.</em></h2>
-      </div>
-      <div class="obra__stage" data-nav="dark">
-        <div class="obra__card">
-          <div class="obra__item"><p class="label">01 Viviendas familiares</p><h3>Estoy haciendo<br>mi casa.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Vivienda.%20Quiero%20consultar%20por%20puertas%20para%20mi%20casa." target="_blank" rel="noopener">Consultar por mi casa <span aria-hidden="true">→</span></a></div>
-          <div class="obra__item"><p class="label">02 Grandes obras</p><h3>Construyo edificios<br>y desarrollos.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Obra%20grande.%20Consulto%20por%20aberturas%20para%20un%20desarrollo." target="_blank" rel="noopener">Consultar por mi obra <span aria-hidden="true">→</span></a></div>
-          <div class="obra__item"><p class="label">03 Inversores</p><h3>Invierto en un proyecto<br>de varias unidades.</h3><a class="obra__cta" href="https://wa.me/?text=Hola.%20Inversor.%20Consulto%20por%20un%20proyecto%20de%20varias%20unidades." target="_blank" rel="noopener">Consultar por mi proyecto <span aria-hidden="true">→</span></a></div>
+    <!-- 04 · Tu obra (como Still/Form después de "Not every space needs to be grand") -->
+    <section class="obras" id="tu-obra" data-nav="dark">
+      <div class="obras__stage">
+        <figure class="ob__img"><img src="assets/img/obra-1.jpg" alt="Puerta de ingreso de madera en una vivienda familiar"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-2.jpg" alt="Pasillo de un edificio con puertas de madera"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-3.jpg" alt="Unidad de un proyecto con puertas de la línea Pre-diseñada"></figure>
+
+        <div class="ob__hero">
+          <span class="mask"><span class="ob__hp label">Tu obra</span></span>
+          <p class="ob__hero-title"><span class="mask"><span class="ob__hp">Una puerta</span></span><span class="mask"><span class="ob__hp">para cada escala.</span></span></p>
         </div>
-        <a class="obra__img" href="#viviendas-familiares" aria-label="Viviendas familiares"><img src="assets/img/obra-1.jpg" alt=""></a>
-        <a class="obra__img" href="#grandes-obras" aria-label="Grandes obras"><img src="assets/img/obra-2.jpg" alt=""></a>
-        <a class="obra__img" href="#inversores" aria-label="Inversores"><img src="assets/img/obra-3.jpg" alt=""></a>
+
+        <div class="ob__info">
+          <div class="ob__text">
+            <span class="mask"><span class="ob__p label">01 · Viviendas familiares</span></span>
+            <h3><span class="mask"><span class="ob__p">Estoy haciendo</span></span><span class="mask"><span class="ob__p">mi casa.</span></span></h3>
+            <span class="mask"><span class="ob__p ob__body">Puertas de ingreso e interiores a medida, relevadas en obra. Consultanos con el plano en la mano: llegamos con tiempo y sin apuro.</span></span>
+            <span class="mask"><span class="ob__p ob__tags">Ingreso · Interiores · Herrajes</span></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Vivienda.%20Quiero%20consultar%20por%20puertas%20para%20mi%20casa." target="_blank" rel="noopener">Consultar por mi casa <span aria-hidden="true">→</span></a></span>
+          </div>
+          <div class="ob__text">
+            <span class="mask"><span class="ob__p label">02 · Grandes obras</span></span>
+            <h3><span class="mask"><span class="ob__p">Construyo edificios</span></span><span class="mask"><span class="ob__p">y desarrollos.</span></span></h3>
+            <span class="mask"><span class="ob__p ob__body">Más de 145 entregas por mes, condominios terminados y logística a todo el país. Consultanos al armar el pliego.</span></span>
+            <span class="mask"><span class="ob__p ob__tags">Pliegos · Volumen · Logística</span></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Obra%20grande.%20Consulto%20por%20aberturas%20para%20un%20desarrollo." target="_blank" rel="noopener">Consultar por mi obra <span aria-hidden="true">→</span></a></span>
+          </div>
+          <div class="ob__text">
+            <span class="mask"><span class="ob__p label">03 · Inversores</span></span>
+            <h3><span class="mask"><span class="ob__p">Invierto en un proyecto</span></span><span class="mask"><span class="ob__p">de varias unidades.</span></span></h3>
+            <span class="mask"><span class="ob__p ob__body">La línea Pre-diseñada como decisión segura: costo y plazo previsibles por unidad. Consultanos al definir el proyecto.</span></span>
+            <span class="mask"><span class="ob__p ob__tags">Costo previsible · Plazos cortos</span></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Inversor.%20Consulto%20por%20un%20proyecto%20de%20varias%20unidades." target="_blank" rel="noopener">Consultar por mi proyecto <span aria-hidden="true">→</span></a></span>
+          </div>
+        </div>
+
+        <div class="ob__count label" aria-hidden="true"><span>Tu obra</span><span class="ob__num"><span class="ob__col"><i>01</i><i>02</i><i>03</i></span></span><span class="ob__of">/ 03</span></div>
       </div>
     </section>
 
-    <!-- 05 · Líneas -->
+    <!-- 05 · Líneas, cada una con su video -->
     <div id="lineas">
       <section class="linea" data-line="medida" data-nav="light">
-        <div class="linea__slides" data-slideshow>
-          <img src="assets/img/medida-1.jpg" alt="Puerta de la línea A medida">
-          <img src="assets/img/medida-2.jpg" alt="">
-          <img src="assets/img/medida-3.jpg" alt="">
-          <img src="assets/img/medida-4.jpg" alt="">
-        </div>
+        <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg"><source src="assets/video/medida.mp4" type="video/mp4"></video>
         <div class="linea__shade"></div>
         <div class="linea__copy">
           <p class="label linea__label">Línea a medida</p>
@@ -119,15 +150,9 @@
           <p class="linea__links"><a href="#a-medida-interior">Interior</a><a href="#a-medida-exterior">Exterior</a><a href="#a-medida-herrajes">Herrajes</a></p>
           <a class="pill" href="https://wa.me/?text=Hola.%20Quiero%20consultar%20por%20la%20l%C3%ADnea%20A%20medida.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio." target="_blank" rel="noopener">Consultar por a medida <span aria-hidden="true">→</span></a>
         </div>
-        <div class="linea__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </section>
       <section class="linea" data-line="pre" data-nav="light">
-        <div class="linea__slides" data-slideshow>
-          <img src="assets/img/pre-1.jpg" alt="Puerta de la línea Pre-diseñada">
-          <img src="assets/img/pre-2.jpg" alt="">
-          <img src="assets/img/pre-3.jpg" alt="">
-          <img src="assets/img/pre-4.jpg" alt="">
-        </div>
+        <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg"><source src="assets/video/pre.mp4" type="video/mp4"></video>
         <div class="linea__shade"></div>
         <div class="linea__copy">
           <p class="label linea__label">Línea pre-diseñada</p>
@@ -136,7 +161,6 @@
           <p class="linea__links"><a href="#pre-disenada-interior">Interior</a><a href="#pre-disenada-exterior">Exterior</a><a href="#pre-disenada-herrajes">Herrajes</a></p>
           <a class="pill" href="https://wa.me/?text=Hola.%20Quiero%20consultar%20por%20la%20l%C3%ADnea%20Pre-dise%C3%B1ada.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio." target="_blank" rel="noopener">Consultar por pre-diseñada <span aria-hidden="true">→</span></a>
         </div>
-        <div class="linea__dots" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
       </section>
     </div>
 
@@ -197,6 +221,6 @@
   <script src="vendor/ScrollTrigger.min.js"></script>
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
-  <script type="module" src="js/main.js"></script>
+  <script src="js/main.js"></script>
 </body>
 </html>
