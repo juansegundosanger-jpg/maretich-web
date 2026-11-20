@@ -105,33 +105,13 @@ function initHero() {
   ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', pin: true, pinSpacing: false });
   gsap.to('.hero__copy', { y: -80, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '70% top', scrub: true } });
 
-  // tres videos de obra (en cámara lenta): cada uno se reproduce entero y se funde con el siguiente
+  // tres videos verticales en loop (puertas que se abren y cierran, en cámara lenta); arrancan desfasados
   const vids = $$('.hero__video');
-  const small = window.matchMedia('(max-aspect-ratio: 4/5)').matches;   // celular en vertical: versión vertical
-  vids.forEach((v) => { v.src = small ? v.dataset.srcM : v.dataset.src; });
-  let i = 0, timer = null, running = false;
-  const playOne = (v) => { try { v.currentTime = 0; } catch (_) {} const p = v.play(); if (p) p.catch(() => {}); };
-  const warm = (v) => { if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); } };
-  const schedule = () => {
-    clearTimeout(timer);
-    const v = vids[i], dur = isFinite(v.duration) && v.duration > 2 ? v.duration : 12;
-    timer = setTimeout(next, Math.max(2000, (dur - 1.1) * 1000));
-  };
-  const next = () => {
-    const cur = vids[i]; i = (i + 1) % vids.length; const nxt = vids[i];
-    warm(nxt); playOne(nxt); nxt.classList.add('is-active');
-    setTimeout(() => cur.classList.remove('is-active'), 60);
-    setTimeout(() => cur.pause(), 1800);
-    warm(vids[(i + 1) % vids.length]);
-    schedule();
-  };
-  vids[0].addEventListener('loadedmetadata', () => { if (running) schedule(); }, { once: true });
-  playOne(vids[0]); warm(vids[1]);
-  const start = () => { if (!running && !reduce) { running = true; schedule(); } };
-  const stop = () => { running = false; clearTimeout(timer); };
-  start();
-  ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? (playOne(vids[i]), start()) : (stop(), vids.forEach((v) => v.pause()))) });
-  document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
+  const play = () => vids.forEach((v, k) => { if (v.offsetParent === null) return; if (!v.dataset.started) { v.dataset.started = 1; try { v.currentTime = k * 2.3; } catch (_) {} } const p = v.play(); if (p) p.catch(() => {}); });
+  const pause = () => vids.forEach((v) => v.pause());
+  play();
+  ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? play() : pause()) });
+  document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
 }
 
 // ---------- 02 Diseñamos y fabricamos (Bulletproof) ----------
@@ -212,17 +192,16 @@ function initDisenamos() {
 // ---------- 03 Cada obra tiene su puerta (túnel) ----------
 // Las puertas recortadas vienen desde el fondo hacia la cámara mientras se scrollea, como en "Feel at home".
 function initTunel() {
-  // el isologo de fondo se dibuja trazo a trazo al bajar y se desdibuja al subir; tramo corto (unos 3 scrolls)
+  // el isologo de fondo se dibuja (aparece de abajo hacia arriba, como crece la hoja) al bajar y se desdibuja al subir
   const sec = $('.tunel');
-  const paths = $$('.tunel__art path', sec);
-  paths.forEach((p) => { const L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+  const art = $('.tunel__art', sec);
+  gsap.set(art, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
   gsap.timeline({
     defaults: { ease: 'none' },
-    scrollTrigger: { trigger: sec, start: 'top 55%', endTrigger: sec, end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
+    scrollTrigger: { trigger: sec, start: 'top 55%', end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
   })
-    .to(paths, { strokeDashoffset: 0, duration: 1, stagger: 0.08 }, 0)
-    .to(paths, { fillOpacity: 0.12, duration: 0.3 }, 0.85)
-    .fromTo('.tunel__art', { scale: 0.92 }, { scale: 1, duration: 1.15 }, 0);
+    .fromTo(art, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, 0)
+    .fromTo(art, { scale: 0.94 }, { scale: 1, duration: 1 }, 0);
   ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });

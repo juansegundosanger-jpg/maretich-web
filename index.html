@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=20">
+  <link rel="stylesheet" href="css/style.css?v=21">
   <script>
     // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -52,9 +52,9 @@
     <!-- 01 · Hero: el isologo y el logotipo se separan y abren el video (como CASA | MOMO) -->
     <section class="hero" id="inicio" data-nav="light">
       <div class="hero__media">
-        <video class="hero__video is-active" muted playsinline preload="auto" poster="assets/video/hero-terron.jpg?v=20" data-src="assets/video/hero-terron.mp4?v=20" data-src-m="assets/video/hero-terron-m.mp4?v=20"></video>
-        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-foresta.jpg?v=20" data-src="assets/video/hero-foresta.mp4?v=20" data-src-m="assets/video/hero-foresta-m.mp4?v=20"></video>
-        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-collado.jpg?v=20" data-src="assets/video/hero-collado.mp4?v=20" data-src-m="assets/video/hero-collado-m.mp4?v=20"></video>
+        <div class="hero__col"><video class="hero__video" muted playsinline loop preload="auto" poster="assets/video/hero-p1.jpg?v=21"><source src="assets/video/hero-p1.mp4?v=21" type="video/mp4"></video></div>
+        <div class="hero__col"><video class="hero__video" muted playsinline loop preload="auto" poster="assets/video/hero-p2.jpg?v=21"><source src="assets/video/hero-p2.mp4?v=21" type="video/mp4"></video></div>
+        <div class="hero__col"><video class="hero__video" muted playsinline loop preload="auto" poster="assets/video/hero-p3.jpg?v=21"><source src="assets/video/hero-p3.mp4?v=21" type="video/mp4"></video></div>
         <div class="hero__shade"></div>
       </div>
       <div class="hero__copy">
@@ -70,12 +70,12 @@
         <span class="dis__line"><span>aberturas de madera.</span></span>
       </h2>
       <div class="dis__media" aria-hidden="true">
-        <img src="assets/img/galeria-1.jpg?v=9" alt="">
-        <img src="assets/img/galeria-2.jpg?v=9" alt="">
-        <img src="assets/img/galeria-3.jpg?v=9" alt="">
-        <img src="assets/img/galeria-4.jpg?v=9" alt="">
-        <img src="assets/img/galeria-5.jpg?v=9" alt="">
-        <img src="assets/img/galeria-6.jpg?v=9" alt="">
+        <img src="assets/img/galeria-1.jpg?v=21" alt="">
+        <img src="assets/img/galeria-2.jpg?v=21" alt="">
+        <img src="assets/img/galeria-3.jpg?v=21" alt="">
+        <img src="assets/img/galeria-4.jpg?v=21" alt="">
+        <img src="assets/img/galeria-5.jpg?v=21" alt="">
+        <img src="assets/img/galeria-6.jpg?v=21" alt="">
       </div>
       <p class="dis__desc">
         <span class="dis__dl"><span>Acompañamos cada etapa, desde la planificación</span></span>
@@ -99,7 +99,7 @@
         <figure class="ob__img"><img src="assets/img/obra-1.jpg?v=20" alt="Puerta pivotante de madera en el ingreso de una vivienda"></figure>
         <figure class="ob__img"><img src="assets/img/obra-2.jpg?v=20" alt="Escalera y puertas de una casa de arquitectura contemporánea"></figure>
         <figure class="ob__img"><img src="assets/img/obra-3.jpg?v=20" alt="Hall de un condominio revestido en madera"></figure>
-        <figure class="ob__img"><img src="assets/img/obra-4.jpg?v=20" alt="Puerta de madera con cerradura electrónica en una unidad"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-4.jpg?v=21" alt="Living de una unidad con puerta de madera"></figure>
 
         <div class="ob__hero">
           <span class="mask"><span class="ob__hp label">Tu obra</span></span>
@@ -146,7 +146,7 @@
     <div id="lineas">
       <section class="linea" data-line="medida" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=20"><source src="assets/video/medida.mp4?v=20" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=21"><source src="assets/video/medida.mp4?v=21" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
@@ -158,7 +158,7 @@
       </section>
       <section class="linea" data-line="pre" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=20"><source src="assets/video/pre.mp4?v=20" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=21"><source src="assets/video/pre.mp4?v=21" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
@@ -233,6 +233,6 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/main.js?v=20"></script>
+  <script src="js/main.js?v=21"></script>
 </body>
 </html>
