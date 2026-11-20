@@ -105,13 +105,12 @@ function initHero() {
   ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', pin: true, pinSpacing: false });
   gsap.to('.hero__copy', { y: -80, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '70% top', scrub: true } });
 
-  // tres videos verticales en loop (puertas que se abren y cierran, en cámara lenta); arrancan desfasados
-  const vids = $$('.hero__video');
-  const play = () => vids.forEach((v, k) => { if (v.offsetParent === null) return; if (!v.dataset.started) { v.dataset.started = 1; try { v.currentTime = k * 2.3; } catch (_) {} } const p = v.play(); if (p) p.catch(() => {}); });
-  const pause = () => vids.forEach((v) => v.pause());
+  // un solo video horizontal en loop (planos generales de obra, en cámara lenta)
+  const v = $('.hero__video');
+  const play = () => { const p = v.play(); if (p) p.catch(() => {}); };
   play();
-  ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? play() : pause()) });
-  document.addEventListener('visibilitychange', () => (document.hidden ? pause() : play()));
+  ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? play() : v.pause()) });
+  document.addEventListener('visibilitychange', () => (document.hidden ? v.pause() : play()));
 }
 
 // ---------- 02 Diseñamos y fabricamos (Bulletproof) ----------
@@ -192,16 +191,35 @@ function initDisenamos() {
 // ---------- 03 Cada obra tiene su puerta (túnel) ----------
 // Las puertas recortadas vienen desde el fondo hacia la cámara mientras se scrollea, como en "Feel at home".
 function initTunel() {
-  // el isologo de fondo se dibuja (aparece de abajo hacia arriba, como crece la hoja) al bajar y se desdibuja al subir
+  // el isologo se dibuja siguiendo su contorno a medida que se scrollea (y se desdibuja al subir).
+  // Una máscara recorre el borde de cada forma con un pincel ancho: se ve el logo relleno, sin línea de trazo.
   const sec = $('.tunel');
   const art = $('.tunel__art', sec);
-  gsap.set(art, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
+  const svg = $('svg', art);
+  const NS = 'http://www.w3.org/2000/svg';
+  const paths = $$('path', svg);
+  const mask = document.createElementNS(NS, 'mask');
+  mask.setAttribute('id', 'isoDraw'); mask.setAttribute('maskUnits', 'userSpaceOnUse');
+  const vb = svg.viewBox.baseVal;
+  mask.setAttribute('x', vb.x); mask.setAttribute('y', vb.y); mask.setAttribute('width', vb.width); mask.setAttribute('height', vb.height);
+  const strokes = paths.map((p) => {
+    const m = p.cloneNode(); m.removeAttribute('fill-opacity');
+    m.setAttribute('fill', '#fff'); m.setAttribute('fill-opacity', '0');
+    m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', '7'); m.setAttribute('stroke-linecap', 'round'); m.setAttribute('stroke-linejoin', 'round');
+    mask.appendChild(m); return m;
+  });
+  let defs = $('defs', svg); if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.prepend(defs); }
+  defs.appendChild(mask);
+  const g = document.createElementNS(NS, 'g'); g.setAttribute('mask', 'url(#isoDraw)');
+  paths.forEach((p) => g.appendChild(p)); svg.appendChild(g);
+  strokes.forEach((m) => { const L = m.getTotalLength(); gsap.set(m, { attr: { 'stroke-dasharray': L, 'stroke-dashoffset': L } }); });
+
   gsap.timeline({
     defaults: { ease: 'none' },
     scrollTrigger: { trigger: sec, start: 'top 55%', end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
   })
-    .fromTo(art, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1, ease: 'power1.inOut' }, 0)
-    .fromTo(art, { scale: 0.94 }, { scale: 1, duration: 1 }, 0);
+    .to(strokes, { attr: { 'stroke-dashoffset': 0 }, duration: 1, stagger: 0.06 }, 0)
+    .to(strokes, { attr: { 'fill-opacity': 1 }, duration: 0.2 }, 0.95);
   ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });
