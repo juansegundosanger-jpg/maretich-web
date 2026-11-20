@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=19">
+  <link rel="stylesheet" href="css/style.css?v=20">
   <script>
     // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -52,14 +52,13 @@
     <!-- 01 · Hero: el isologo y el logotipo se separan y abren el video (como CASA | MOMO) -->
     <section class="hero" id="inicio" data-nav="light">
       <div class="hero__media">
-        <video class="hero__video is-active" muted playsinline preload="auto" poster="assets/video/hero-1.jpg?v=6"><source src="assets/video/hero-1.mp4?v=6" type="video/mp4"></video>
-        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-2.jpg?v=6"><source src="assets/video/hero-2.mp4?v=6" type="video/mp4"></video>
-        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-3.jpg?v=6"><source src="assets/video/hero-3.mp4?v=6" type="video/mp4"></video>
-        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-4.jpg?v=6"><source src="assets/video/hero-4.mp4?v=6" type="video/mp4"></video>
+        <video class="hero__video is-active" muted playsinline preload="auto" poster="assets/video/hero-terron.jpg?v=20" data-src="assets/video/hero-terron.mp4?v=20" data-src-m="assets/video/hero-terron-m.mp4?v=20"></video>
+        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-foresta.jpg?v=20" data-src="assets/video/hero-foresta.mp4?v=20" data-src-m="assets/video/hero-foresta-m.mp4?v=20"></video>
+        <video class="hero__video" muted playsinline preload="metadata" poster="assets/video/hero-collado.jpg?v=20" data-src="assets/video/hero-collado.mp4?v=20" data-src-m="assets/video/hero-collado-m.mp4?v=20"></video>
         <div class="hero__shade"></div>
       </div>
       <div class="hero__copy">
-        <h1 class="hero__title">Un <em>marco firme</em><br>en todo lo que<br>hacemos.</h1>
+        <h1 class="hero__title">Un marco firme<br>en todo lo que<br>hacemos.</h1>
         <p class="hero__sub">Puertas de madera a medida y pre-diseñadas,<br>para casas, edificios y desarrollos de todo<br>el país.</p>
       </div>
     </section>
@@ -83,35 +82,24 @@
         <span class="dis__dl"><span>hasta la instalación final, junto a arquitectos</span></span>
         <span class="dis__dl"><span>y equipos de obra, con maderas reforestadas.</span></span>
       </p>
-      <a class="pill dis__btn" href="#empresa">Conocé la fábrica <span aria-hidden="true">→</span></a>
+      <a class="pill dis__btn" href="#empresa">Conocé la fábrica</a>
     </section>
 
     <!-- 03 · Cada obra tiene su puerta (túnel de puertas, como "Feel at home") -->
     <section class="tunel" data-nav="light" aria-label="Cada obra tiene su puerta">
       <div class="tunel__stage">
         <div class="tunel__art" aria-hidden="true"><span data-svg="assets/isologo.svg?v=6"></span></div>
-        <h2 class="tunel__title">Cada obra<br><em>tiene su puerta.</em></h2>
-        <div class="tunel__space" aria-hidden="true">
-          <img class="tunel__door" src="assets/img/puerta-1.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-2.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-3.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-6.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-5.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-4.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-2.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-1.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-6.webp?v=6" alt="">
-          <img class="tunel__door" src="assets/img/puerta-3.webp?v=6" alt="">
-        </div>
+        <h2 class="tunel__title">Cada obra<br>tiene su puerta.</h2>
       </div>
     </section>
 
     <!-- 04 · Tu obra (como Still/Form después de "Not every space needs to be grand") -->
     <section class="obras" id="tu-obra" data-nav="dark">
       <div class="obras__stage">
-        <figure class="ob__img"><img src="assets/img/obra-1.jpg?v=6" alt="Puerta de ingreso de madera en una vivienda familiar"></figure>
-        <figure class="ob__img"><img src="assets/img/obra-2.jpg?v=9" alt="Condominio con aberturas de madera"></figure>
-        <figure class="ob__img"><img src="assets/img/obra-3.jpg?v=6" alt="Unidad de un proyecto con puertas de la línea Pre-diseñada"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-1.jpg?v=20" alt="Puerta pivotante de madera en el ingreso de una vivienda"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-2.jpg?v=20" alt="Escalera y puertas de una casa de arquitectura contemporánea"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-3.jpg?v=20" alt="Hall de un condominio revestido en madera"></figure>
+        <figure class="ob__img"><img src="assets/img/obra-4.jpg?v=20" alt="Puerta de madera con cerradura electrónica en una unidad"></figure>
 
         <div class="ob__hero">
           <span class="mask"><span class="ob__hp label">Tu obra</span></span>
@@ -123,26 +111,33 @@
             <span class="mask ob__lab"><span class="ob__p label">01 · Viviendas familiares</span></span>
             <h3><span class="mask"><span class="ob__p">Estoy haciendo</span></span><span class="mask"><span class="ob__p">mi casa.</span></span></h3>
             <span class="mask"><span class="ob__p ob__body">Puertas de ingreso e interiores a medida, relevadas en obra. Consultanos con el plano en la mano: llegamos con tiempo y sin apuro.</span></span>
-            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Vivienda.%20Quiero%20consultar%20por%20puertas%20para%20mi%20casa." target="_blank" rel="noopener">Consultar por mi casa <span aria-hidden="true">→</span></a></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Vivienda.%20Quiero%20consultar%20por%20puertas%20para%20mi%20casa." target="_blank" rel="noopener">Consultar por mi casa</a></span>
           </div>
           <div class="ob__text">
-            <span class="mask ob__lab"><span class="ob__p label">02 · Grandes obras</span></span>
+            <span class="mask ob__lab"><span class="ob__p label">02 · Arquitectos</span></span>
+            <h3><span class="mask"><span class="ob__p">Diseño la obra</span></span><span class="mask"><span class="ob__p">y especifico.</span></span></h3>
+            <span class="mask"><span class="ob__p ob__body">Acompañamos al estudio desde el proyecto: fichas técnicas, muestras y piezas a medida para que lo dibujado se construya tal cual.</span></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Soy%20arquitecto%20y%20quiero%20consultar%20por%20un%20proyecto." target="_blank" rel="noopener">Consultar por mi estudio</a></span>
+          </div>
+          <div class="ob__text">
+            <span class="mask ob__lab"><span class="ob__p label">03 · Grandes obras</span></span>
             <h3><span class="mask"><span class="ob__p">Construyo edificios</span></span><span class="mask"><span class="ob__p">y desarrollos.</span></span></h3>
             <span class="mask"><span class="ob__p ob__body">Más de 145 entregas por mes, condominios terminados y logística a todo el país. Consultanos al armar el pliego.</span></span>
-            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Obra%20grande.%20Consulto%20por%20aberturas%20para%20un%20desarrollo." target="_blank" rel="noopener">Consultar por mi obra <span aria-hidden="true">→</span></a></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Obra%20grande.%20Consulto%20por%20aberturas%20para%20un%20desarrollo." target="_blank" rel="noopener">Consultar por mi obra</a></span>
           </div>
           <div class="ob__text">
-            <span class="mask ob__lab"><span class="ob__p label">03 · Inversores</span></span>
+            <span class="mask ob__lab"><span class="ob__p label">04 · Inversores</span></span>
             <h3><span class="mask"><span class="ob__p">Invierto en un proyecto</span></span><span class="mask"><span class="ob__p">de varias unidades.</span></span></h3>
             <span class="mask"><span class="ob__p ob__body">La línea Pre-diseñada como decisión segura: costo y plazo previsibles por unidad. Consultanos al definir el proyecto.</span></span>
-            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Inversor.%20Consulto%20por%20un%20proyecto%20de%20varias%20unidades." target="_blank" rel="noopener">Consultar por mi proyecto <span aria-hidden="true">→</span></a></span>
+            <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Inversor.%20Consulto%20por%20un%20proyecto%20de%20varias%20unidades." target="_blank" rel="noopener">Consultar por mi proyecto</a></span>
           </div>
         </div>
 
         <ol class="ob__titles" aria-hidden="true">
-          <li class="ob__t"><i>01</i>Viviendas</li>
-          <li class="ob__t"><i>02</i>Grandes obras</li>
-          <li class="ob__t"><i>03</i>Inversores</li>
+          <li class="ob__t"><span class="ob__n">01</span>Viviendas</li>
+          <li class="ob__t"><span class="ob__n">02</span>Arquitectos</li>
+          <li class="ob__t"><span class="ob__n">03</span>Grandes obras</li>
+          <li class="ob__t"><span class="ob__n">04</span>Inversores</li>
         </ol>
       </div>
     </section>
@@ -151,28 +146,26 @@
     <div id="lineas">
       <section class="linea" data-line="medida" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=6"><source src="assets/video/medida.mp4?v=6" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/medida.jpg?v=20"><source src="assets/video/medida.mp4?v=20" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
           <p class="label linea__label">Línea a medida</p>
           <h2 class="linea__title">Aberturas únicas<br>para cada espacio.</h2>
           <p class="linea__body">Para proyectos que piden una resolución particular.<br>Relevamos la obra y fabricamos la pieza exacta, en<br>MDF, enchapada o madera maciza.</p>
-          <p class="linea__links"><a href="#a-medida-interior">Interior</a><a href="#a-medida-exterior">Exterior</a><a href="#a-medida-herrajes">Herrajes</a></p>
-          <a class="pill" href="https://wa.me/?text=Hola.%20Quiero%20consultar%20por%20la%20l%C3%ADnea%20A%20medida.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio." target="_blank" rel="noopener">Consultar por a medida <span aria-hidden="true">→</span></a>
+          <a class="pill" href="#catalogo-a-medida">Ver a medida</a>
         </div>
       </section>
       <section class="linea" data-line="pre" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=6"><source src="assets/video/pre.mp4?v=6" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=20"><source src="assets/video/pre.mp4?v=20" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
           <p class="label linea__label">Línea pre-diseñada</p>
           <h2 class="linea__title">Una selección de<br>diseños resueltos.</h2>
           <p class="linea__body">Modelos y medidas estándar para resolver la obra<br>con más agilidad: costo previsible, plazos cortos,<br>planificación simple e instalación sin sorpresas.</p>
-          <p class="linea__links"><a href="#pre-disenada-interior">Interior</a><a href="#pre-disenada-exterior">Exterior</a><a href="#pre-disenada-herrajes">Herrajes</a></p>
-          <a class="pill" href="https://wa.me/?text=Hola.%20Quiero%20consultar%20por%20la%20l%C3%ADnea%20Pre-dise%C3%B1ada.%20Vengo%20de%20la%20p%C3%A1gina%20de%20inicio." target="_blank" rel="noopener">Consultar por pre-diseñada <span aria-hidden="true">→</span></a>
+          <a class="pill" href="#catalogo-pre-disenada">Ver pre-diseñada</a>
         </div>
       </section>
     </div>
@@ -181,26 +174,25 @@
     <section class="proyectos" id="proyectos" data-nav="dark">
       <header class="proyectos__head">
         <p class="label label--ink" data-reveal>Proyectos seleccionados</p>
-        <h2 class="sec-title" data-lines>Casas, edificios y desarrollos,<br>en Córdoba y en todo el país.</h2>
       </header>
-      <ul class="plist" role="list" data-metas='A medida · Listello · [Río Cuarto, 2017]|A medida · Milord · [Recoleta, 2024]|Pre-diseñada · 240 unidades · [Mendoza, 2022]|Pre-diseñada · 820 unidades · [Córdoba, 2022]|A medida · Milord · [Córdoba, 2019]'>
-        <li class="plist__item" style="--x:-5vw"><a href="#casa-altos-c" data-i="0"><span class="plist__nr" data-t="01">01</span><span class="plist__mask"><span class="plist__name" data-t="Casa Altos C">Casa Altos C</span></span></a></li>
-        <li class="plist__item" style="--x:3vw"><a href="#casa-ashi" data-i="1"><span class="plist__nr" data-t="02">02</span><span class="plist__mask"><span class="plist__name" data-t="Casa Ashi">Casa Ashi</span></span></a></li>
-        <li class="plist__item" style="--x:10vw"><a href="#condominio-foresta" data-i="2"><span class="plist__nr" data-t="03">03</span><span class="plist__mask"><span class="plist__name" data-t="Condominio Foresta">Condominio Foresta</span></span></a></li>
-        <li class="plist__item" style="--x:-5vw"><a href="#edificio-capitalinas" data-i="3"><span class="plist__nr" data-t="04">04</span><span class="plist__mask"><span class="plist__name" data-t="Edificio Capitalinas">Edificio Capitalinas</span></span></a></li>
-        <li class="plist__item" style="--x:2vw"><a href="#casa-furca" data-i="4"><span class="plist__nr" data-t="05">05</span><span class="plist__mask"><span class="plist__name" data-t="Casa Furca">Casa Furca</span></span></a></li>
+      <ul class="plist" role="list" data-metas='Vivienda unifamiliar|Vivienda unifamiliar|Vivienda unifamiliar|Pre-diseñada · 240 unidades · [Mendoza, 2022]|Vivienda unifamiliar'>
+        <li class="plist__item" style="--x:-5vw"><a href="#casa-el-terron" data-i="0"><span class="plist__nr" data-t="01">01</span><span class="plist__mask"><span class="plist__name" data-t="Casa El Terrón">Casa El Terrón</span></span></a></li>
+        <li class="plist__item" style="--x:3vw"><a href="#casa-henry" data-i="1"><span class="plist__nr" data-t="02">02</span><span class="plist__mask"><span class="plist__name" data-t="Casa Henry">Casa Henry</span></span></a></li>
+        <li class="plist__item" style="--x:10vw"><a href="#casa-bosch" data-i="2"><span class="plist__nr" data-t="03">03</span><span class="plist__mask"><span class="plist__name" data-t="Casa Bosch">Casa Bosch</span></span></a></li>
+        <li class="plist__item" style="--x:-5vw"><a href="#condominio-foresta" data-i="3"><span class="plist__nr" data-t="04">04</span><span class="plist__mask"><span class="plist__name" data-t="Condominio Foresta">Condominio Foresta</span></span></a></li>
+        <li class="plist__item" style="--x:2vw"><a href="#casa-torres" data-i="4"><span class="plist__nr" data-t="05">05</span><span class="plist__mask"><span class="plist__name" data-t="Casa Torres">Casa Torres</span></span></a></li>
       </ul>
       <div class="plist__poster" aria-hidden="true">
         <div class="plist__imgs">
-          <img src="assets/img/proy-1.jpg?v=6" alt="">
-          <img src="assets/img/proy-2.jpg?v=6" alt="">
-          <img src="assets/img/proy-3.jpg?v=6" alt="">
-          <img src="assets/img/proy-4.jpg?v=6" alt="">
-          <img src="assets/img/proy-5.jpg?v=6" alt="">
+          <img src="assets/img/proy-1.jpg?v=20" alt="">
+          <img src="assets/img/proy-2.jpg?v=20" alt="">
+          <img src="assets/img/proy-3.jpg?v=20" alt="">
+          <img src="assets/img/proy-4.jpg?v=20" alt="">
+          <img src="assets/img/proy-5.jpg?v=20" alt="">
         </div>
-        <p class="plist__cap"><em class="plist__cap-name"></em><span class="plist__cap-meta"></span></p>
+        <p class="plist__cap"><span class="plist__cap-name"></span><span class="plist__cap-meta"></span></p>
       </div>
-      <div class="proyectos__more"><a class="pill" href="#proyectos-todos">Ver todos los proyectos <span aria-hidden="true">→</span></a></div>
+      <div class="proyectos__more"><a class="pill" href="#proyectos-todos">Ver todos los proyectos</a></div>
     </section>
 
     <!-- 07 · Sobre la empresa -->
@@ -217,10 +209,6 @@
       <p class="empresa__note" data-reveal>Madera de bosques reforestados, 80% de<br>energía solar y una fábrica que no desperdicia.</p>
     </section>
 
-    <!-- 08 · Tira -->
-    <section class="tira" aria-label="Aberturas de madera" data-nav="dark">
-      <div class="tira__track"><span class="tira__item" data-svg="assets/bajada.svg?v=6"></span><span class="tira__item" data-svg="assets/bajada.svg?v=6"></span><span class="tira__item" data-svg="assets/bajada.svg?v=6"></span><span class="tira__item" data-svg="assets/bajada.svg?v=6"></span></div>
-    </section>
 
   </main>
 
@@ -245,6 +233,6 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/main.js?v=16"></script>
+  <script src="js/main.js?v=20"></script>
 </body>
 </html>

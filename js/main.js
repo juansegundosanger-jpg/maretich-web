@@ -105,22 +105,30 @@ function initHero() {
   ScrollTrigger.create({ trigger: '.hero', start: 'top top', end: 'bottom top', pin: true, pinSpacing: false });
   gsap.to('.hero__copy', { y: -80, autoAlpha: 0, ease: 'none', scrollTrigger: { trigger: '.hero', start: 'top top', end: '70% top', scrub: true } });
 
-  // mezcla de videos que se funden entre sí
+  // tres videos de obra (en cámara lenta): cada uno se reproduce entero y se funde con el siguiente
   const vids = $$('.hero__video');
-  let i = 0, timer = null;
-  const SHOW = 5200;
+  const small = window.matchMedia('(max-aspect-ratio: 4/5)').matches;   // celular en vertical: versión vertical
+  vids.forEach((v) => { v.src = small ? v.dataset.srcM : v.dataset.src; });
+  let i = 0, timer = null, running = false;
   const playOne = (v) => { try { v.currentTime = 0; } catch (_) {} const p = v.play(); if (p) p.catch(() => {}); };
   const warm = (v) => { if (v.preload !== 'auto') { v.preload = 'auto'; v.load(); } };
+  const schedule = () => {
+    clearTimeout(timer);
+    const v = vids[i], dur = isFinite(v.duration) && v.duration > 2 ? v.duration : 12;
+    timer = setTimeout(next, Math.max(2000, (dur - 1.1) * 1000));
+  };
   const next = () => {
     const cur = vids[i]; i = (i + 1) % vids.length; const nxt = vids[i];
     warm(nxt); playOne(nxt); nxt.classList.add('is-active');
     setTimeout(() => cur.classList.remove('is-active'), 60);
     setTimeout(() => cur.pause(), 1800);
     warm(vids[(i + 1) % vids.length]);
+    schedule();
   };
+  vids[0].addEventListener('loadedmetadata', () => { if (running) schedule(); }, { once: true });
   playOne(vids[0]); warm(vids[1]);
-  const start = () => { if (!timer && !reduce) timer = setInterval(next, SHOW); };
-  const stop = () => { clearInterval(timer); timer = null; };
+  const start = () => { if (!running && !reduce) { running = true; schedule(); } };
+  const stop = () => { running = false; clearTimeout(timer); };
   start();
   ScrollTrigger.create({ trigger: '.hero', start: 'top bottom', end: 'bottom top', onToggle: (s) => (s.isActive ? (playOne(vids[i]), start()) : (stop(), vids.forEach((v) => v.pause()))) });
   document.addEventListener('visibilitychange', () => (document.hidden ? stop() : start()));
@@ -204,27 +212,18 @@ function initDisenamos() {
 // ---------- 03 Cada obra tiene su puerta (túnel) ----------
 // Las puertas recortadas vienen desde el fondo hacia la cámara mientras se scrollea, como en "Feel at home".
 function initTunel() {
+  // el isologo de fondo se dibuja trazo a trazo al bajar y se desdibuja al subir; tramo corto (unos 3 scrolls)
   const sec = $('.tunel');
-  const doors = $$('.tunel__door', sec);
-  // posición en pantalla (vw, vh) por la que pasa cada puerta, alrededor del texto
-  const spots = [[-30, -16], [29, 18], [-24, 24], [33, -22], [-38, 3], [38, 4], [-14, -30], [16, 30], [-32, 26], [30, -6]];
-  const tilt = [-4, 3, 2, -3, 4, -2, 3, -4, -2, 3];
-
-  const tl = gsap.timeline({
+  const paths = $$('.tunel__art path', sec);
+  paths.forEach((p) => { const L = p.getTotalLength(); gsap.set(p, { strokeDasharray: L, strokeDashoffset: L }); });
+  gsap.timeline({
     defaults: { ease: 'none' },
-    scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 4, pin: '.tunel__stage', scrub: 0.8, invalidateOnRefresh: true },
-  });
-  doors.forEach((d, k) => {
-    const [x, y] = spots[k % spots.length];
-    const at = k * 0.42;
-    tl.fromTo(d,
-      { x: () => (x * window.innerWidth) / 100, y: () => (y * window.innerHeight) / 100, z: -4200, rotate: tilt[k], autoAlpha: 0 },
-      { z: 950, rotate: tilt[k] * 0.3, duration: 3.2 }, at)
-      .to(d, { autoAlpha: 1, duration: 0.6 }, at);
-  });
-  // el texto respira un poco y el dibujo de fondo se acerca
-  tl.fromTo('.tunel__art', { scale: 0.85 }, { scale: 1.35, duration: tl.duration() }, 0)
-    .fromTo('.tunel__title', { scale: 0.96 }, { scale: 1.04, duration: tl.duration() }, 0);
+    scrollTrigger: { trigger: sec, start: 'top 55%', endTrigger: sec, end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
+  })
+    .to(paths, { strokeDashoffset: 0, duration: 1, stagger: 0.08 }, 0)
+    .to(paths, { fillOpacity: 0.12, duration: 0.3 }, 0.85)
+    .fromTo('.tunel__art', { scale: 0.92 }, { scale: 1, duration: 1.15 }, 0);
+  ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });
   gsap.from(t.lines, { yPercent: 110, duration: 1.3, stagger: 0.12, ease: EASE_OUT, scrollTrigger: { trigger: sec, start: 'top 60%' } });
@@ -353,7 +352,8 @@ function initLineas() {
       onToggle: (s) => { if (s.isActive) { if (v.preload !== 'auto') v.preload = 'auto'; const p = v.play(); if (p) p.catch(() => {}); } else v.pause(); },
     });
     const t = new SplitText($('.linea__title', sec), { type: 'lines', mask: 'lines' });
-    const rest = [$('.linea__body', sec), $('.linea__links', sec), $('.pill', sec)];
+    const rest = [$('.linea__body', sec), $('.pill', sec)];
+    const light = sec.dataset.line === 'pre';   // pre-diseñada: entra sobre el color claro del manual con el título en marrón
 
     // dónde está el título en el diseño y cuánto hay que moverlo para que arranque grande al centro
     const big = () => {
@@ -365,7 +365,7 @@ function initLineas() {
     if (reduce) { playWhileVisible(); return; }
     gsap.set(media, { scale: 0, borderRadius: 2000, opacity: 0 });
     // force3D:false para que el navegador redibuje el texto a cada tamaño (si no, al agrandarse se ve pixelado)
-    gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0, force3D: false });
+    gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0, force3D: false, color: light ? '#38261c' : '#ffffff' });
     gsap.set(t.lines, { yPercent: 110 });
     gsap.set(rest, { autoAlpha: 0, y: 16 });
 
@@ -375,6 +375,7 @@ function initLineas() {
       .to({}, { duration: 0.15 })
       .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
       .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa', force3D: false }, 0.15)
+      .to(label, { color: '#ffffff', duration: 0.5 }, 0.6)
       .to(label, { '--ln': 1, duration: 0.35, ease: 'power2.inOut' }, 1.05)
       .to(t.lines, { yPercent: 0, duration: 0.5, stagger: 0.08, ease: 'power3.out' }, 1.0)
       .to(rest, { autoAlpha: 1, y: 0, duration: 0.45, stagger: 0.07, ease: 'power3.out' }, 1.15)
@@ -456,18 +457,6 @@ function initEmpresa() {
 }
 
 // ---------- 08 Tira: ABERTURAS · DE MADERA, de izquierda a derecha sin fin ----------
-function initTira() {
-  const track = $('.tira__track');
-  track.innerHTML += track.innerHTML;
-  if (reduce) return;
-  const loop = gsap.fromTo(track, { xPercent: -50 }, { xPercent: 0, duration: 38, ease: 'none', repeat: -1 });
-  ScrollTrigger.create({
-    trigger: '.tira', start: 'top bottom', end: 'bottom top',
-    onUpdate: (s) => { const v = Math.min(Math.abs(s.getVelocity()) / 350, 6); gsap.to(loop, { timeScale: 1 + v, duration: 0.25, overwrite: true }); gsap.to(loop, { timeScale: 1, duration: 1.4, delay: 0.25 }); },
-  });
-}
-
-// ---------- Títulos y textos ----------
 function initTexts() {
   $$('[data-lines]').forEach((el) => {
     const s = new SplitText(el, { type: 'lines', mask: 'lines' });
@@ -520,7 +509,6 @@ function initNav() {
   initLineas();
   initProyectos();
   initEmpresa();
-  initTira();
   initTexts();
   initNav();
   ScrollTrigger.refresh();
