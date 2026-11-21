@@ -474,13 +474,27 @@ function initEmpresa() {
 }
 
 // ---------- 08 Tira: ABERTURAS · DE MADERA, de izquierda a derecha sin fin ----------
+// ---------- Footer: entra con parallax (el contenido sube desde abajo), columnas en cascada y el logo grande se revela ----------
+function initFooter() {
+  const f = $('.footer');
+  if (!f) return;
+  gsap.fromTo('.footer__inner', { yPercent: -28 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom bottom', scrub: true } });
+  gsap.from('.footer__col', { y: 30, autoAlpha: 0, duration: 1, stagger: 0.07, ease: EASE_OUT, scrollTrigger: { trigger: '.footer__cols', start: 'top 85%' } });
+  gsap.fromTo('.footer__logo', { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 12 }, { clipPath: 'inset(0% 0% 0% 0%)', yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer__brand', start: 'top 98%', end: 'bottom 92%', scrub: 0.6 } });
+  const up = $('.footer__up');
+  if (up) up.addEventListener('click', () => { const sm = ScrollSmoother.get(); if (sm) sm.scrollTo(0, true); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
+  const clock = $('[data-clock]');
+  const tick = () => { clock.textContent = new Intl.DateTimeFormat('es-AR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Argentina/Cordoba' }).format(new Date()); };
+  if (clock) { tick(); setInterval(tick, 30000); }
+}
+
 function initTexts() {
   $$('[data-lines]').forEach((el) => {
     const s = new SplitText(el, { type: 'lines', mask: 'lines' });
     gsap.from(s.lines, { yPercent: 110, duration: 1.3, stagger: 0.1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 85%' } });
   });
   $$('[data-reveal]').forEach((el) => gsap.from(el, { autoAlpha: 0, y: 14, duration: 1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 90%' } }));
-  gsap.from('.footer__logo', { yPercent: 30, autoAlpha: 0, duration: 1.6, ease: EASE_OUT, scrollTrigger: { trigger: '.footer__logo', start: 'top 95%' } });
+  initFooter();
 }
 
 // ---------- Navegación: transparente; se esconde al bajar y aparece al subir ----------

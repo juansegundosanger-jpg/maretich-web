@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=23">
+  <link rel="stylesheet" href="css/style.css?v=25">
   <script>
     // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -145,7 +145,7 @@
     <div id="lineas">
       <section class="linea" data-line="medida" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="auto" poster="assets/video/medida.jpg?v=23"><source src="assets/video/medida.mp4?v=23" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="auto" poster="assets/video/medida.jpg?v=26"><source src="assets/video/medida.mp4?v=26" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
@@ -157,7 +157,7 @@
       </section>
       <section class="linea" data-line="pre" data-nav="light">
         <div class="linea__media">
-          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=23"><source src="assets/video/pre.mp4?v=23" type="video/mp4"></video>
+          <video class="linea__video" muted loop playsinline preload="metadata" poster="assets/video/pre.jpg?v=26"><source src="assets/video/pre.mp4?v=26" type="video/mp4"></video>
           <div class="linea__shade"></div>
         </div>
         <div class="linea__copy">
@@ -213,16 +213,76 @@
 
     <!-- Footer -->
     <footer class="footer" id="contacto" data-nav="light">
-      <div class="footer__info">
-        <span class="footer__iso" data-svg="assets/isologo.svg?v=6"></span>
-        <p>Aberturas de madera<br><br>Raul Gorordo 820 -<br>Córdoba - Argentina</p>
-        <p><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a><br><br><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a></p>
+      <div class="footer__inner">
+        <div class="footer__top">
+          <p class="footer__claim">Un marco firme<br>en todo lo que hacemos.</p>
+          <div class="footer__cta">
+            <a class="pill pill--light" href="https://wa.me/5493516505913" target="_blank" rel="noopener">Hablemos de tu obra</a>
+            <button class="footer__up" type="button" aria-label="Volver arriba"><span>Volver arriba</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
+          </div>
+        </div>
+
+        <nav class="footer__cols" aria-label="Mapa del sitio">
+          <div class="footer__col">
+            <h4>Catálogo</h4>
+            <ul>
+              <li><a href="#lineas">Línea a medida</a></li>
+              <li><a href="#lineas">Línea pre-diseñada</a></li>
+              <li><a href="#lineas">Aberturas de interior</a></li>
+              <li><a href="#lineas">Aberturas de exterior</a></li>
+              <li><a href="#lineas">Herrajes</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Proyectos</h4>
+            <ul>
+              <li><a href="#casa-el-terron">Casa El Terrón</a></li>
+              <li><a href="#casa-henry">Casa Henry</a></li>
+              <li><a href="#casa-bosch">Casa Bosch</a></li>
+              <li><a href="#condominio-foresta">Condominio Foresta</a></li>
+              <li><a href="#proyectos">Ver todos</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Tu obra</h4>
+            <ul>
+              <li><a href="#tu-obra">Viviendas</a></li>
+              <li><a href="#tu-obra">Arquitectos</a></li>
+              <li><a href="#tu-obra">Grandes obras</a></li>
+              <li><a href="#tu-obra">Inversores</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Empresa</h4>
+            <ul>
+              <li><a href="#empresa">Nosotros</a></li>
+              <li><a href="#empresa">La fábrica</a></li>
+              <li><a href="#empresa">Sustentabilidad</a></li>
+              <li><a href="#empresa">Trabajá con nosotros</a></li>
+            </ul>
+          </div>
+          <div class="footer__col">
+            <h4>Contacto</h4>
+            <ul>
+              <li><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a></li>
+              <li><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a></li>
+              <li><a href="https://maps.google.com/?q=Raul+Gorordo+820+Cordoba" target="_blank" rel="noopener">Raúl Gorordo 820<br>Córdoba, Argentina</a></li>
+            </ul>
+          </div>
+        </nav>
+
+        <a class="footer__brand" href="#inicio" aria-label="Maretich, volver al inicio"><span class="footer__logo" data-svg="assets/logo-full.svg?v=8"></span></a>
+
+        <div class="footer__bar">
+          <p class="footer__copy">© 2026 Maretich Aberturas de Madera</p>
+          <p class="footer__time">Córdoba, AR · <span data-clock>--:--</span></p>
+          <ul class="footer__social" aria-label="Redes sociales">
+            <li><a href="#" aria-label="Instagram" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="17.4" cy="6.6" r="1.1" fill="currentColor"/></svg></a></li>
+            <li><a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-.95 1.83-1.95 3.77-1.95 4.03 0 4.77 2.5 4.77 5.75v5.7h-4v-5.05c0-1.2-.02-2.75-1.75-2.75-1.75 0-2.02 1.3-2.02 2.66v5.14h-4z"/></svg></a></li>
+            <li><a href="#" aria-label="X" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.75 3h3.07l-6.7 7.66L22 21h-6.17l-4.83-6.32L5.47 21H2.4l7.17-8.2L2 3h6.33l4.37 5.78zM16.67 19.17h1.7L7.4 4.73H5.58z"/></svg></a></li>
+          </ul>
+        </div>
       </div>
-      <nav class="footer__links" aria-label="Pie de página">
-        <a href="#lineas">Catálogo</a><a href="#proyectos">Proyectos</a><a href="#tu-obra">Tu obra</a><a href="#empresa">Empresa</a><a href="#contacto">Contacto</a>
-      </nav>
-      <p class="footer__copy">© 2026 Maretich Aberturas de Madera</p>
-      <span class="footer__logo" data-svg="assets/logo-full.svg?v=8"></span>
     </footer>
   </div>
   </div>
@@ -232,6 +292,6 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/main.js?v=24"></script>
+  <script src="js/main.js?v=25"></script>
 </body>
 </html>
