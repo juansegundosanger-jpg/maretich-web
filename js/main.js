@@ -202,45 +202,41 @@ function initTunel() {
   mask.setAttribute('id', 'isoDraw'); mask.setAttribute('maskUnits', 'userSpaceOnUse');
   const vb = svg.viewBox.baseVal;
   mask.setAttribute('x', vb.x); mask.setAttribute('y', vb.y); mask.setAttribute('width', vb.width); mask.setAttribute('height', vb.height);
-  // pincel: una copia del contorno, con trazo ancho, dentro de la máscara
-  const brush = (p) => {
-    const m = p.cloneNode(); m.removeAttribute('fill-opacity');
-    m.setAttribute('fill', 'none'); m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', '7');
-    m.setAttribute('stroke-linecap', 'butt'); m.setAttribute('stroke-linejoin', 'round');
+  // Líneas centrales del logo (calculadas del dibujo), en el orden en que se "escribe":
+  // 1) hoja izquierda hasta el pie del tallo, 2) del tallo a la hoja derecha, 3) hoja del medio de abajo-derecha a abajo-izquierda
+  const CENTER = ["M1111.60 544.06 L1110.90 546.36 L1109.40 548.76 L1103.50 554.76 L1099.30 558.36 L1095.80 560.96 L1091.90 561.96 L1091.50 561.56 L1091.70 556.06 L1092.60 551.36 L1093.90 546.96 L1094.40 543.26 L1094.00 542.96 L1089.00 542.46 L1084.80 541.46 L1080.70 539.96 L1077.90 538.56 L1072.50 535.06 L1065.40 529.46 L1063.00 527.26 L1062.10 524.96 L1062.70 523.46 L1063.10 523.06 L1067.60 520.56 L1068.30 519.56 L1068.10 515.96 L1067.20 510.66 L1067.00 508.16 L1067.00 506.86 L1067.20 506.66 L1071.50 507.06 L1077.00 508.66 L1080.10 509.06 L1081.80 507.86 L1084.10 504.36 L1084.80 503.56 L1085.40 503.26 L1086.20 502.96 L1087.50 503.26 L1088.60 503.66 L1089.80 504.66 L1097.90 512.66 L1104.50 520.66 L1107.50 524.96 L1110.40 529.66 L1114.50 537.76 L1117.20 544.96 L1118.90 551.16 L1119.30 553.56 L1120.80 554.76 L1121.20 555.36 L1121.20 574.16 L1120.20 575.06", "M1120.20 575.06 L1121.20 574.16 L1121.10 555.16 L1123.00 553.56 L1124.60 546.66 L1126.80 540.16 L1128.60 536.06 L1131.20 530.96 L1133.60 526.86 L1138.90 519.26 L1146.00 510.96 L1153.80 503.56 L1155.90 502.86 L1157.30 503.36 L1158.10 504.16 L1161.10 508.66 L1162.00 509.16 L1164.30 508.96 L1170.70 507.06 L1175.10 506.66 L1175.30 506.96 L1175.10 511.16 L1174.00 517.26 L1173.90 519.66 L1174.40 520.46 L1179.60 523.36 L1180.40 524.86 L1179.80 526.66 L1179.40 527.36 L1177.90 528.76 L1172.80 532.96 L1169.20 535.56 L1164.30 538.66 L1161.90 539.86 L1157.30 541.56 L1154.00 542.36 L1148.10 542.96 L1147.90 543.16 L1148.30 546.66 L1149.80 552.06 L1150.70 557.36 L1150.80 561.46 L1150.40 561.96 L1146.70 561.06 L1143.50 558.76 L1138.80 554.76 L1132.90 548.76 L1131.50 546.56 L1131.00 545.36 L1130.80 544.06", "M1125.20 529.26 L1125.10 528.26 L1129.60 520.96 L1133.30 513.76 L1138.00 502.36 L1139.50 497.66 L1141.20 490.86 L1141.70 487.66 L1141.80 483.46 L1141.40 483.16 L1137.90 483.66 L1132.60 485.06 L1129.60 485.26 L1128.90 484.86 L1128.20 484.06 L1123.10 475.36 L1122.70 474.96 L1121.00 474.26 L1119.40 474.96 L1118.90 475.46 L1113.70 484.06 L1112.50 484.96 L1108.80 484.66 L1104.80 483.66 L1101.10 483.16 L1100.60 483.16 L1100.30 483.86 L1100.60 488.26 L1101.50 492.86 L1103.20 499.06 L1105.90 506.66 L1109.30 514.36 L1113.40 522.16 L1117.60 529.16 L1121.80 535.26 L1122.20 538.76"];
+  const pens = CENTER.map((d) => {
+    const m = document.createElementNS(NS, 'path');
+    m.setAttribute('d', d); m.setAttribute('fill', 'none'); m.setAttribute('stroke', '#fff');
+    m.setAttribute('stroke-width', '6'); m.setAttribute('stroke-linecap', 'round'); m.setAttribute('stroke-linejoin', 'round');
     mask.appendChild(m); return m;
-  };
-  // paths[1] = las dos hojas unidas (izquierda + derecha); paths[0] = la hoja del medio
-  const outer = paths.find((p) => p.getTotalLength() > 600) || paths[paths.length - 1];
-  const middle = paths.find((p) => p !== outer);
-  const LO = outer.getTotalLength(), LM = middle.getTotalLength();
-  const S = LO * 0.15;          // punto del contorno donde empieza la hoja izquierda (abajo, en el centro)
-  const a1 = brush(outer), a2 = brush(outer), m1 = brush(middle), m2 = brush(middle);
-  const SM = LM * 0.46;         // abajo a la derecha de la hoja del medio
+  });
   const fillAll = paths.map((p) => { const f = p.cloneNode(); f.removeAttribute('fill-opacity'); f.setAttribute('fill', '#fff'); f.setAttribute('opacity', '0'); mask.appendChild(f); return f; });
   let defs = $('defs', svg); if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.prepend(defs); }
   defs.appendChild(mask);
   const g = document.createElementNS(NS, 'g'); g.setAttribute('mask', 'url(#isoDraw)');
   paths.forEach((p) => g.appendChild(p)); svg.appendChild(g);
-  // tramo 1: desde S hasta el final del contorno (hoja izquierda y luego la derecha)
-  const st = { a: 0, b: 0, c: 0, d: 0 };
+
+  const lens = pens.map((m) => m.getTotalLength());
+  const total = lens.reduce((s, l) => s + l, 0);
+  const st = { p: 0 };
   const render = () => {
-    a1.setAttribute('stroke-dasharray', `0 ${S} ${st.a * (LO - S)} ${LO * 2}`);
-    a2.setAttribute('stroke-dasharray', `${st.b * S} ${LO * 2}`);
-    // la del medio: arranca abajo a la derecha, sube, y termina abajo a la izquierda
-    m1.setAttribute('stroke-dasharray', `0 ${SM} ${st.c * (LM - SM)} ${LM * 2}`);
-    m2.setAttribute('stroke-dasharray', `${st.d * SM} ${LM * 2}`);
+    let left = st.p * total;
+    pens.forEach((m, i) => {
+      const d = Math.max(0, Math.min(lens[i], left)); left -= lens[i];
+      m.setAttribute('stroke-dasharray', `${d} ${lens[i] + 10}`);
+      m.style.visibility = d > 0.01 ? 'visible' : 'hidden';
+    });
   };
   render();
 
+  // empieza a dibujarse recién cuando la sección llega arriba (queda fija) y termina en unos 3 scrolls
   gsap.timeline({
-    defaults: { ease: 'none', onUpdate: render },
-    scrollTrigger: { trigger: sec, start: 'top 55%', end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
+    defaults: { ease: 'none' },
+    scrollTrigger: { trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, invalidateOnRefresh: true },
   })
-    .to(st, { a: 1, duration: (LO - S) / (LO + LM) })
-    .to(st, { b: 1, duration: S / (LO + LM) })
-    .to(st, { c: 1, duration: (LM - SM) / (LO + LM) })
-    .to(st, { d: 1, duration: SM / (LO + LM) })
-    .to(fillAll, { attr: { opacity: 1 }, duration: 0.08 });
+    .to(st, { p: 1, duration: 1, onUpdate: render })
+    .to(fillAll, { attr: { opacity: 1 }, duration: 0.06 }, 0.97);
   ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });
