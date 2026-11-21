@@ -102,6 +102,8 @@ body:not(.is-loading) .intro{display:none}
 .obras__stage{position:relative;height:100vh;height:100svh;overflow:hidden;background:#fff}
 .ob__img{position:absolute;overflow:hidden;will-change:left,top,width,height}
 .ob__img img{width:100%;height:100%;object-fit:cover;will-change:transform}
+/* degradado suave detrás de "Una puerta para cada escala" para que se lea sobre la foto (no se nota como bloque) */
+.ob__shade{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:0;background:radial-gradient(120% 90% at 0% 100%,rgba(30,20,14,.62) 0%,rgba(30,20,14,.34) 32%,rgba(30,20,14,0) 62%),linear-gradient(to top,rgba(30,20,14,.35),rgba(30,20,14,0) 45%)}
 .ob__hero{position:absolute;left:var(--edge);bottom:var(--edge);z-index:10;color:#fff}
 .ob__hero .label{margin-bottom:14px}
 .ob__hero-title{font-family:var(--serif);font-size:clamp(48px,7vw,104px);line-height:.92;letter-spacing:-.02em}

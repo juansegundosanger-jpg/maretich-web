@@ -202,24 +202,45 @@ function initTunel() {
   mask.setAttribute('id', 'isoDraw'); mask.setAttribute('maskUnits', 'userSpaceOnUse');
   const vb = svg.viewBox.baseVal;
   mask.setAttribute('x', vb.x); mask.setAttribute('y', vb.y); mask.setAttribute('width', vb.width); mask.setAttribute('height', vb.height);
-  const strokes = paths.map((p) => {
+  // pincel: una copia del contorno, con trazo ancho, dentro de la máscara
+  const brush = (p) => {
     const m = p.cloneNode(); m.removeAttribute('fill-opacity');
-    m.setAttribute('fill', '#fff'); m.setAttribute('fill-opacity', '0');
-    m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', '7'); m.setAttribute('stroke-linecap', 'round'); m.setAttribute('stroke-linejoin', 'round');
+    m.setAttribute('fill', 'none'); m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', '7');
+    m.setAttribute('stroke-linecap', 'butt'); m.setAttribute('stroke-linejoin', 'round');
     mask.appendChild(m); return m;
-  });
+  };
+  // paths[1] = las dos hojas unidas (izquierda + derecha); paths[0] = la hoja del medio
+  const outer = paths.find((p) => p.getTotalLength() > 600) || paths[paths.length - 1];
+  const middle = paths.find((p) => p !== outer);
+  const LO = outer.getTotalLength(), LM = middle.getTotalLength();
+  const S = LO * 0.15;          // punto del contorno donde empieza la hoja izquierda (abajo, en el centro)
+  const a1 = brush(outer), a2 = brush(outer), m1 = brush(middle), m2 = brush(middle);
+  const SM = LM * 0.46;         // abajo a la derecha de la hoja del medio
+  const fillAll = paths.map((p) => { const f = p.cloneNode(); f.removeAttribute('fill-opacity'); f.setAttribute('fill', '#fff'); f.setAttribute('opacity', '0'); mask.appendChild(f); return f; });
   let defs = $('defs', svg); if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.prepend(defs); }
   defs.appendChild(mask);
   const g = document.createElementNS(NS, 'g'); g.setAttribute('mask', 'url(#isoDraw)');
   paths.forEach((p) => g.appendChild(p)); svg.appendChild(g);
-  strokes.forEach((m) => { const L = m.getTotalLength(); gsap.set(m, { attr: { 'stroke-dasharray': L, 'stroke-dashoffset': L } }); });
+  // tramo 1: desde S hasta el final del contorno (hoja izquierda y luego la derecha)
+  const st = { a: 0, b: 0, c: 0, d: 0 };
+  const render = () => {
+    a1.setAttribute('stroke-dasharray', `0 ${S} ${st.a * (LO - S)} ${LO * 2}`);
+    a2.setAttribute('stroke-dasharray', `${st.b * S} ${LO * 2}`);
+    // la del medio: arranca abajo a la derecha, sube, y termina abajo a la izquierda
+    m1.setAttribute('stroke-dasharray', `0 ${SM} ${st.c * (LM - SM)} ${LM * 2}`);
+    m2.setAttribute('stroke-dasharray', `${st.d * SM} ${LM * 2}`);
+  };
+  render();
 
   gsap.timeline({
-    defaults: { ease: 'none' },
+    defaults: { ease: 'none', onUpdate: render },
     scrollTrigger: { trigger: sec, start: 'top 55%', end: () => 'top+=' + window.innerHeight * 0.6 + ' top', scrub: 0.6, invalidateOnRefresh: true },
   })
-    .to(strokes, { attr: { 'stroke-dashoffset': 0 }, duration: 1, stagger: 0.06 }, 0)
-    .to(strokes, { attr: { 'fill-opacity': 1 }, duration: 0.2 }, 0.95);
+    .to(st, { a: 1, duration: (LO - S) / (LO + LM) })
+    .to(st, { b: 1, duration: S / (LO + LM) })
+    .to(st, { c: 1, duration: (LM - SM) / (LO + LM) })
+    .to(st, { d: 1, duration: SM / (LO + LM) })
+    .to(fillAll, { attr: { opacity: 1 }, duration: 0.08 });
   ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });
@@ -237,6 +258,7 @@ function initObras() {
   const imgs = $$('.ob__img', stage);
   const inners = imgs.map((f) => f.querySelector('img'));
   const heroPieces = $$('.ob__hp', stage);
+  const shade = $('.ob__shade', stage);
   const texts = $$('.ob__text', stage).map((t) => $$('.ob__p', t));
   const textBoxes = $$('.ob__text', stage);
   const label = $('.ob__titles', stage);
@@ -282,6 +304,7 @@ function initObras() {
     imgs.forEach((im, i) => gsap.set(im, { ...css(pose(i, 0)), zIndex: d - i }));
     gsap.set(inners, { scale: (i) => (i === 0 ? 1 : 1.2) });
     gsap.set(heroPieces, { yPercent: 110, opacity: 0 });
+    gsap.set(shade, { opacity: 0 });
     texts.forEach((p) => gsap.set(p, { yPercent: 110, opacity: 0 }));
     gsap.set(label, { opacity: 0 });
 
@@ -295,6 +318,7 @@ function initObras() {
     const w = gsap.timeline({ paused: true });
     w.addLabel('hidden', 0);
     w.fromTo(heroPieces, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.09, ease: 'power3.out', immediateRender: false }, 0);
+    w.fromTo(shade, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out', immediateRender: false }, 0);
     w.addLabel('s0', 1);
     for (let e = 1; e <= d; e++) {
       const t = 1 + (e - 1) * 1.2, first = e === 1;
@@ -308,7 +332,7 @@ function initObras() {
         if (a !== b) w.to(inners[r], { scale: b, duration: 0.9, ease: 'power3.inOut' }, t);
       });
       if (prevIdx(e) !== prevIdx(e - 1)) { w.set(imgs[prevIdx(e)], { zIndex: 3 }, t); w.set(imgs[prevIdx(e - 1)], { zIndex: 2 }, t); }
-      if (first) w.fromTo(heroPieces, { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'power2.in', immediateRender: false }, t);
+      if (first) { w.fromTo(heroPieces, { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.4, stagger: 0.05, ease: 'power2.in', immediateRender: false }, t); w.fromTo(shade, { opacity: 1 }, { opacity: 0, duration: 0.5, ease: 'power1.inOut', immediateRender: false }, t); }
       else w.fromTo(texts[e - 2], { yPercent: 0, opacity: 1 }, { yPercent: -110, opacity: 0, duration: 0.2, stagger: 0.03, ease: 'power2.in', immediateRender: false }, t);
       w.call(((k) => () => { textBoxes.forEach((b, j) => b.classList.toggle('is-on', j === k)); })(e - 1), null, t + 0.3);
       w.to(texts[e - 1], { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.06, ease: 'power3.out' }, t + (first ? 0.55 : 0.35));
