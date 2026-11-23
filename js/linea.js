@@ -136,25 +136,37 @@ function initIntro() {
   const title = $('.has-intro .lm-hero__title');
   if (!intro || !title) return;
   if (reduce) { document.body.classList.remove('js-wait'); return; }
-  // la palabra arranca grande y blanca en el centro de la foto y baja hasta su lugar de título
-  const from = () => {
+  // dos capas del mismo texto: blanca sobre la foto y marrón fuera de ella, cortadas justo en el borde de la imagen
+  const txt = title.textContent.trim();
+  title.innerHTML = `<span class="t-base">${txt}</span><span class="t-ghost" aria-hidden="true">${txt}</span>`;
+  const base = $('.t-base', title), ghost = $('.t-ghost', title);
+  const docTop = (el) => el.getBoundingClientRect().top + (smoother ? smoother.scrollTop() : window.scrollY);
+  // la palabra queda quieta a media pantalla, con el tamaño y la posición del título, hasta que llega a su lugar
+  let S = 0;
+  const calc = () => { S = Math.max(0, docTop(title) - (window.innerHeight / 2 - title.offsetHeight / 2) - (gsap.getProperty(title, 'y') || 0)); };
+  const split = () => {
+    const edge = intro.getBoundingClientRect().bottom;
     const r = title.getBoundingClientRect();
-    const sc = smoother ? smoother.scrollTop() : window.scrollY;
-    const top = r.top + sc;                       // posición en la página, sin el scroll actual
-    const scale = Math.min(3.4, (window.innerWidth * 0.6) / r.width);
-    return { x: window.innerWidth / 2 - (r.width * scale) / 2 - r.left, y: window.innerHeight / 2 - (top + r.height / 2), scale };
+    const white = Math.max(0, Math.min(r.height, edge - r.top));
+    ghost.style.clipPath = `inset(0 0 ${r.height - white}px 0)`;
+    base.style.clipPath = `inset(${white}px 0 0 0)`;
   };
-  let F = null;
-  const measure = () => { gsap.set(title, { clearProps: 'transform' }); F = from(); };
-  measure();
-  gsap.set(title, { x: F.x, y: F.y, scale: F.scale, color: '#e6e5e0', force3D: false });
+  calc();
+  gsap.set(title, { y: -S });
   document.body.classList.remove('js-wait');
-  const tl = gsap.timeline({ scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom top', scrub: 0.6, invalidateOnRefresh: true, onRefreshInit: () => { measure(); } } });
-  tl.fromTo(title, { x: () => F.x, y: () => F.y, scale: () => F.scale }, { x: 0, y: 0, scale: 1, ease: 'power1.inOut', force3D: false, duration: 1 }, 0)
-    .fromTo(title, { color: '#e6e5e0' }, { color: '#38261c', ease: 'none', duration: 0.3 }, 0.55)
-    .fromTo('.lm-hero__crumb', { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.12, ease: 'none' }, 0.88)
-    .fromTo($('img', intro), { yPercent: 0, scale: 1.04 }, { yPercent: 28, scale: 1.12, ease: 'none', duration: 1 }, 0);
-  // entrada al cargar: la foto se abre y la palabra aparece
+  ScrollTrigger.create({
+    start: 0, end: () => S, invalidateOnRefresh: true,
+    onRefreshInit: () => { gsap.set(title, { y: 0 }); calc(); },
+    onRefresh: (st) => { gsap.set(title, { y: Math.min(0, st.scroll() - S) }); split(); },
+    onUpdate: (st) => { gsap.set(title, { y: Math.min(0, st.scroll() - S) }); split(); },
+  });
+  ScrollTrigger.create({ start: 0, end: 'max', onUpdate: split });
+  split();
+  // la foto se queda atrás: se mueve más lento que la página
+  gsap.fromTo($('img', intro), { yPercent: 0, scale: 1.04 }, { yPercent: 28, scale: 1.1, ease: 'none', scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom top', scrub: true } });
+  // el camino de migas aparece recién cuando la palabra llegó, para que no se crucen
+  gsap.fromTo('.lm-hero__crumb', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', scrollTrigger: { start: () => S, end: () => S + 90, scrub: true, invalidateOnRefresh: true } });
+  // entrada al cargar
   gsap.from($('img', intro), { scale: 1.25, duration: 2, ease: 'expo.out' });
   gsap.from(title, { autoAlpha: 0, duration: 1.4, delay: 0.25, ease: 'power2.out' });
 }
@@ -178,86 +190,89 @@ function initFeatured() {
     };
     thumbs.forEach((t, i) => t.addEventListener('click', () => show(i)));
     main.addEventListener('click', () => show((thumbs.findIndex((t) => t.classList.contains('is-on')) + 1) % thumbs.length));
-    const close = () => {
+    const DUR = 1.15, EASE = 'power3.inOut';
+    const items = () => [$('.fd__stage', fd), ...$$('.fd__info > *', fd)];
+    const close = (instant) => {
+      if (!card.classList.contains('is-open')) return;
+      const w1 = card.offsetWidth, h1 = card.offsetHeight;
       card.classList.remove('is-open'); fd.setAttribute('aria-hidden', 'true'); media.setAttribute('aria-expanded', 'false');
-      later();
+      if (instant === true) { gsap.set(card, { clearProps: 'width,height' }); return; }
+      const w0 = card.offsetWidth, h0 = card.offsetHeight;
+      gsap.fromTo(card, { width: w1, height: h1 }, { width: w0, height: h0, duration: 0.9, ease: EASE, clearProps: 'width,height', onComplete: later });
+      gsap.from([media, $('.feat__name', card), $('.feat__txt', card), $('.feat__cta', card)], { autoAlpha: 0, duration: 0.6, delay: 0.3, ease: 'power2.out' });
     };
     const open = () => {
-      $$('.feat.is-open').forEach((o) => o !== card && o.querySelector('.fd__close').click());
+      // si había otra abierta, se cierra al instante para que las medidas sean las finales
+      $$('.feat.is-open').forEach((o) => o !== card && o._close && o._close(true));
+      gsap.killTweensOf([card, strip]);
+      const w0 = card.offsetWidth, h0 = card.offsetHeight;
       card.classList.add('is-open'); fd.setAttribute('aria-hidden', 'false'); media.setAttribute('aria-expanded', 'true');
-      gsap.fromTo([$('.fd__stage', fd), ...$$('.fd__info > *', fd)], { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: 0.8, stagger: 0.04, ease: EASE_OUT, delay: 0.15 });
-      // la tira se corre para que la puerta abierta quede entera a la vista
-      const pad = parseFloat(getComputedStyle(strip).paddingLeft) || 0;
-      gsap.to(strip, { scrollLeft: card.offsetLeft - pad, duration: 1, ease: 'expo.inOut' });
-      if (smoother) smoother.scrollTo(strip.closest('.mat__block'), true, 'top 80px');
-      later();
+      const w1 = card.offsetWidth, h1 = card.offsetHeight;
+      // destino horizontal: la tarjeta abierta queda centrada en la tira
+      const maxL = strip.scrollWidth - strip.clientWidth;
+      const left = Math.max(0, Math.min(maxL, card.offsetLeft + w1 / 2 - strip.clientWidth / 2));
+      gsap.fromTo(card, { width: w0, height: h0 }, { width: w1, height: h1, duration: DUR, ease: EASE, clearProps: 'width,height', onComplete: later });
+      gsap.to(strip, { scrollLeft: left, duration: DUR, ease: EASE });
+      gsap.fromTo(items(), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.05, ease: 'power3.out', delay: 0.35 });
+      // destino vertical: la tarjeta queda al medio de la pantalla
+      if (smoother) {
+        const top = smoother.offset(card, 'top top') - Math.max(70, (window.innerHeight - h1) / 2);
+        gsap.to(smoother, { scrollTop: Math.max(0, top), duration: DUR, ease: EASE });
+      }
     };
+    card._close = close;
     media.addEventListener('click', open);
-    $('.fd__close', fd).addEventListener('click', close);
+    $('.fd__close', fd).addEventListener('click', () => close());
   });
   window.addEventListener('keydown', (e) => { if (e.key === 'Escape') $$('.feat.is-open .fd__close').forEach((b) => b.click()); });
 }
 
-// cambia el color de todas las puertas de la materialidad: laca lisa o textura de madera, conservando sombras y molduras
+// cambia el color de todas las puertas de la materialidad. Cada puerta trae un mapa (assets/img/int/map) que dice
+// qué parte es material (laca o madera) y cuánta sombra tiene cada punto: vidrios, herrajes y cerraduras no cambian.
+// Las maderas usan una plancha del tamaño de una puerta (85 x 210 cm) con tablas y veta en escala real.
 function initTint() {
   const cache = new WeakMap();
+  const sheets = {};
   const loadImg = (src) => new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = rej; i.src = src; });
-  const texCache = {};
+  const pixels = (img, w, h) => { const c = document.createElement('canvas'); c.width = w; c.height = h; const x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(img, 0, 0, w, h); return x.getImageData(0, 0, w, h).data; };
   const prep = async (img) => {
     if (cache.has(img)) return cache.get(img);
     if (!img.complete || !img.naturalWidth) await new Promise((r) => img.addEventListener('load', r, { once: true }));
     const w = img.naturalWidth, h = img.naturalHeight;
-    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
-    const x = cv.getContext('2d', { willReadFrequently: true });
-    x.filter = 'blur(0.8px)'; x.drawImage(img, 0, 0); x.filter = 'none';
-    const soft = x.getImageData(0, 0, w, h).data;
-    x.clearRect(0, 0, w, h); x.drawImage(img, 0, 0);
-    const src = x.getImageData(0, 0, w, h);
-    // luminancia de referencia: la mediana de la hoja de la puerta
-    const L = new Float32Array(w * h); const sample = [];
-    for (let i = 0, p = 0; i < soft.length; i += 4, p++) {
-      const l = (0.299 * soft[i] + 0.587 * soft[i + 1] + 0.114 * soft[i + 2]) / 255; L[p] = l;
-      if (src.data[i + 3] > 200 && (p % 7 === 0)) sample.push(l);
-    }
-    sample.sort((a, b) => a - b);
-    const ref = sample[Math.floor(sample.length * 0.6)] || 1;
+    const map = await loadImg(img.getAttribute('src').replace('/int/', '/int/map/'));
     const out = document.createElement('canvas'); out.width = w; out.height = h;
     img.parentNode.appendChild(out);
-    const d = { w, h, L, ref, alpha: src.data, out };
+    const d = { w, h, src: pixels(img, w, h), map: pixels(map, w, h), out };
     cache.set(img, d);
     return d;
   };
-  const texPixels = async (url, w, h) => {
+  const sheet = async (url, w, h) => {
     const key = url + w + 'x' + h;
-    if (texCache[key]) return texCache[key];
-    const t = await loadImg(url);
-    const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
-    const x = cv.getContext('2d');
-    // veta vertical: la muestra se gira y se estira a lo alto de la puerta
-    x.translate(w / 2, h / 2); x.rotate(Math.PI / 2);
-    const s = Math.max(h / t.width, w / t.height);
-    x.drawImage(t, (-t.width * s) / 2, (-t.height * s) / 2, t.width * s, t.height * s);
-    return (texCache[key] = x.getImageData(0, 0, w, h).data);
+    if (!sheets[key]) sheets[key] = loadImg(url).then((t) => pixels(t, w, h));
+    return sheets[key];
   };
   const hex = (c) => { const n = parseInt(c.slice(1), 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; };
   const paint = async (img, opt) => {
-    const d = await prep(img);
-    const { w, h, L, ref, alpha, out } = d;
+    const { w, h, src, map, out } = await prep(img);
+    const tex = opt.tex ? await sheet(opt.tex, w, h) : null;
+    const col = opt.color ? hex(opt.color) : null;
+    let lum;
+    if (col) lum = (0.299 * col[0] + 0.587 * col[1] + 0.114 * col[2]) / 255;
+    else { let s = 0, n = 0; for (let i = 0; i < tex.length; i += 64) { s += 0.299 * tex[i] + 0.587 * tex[i + 1] + 0.114 * tex[i + 2]; n++; } lum = s / n / 255; }
+    // en terminaciones oscuras se marcan más las molduras para que no se pierdan
+    const gain = lum < 0.3 ? 2.4 : 1.1;
     const x = out.getContext('2d');
     const o = x.createImageData(w, h); const od = o.data;
-    const tex = opt.tex ? await texPixels(opt.tex, w, h) : null;
-    const col = opt.color ? hex(opt.color) : null;
-    let lum = 0.5;
-    if (col) lum = (0.299 * col[0] + 0.587 * col[1] + 0.114 * col[2]) / 255;
-    // en colores oscuros se marcan más las molduras para que no se pierdan
-    const gain = lum < 0.35 ? 2.4 : 1.15;
-    for (let i = 0, p = 0; i < od.length; i += 4, p++) {
-      const a = alpha[i + 3]; if (!a) continue;
-      const sh = L[p] / ref;
+    for (let i = 0; i < od.length; i += 4) {
+      const a = src[i + 3]; if (!a) continue;
+      const m = map[i + 1] / 255, sh = map[i] / 127.5;
       let f = 1 + (sh - 1) * gain; if (f < 0.05) f = 0.05;
       const hi = sh > 1 ? (sh - 1) * 60 : 0;
       const r = col ? col[0] : tex[i], g = col ? col[1] : tex[i + 1], b = col ? col[2] : tex[i + 2];
-      od[i] = r * f + hi; od[i + 1] = g * f + hi; od[i + 2] = b * f + hi; od[i + 3] = a;
+      od[i] = src[i] * (1 - m) + (r * f + hi) * m;
+      od[i + 1] = src[i + 1] * (1 - m) + (g * f + hi) * m;
+      od[i + 2] = src[i + 2] * (1 - m) + (b * f + hi) * m;
+      od[i + 3] = a;
     }
     x.putImageData(o, 0, 0);
     img.parentNode.classList.add('is-tinted');
@@ -271,7 +286,6 @@ function initTint() {
       if (on) { imgs.forEach((i) => i.parentNode.classList.remove('is-tinted')); return; }
       btn.setAttribute('aria-pressed', 'true');
       const opt = { color: btn.dataset.color, tex: btn.dataset.tex };
-      // de a tandas para que la página no se trabe
       for (let k = 0; k < imgs.length; k += 6) {
         if (btn.getAttribute('aria-pressed') !== 'true') return;
         await Promise.all(imgs.slice(k, k + 6).map((i) => paint(i, opt)));
