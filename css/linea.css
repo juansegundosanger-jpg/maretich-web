@@ -252,3 +252,6 @@
 @media (max-width:900px){.mat__grid .doors{grid-template-columns:repeat(3,minmax(0,1fr))}.fin .sw{width:calc((100% - 30px) / 4)}}
 /* hasta que arranca la entrada, la foto no se ve: primero el nogal con el título y después se abre la imagen */
 .js-wait .lm-intro__media{opacity:0}
+/* botón de consulta dentro de las destacadas abiertas: claro del manual con letras marrones */
+.fd__cta{background:var(--gris);color:var(--nogal)}
+@media (hover:hover) and (pointer:fine){.fd__cta:hover{background:#fff}}
