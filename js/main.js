@@ -390,7 +390,9 @@ function initLineas() {
     // recién al terminar se libera y llega la siguiente (sin superponerse)
     const tl = gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: sec, start: 'top top', end: last ? '+=140%' : '+=240%', pin: true, scrub: 1, anticipatePin: 1, invalidateOnRefresh: true } })
       .to({}, { duration: 0.15 })
-      .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1, ease: 'casa' }, 0.15)
+      .to(media, { scale: 1, borderRadius: 0, duration: 1, ease: 'casa' }, 0.15)
+      // la imagen no se ve mientras es chica (si no, queda una mancha borrosa sobre el fondo): aparece ya abierta a la mitad
+      .to(media, { opacity: 1, duration: 0.3, ease: 'none' }, 0.62)
       .to(label, { x: 0, y: 0, scale: 1, duration: 1, ease: 'casa', force3D: false }, 0.15)
       .to(label, { color: '#ffffff', duration: 0.5 }, 0.6)
       .to(label, { '--ln': 1, duration: 0.35, ease: 'power2.inOut' }, 1.05)
@@ -472,6 +474,7 @@ function initProyectos() {
 
 // ---------- 07 Empresa: contadores suaves ----------
 function initEmpresa() {
+  if (!$('.empresa')) return;
   gsap.from('.empresa__rule', { scaleX: 0, duration: 1.4, ease: 'power3.inOut', scrollTrigger: { trigger: '.empresa__rule', start: 'top 85%' } });
   const counts = $$('.count');
   counts.forEach((el, k) => {
@@ -521,7 +524,8 @@ function drawFooterLogo() {
     });
   };
   render();
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer__brand', start: 'top 95%', end: 'bottom bottom', scrub: 0.6 } })
+  // al llegar al fondo, el footer queda fijo y en unos 3 scrolls el logo se dibuja (como en "Cada obra tiene su puerta")
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }

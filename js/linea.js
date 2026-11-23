@@ -44,9 +44,9 @@ function initHero() {
     gsap.from(['.lm-hero__lead', '.lm-index li'], { autoAlpha: 0, y: 16, duration: 1.1, stagger: 0.06, ease: EASE_OUT, scrollTrigger: { trigger: '.lm-hero', start: 'top 70%' } });
     return;
   }
-  const title = new SplitText('.lm-hero__title', { type: 'words,chars', mask: 'chars' });
+  const title = new SplitText('.lm-hero__title', { type: 'lines', mask: 'lines' });
   const tl = gsap.timeline({ delay: 0.15 });
-  tl.from(title.chars, { yPercent: 105, duration: 1.4, stagger: 0.025, ease: 'casa' })
+  tl.from(title.lines, { yPercent: 120, duration: 1.4, ease: 'casa' })
     .from('.lm-hero__crumb', { autoAlpha: 0, y: 10, duration: 1, ease: EASE_OUT }, 0.3)
     .from(['.lm-hero__lead', '.lm-index li'], { autoAlpha: 0, y: 18, duration: 1.1, stagger: 0.06, ease: EASE_OUT }, 0.6);
 }
@@ -397,7 +397,8 @@ function drawFooterLogo() {
     });
   };
   render();
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer__brand', start: 'top 95%', end: 'bottom bottom', scrub: 0.6 } })
+  // al llegar al fondo, el footer queda fijo y en unos 3 scrolls el logo se dibuja (como en "Cada obra tiene su puerta")
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }
