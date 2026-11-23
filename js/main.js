@@ -96,7 +96,7 @@ function playIntro() {
     .to(gDesc.children, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.025, ease: 'power3.out' }, 4.25)
     .to('.nav__menu, .nav__burger', { autoAlpha: 1, y: 0, duration: 0.9, ease: EASE_OUT, clearProps: 'opacity,visibility,transform' }, 4.3)
     .set('.hero__copy', { autoAlpha: 1 }, 4.0)
-    .from(copy.lines, { yPercent: 110, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 4.0)
+    .from(copy.lines, { yPercent: 140, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 4.0)
     .from('.hero__sub', { autoAlpha: 0, y: 14, duration: 1, ease: EASE_OUT }, 4.35);
 }
 
@@ -121,8 +121,8 @@ function initDisenamos() {
   const media = $('.dis__media', sec);
   const imgs = $$('img', media);
 
-  gsap.set(lines, { yPercent: 120 });
-  gsap.set(desc, { yPercent: 120 });
+  gsap.set(lines, { yPercent: 140 });
+  gsap.set(desc, { yPercent: 140 });
   gsap.set(media, { clipPath: 'inset(50% 50% 50% 50% round 18px)' });
   gsap.set(imgs.slice(1), { autoAlpha: 0 });
   let ready = false;
@@ -240,7 +240,7 @@ function initTunel() {
   ScrollTrigger.create({ trigger: sec, start: 'top top', end: () => '+=' + window.innerHeight * 0.6, pin: '.tunel__stage', pinSpacing: true, invalidateOnRefresh: true });
 
   const t = new SplitText('.tunel__title', { type: 'lines', mask: 'lines' });
-  gsap.from(t.lines, { yPercent: 110, duration: 1.3, stagger: 0.12, ease: EASE_OUT, scrollTrigger: { trigger: sec, start: 'top 60%' } });
+  gsap.from(t.lines, { yPercent: 140, duration: 1.3, stagger: 0.12, ease: EASE_OUT, scrollTrigger: { trigger: sec, start: 'top 60%' } });
 }
 
 // ---------- 04 Tu obra — copia del bloque de Still/Form ("Not every space needs to be grand" → "A different way to stay") ----------
@@ -299,9 +299,9 @@ function initObras() {
     };
     imgs.forEach((im, i) => gsap.set(im, { ...css(pose(i, 0)), zIndex: d - i }));
     gsap.set(inners, { scale: (i) => (i === 0 ? 1 : 1.2) });
-    gsap.set(heroPieces, { yPercent: 110, opacity: 0 });
+    gsap.set(heroPieces, { yPercent: 140, opacity: 0 });
     gsap.set(shade, { opacity: 0 });
-    texts.forEach((p) => gsap.set(p, { yPercent: 110, opacity: 0 }));
+    texts.forEach((p) => gsap.set(p, { yPercent: 140, opacity: 0 }));
     gsap.set(label, { opacity: 0 });
 
     // apertura: atada al scroll (primer 100%)
@@ -313,7 +313,7 @@ function initObras() {
     // pasos: línea de tiempo en pausa con etiquetas hidden, s0, s1…
     const w = gsap.timeline({ paused: true });
     w.addLabel('hidden', 0);
-    w.fromTo(heroPieces, { yPercent: 110, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.09, ease: 'power3.out', immediateRender: false }, 0);
+    w.fromTo(heroPieces, { yPercent: 140, opacity: 0 }, { yPercent: 0, opacity: 1, duration: 0.8, stagger: 0.09, ease: 'power3.out', immediateRender: false }, 0);
     w.fromTo(shade, { opacity: 0 }, { opacity: 1, duration: 0.8, ease: 'power2.out', immediateRender: false }, 0);
     w.addLabel('s0', 1);
     for (let e = 1; e <= d; e++) {
@@ -397,7 +397,7 @@ function initLineas() {
     clip();
     // force3D:false para que el navegador redibuje el texto a cada tamaño (si no, al agrandarse se ve pixelado)
     gsap.set(label, { x: () => big().x, y: () => big().y, scale: () => big().scale, transformOrigin: '50% 50%', '--ln': 0, force3D: false, color: light ? '#38261c' : '#ffffff' });
-    gsap.set(t.lines, { yPercent: 110 });
+    gsap.set(t.lines, { yPercent: 140 });
     gsap.set(rest, { autoAlpha: 0, y: 16 });
 
     // cada línea se fija en pantalla: al scrollear el título viaja a su lugar, se abre el video y entra el texto;
@@ -440,7 +440,7 @@ function initProyectos() {
   const capName = $('.plist__cap-name', sec), capMeta = $('.plist__cap-meta', sec);
   const metas = list.dataset.metas.split('|');
 
-  gsap.from($$('.plist__name', sec), { yPercent: 115, duration: 1.3, stagger: 0.08, ease: EASE_OUT, scrollTrigger: { trigger: list, start: 'top 80%' } });
+  gsap.from($$('.plist__name', sec), { yPercent: 140, duration: 1.3, stagger: 0.08, ease: EASE_OUT, scrollTrigger: { trigger: list, start: 'top 80%' } });
   gsap.from($$('.plist__nr', sec), { autoAlpha: 0, duration: 0.8, stagger: 0.08, delay: 0.3, scrollTrigger: { trigger: list, start: 'top 80%' } });
   // leve corrimiento horizontal con el scroll, una fila para cada lado
   links.forEach((a, k) => gsap.fromTo(a, { x: () => (k % 2 ? -1 : 1) * window.innerWidth * 0.025 }, { x: () => (k % 2 ? 1 : -1) * window.innerWidth * 0.025, ease: 'none', scrollTrigger: { trigger: list, start: 'top bottom', end: 'bottom top', scrub: true, invalidateOnRefresh: true } }));
@@ -496,7 +496,7 @@ function initEmpresa() {
   });
   gsap.from('.stat', { y: 40, autoAlpha: 0, duration: 1.2, stagger: 0.12, ease: EASE_OUT, scrollTrigger: { trigger: '.stats', start: 'top 80%' } });
   const words = new SplitText('.stat__words', { type: 'lines', mask: 'lines' });
-  gsap.from(words.lines, { yPercent: 110, duration: 1.2, stagger: 0.12, delay: 0.5, ease: EASE_OUT, scrollTrigger: { trigger: '.stats', start: 'top 80%' } });
+  gsap.from(words.lines, { yPercent: 140, duration: 1.2, stagger: 0.12, delay: 0.5, ease: EASE_OUT, scrollTrigger: { trigger: '.stats', start: 'top 80%' } });
 }
 
 // ---------- 08 Tira: ABERTURAS · DE MADERA, de izquierda a derecha sin fin ----------
@@ -536,8 +536,8 @@ function drawFooterLogo() {
     });
   };
   render();
-  // el logo se dibuja mientras el footer sube y termina justo al llegar al fondo de la página
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { start: () => ScrollTrigger.maxScroll(window) - window.innerHeight * 0.85, end: 'max', scrub: 0.6, invalidateOnRefresh: true } })
+  // al llegar al fondo de la página el footer queda fijo y en 3 scrolls más el logo se termina de dibujar
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, pinSpacing: true, anticipatePin: 1, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }
@@ -555,7 +555,7 @@ function initFooter() {
 function initTexts() {
   $$('[data-lines]').forEach((el) => {
     const s = new SplitText(el, { type: 'lines', mask: 'lines' });
-    gsap.from(s.lines, { yPercent: 110, duration: 1.3, stagger: 0.1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 85%' } });
+    gsap.from(s.lines, { yPercent: 140, duration: 1.3, stagger: 0.1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 85%' } });
   });
   $$('[data-reveal]').forEach((el) => gsap.from(el, { autoAlpha: 0, y: 14, duration: 1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 90%' } }));
   initFooter();

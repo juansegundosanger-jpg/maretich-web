@@ -46,7 +46,7 @@ function initHero() {
   }
   const title = new SplitText('.lm-hero__title', { type: 'lines', mask: 'lines' });
   const tl = gsap.timeline({ delay: 0.15 });
-  tl.from(title.lines, { yPercent: 120, duration: 1.4, ease: 'casa' })
+  tl.from(title.lines, { yPercent: 140, duration: 1.4, ease: 'casa' })
     .from('.lm-hero__crumb', { autoAlpha: 0, y: 10, duration: 1, ease: EASE_OUT }, 0.3)
     .from(['.lm-hero__lead', '.lm-index li'], { autoAlpha: 0, y: 18, duration: 1.1, stagger: 0.06, ease: EASE_OUT }, 0.6);
 }
@@ -59,7 +59,7 @@ function initCats() {
     if (!reduce) {
       const t = new SplitText($('.cat__title a', cat), { type: 'lines', mask: 'lines' });
       gsap.timeline({ scrollTrigger: { trigger: cat, start: 'top 82%' } })
-        .from(t.lines, { yPercent: 110, duration: 1.3, ease: EASE_OUT })
+        .from(t.lines, { yPercent: 140, duration: 1.3, ease: EASE_OUT })
         .from([$('.cat__n', cat), $('.cat__desc', cat), $('.cat__link', cat)], { autoAlpha: 0, y: 14, duration: 1, stagger: 0.06, ease: EASE_OUT }, 0.1)
         .fromTo(imgs, { clipPath: 'inset(100% 0% 0% 0%)', y: 60 }, { clipPath: 'inset(0% 0% 0% 0%)', y: 0, duration: 1.3, stagger: 0.07, ease: 'casa', clearProps: 'clipPath' }, 0.15);
       // la tira entra desde la derecha mientras la fila cruza la pantalla
@@ -341,7 +341,7 @@ function initCatalog() {
   mats.forEach((m) => {
     const t = new SplitText($('.mat__title', m), { type: 'lines', mask: 'lines' });
     gsap.timeline({ scrollTrigger: { trigger: m, start: 'top 82%' } })
-      .from(t.lines, { yPercent: 110, duration: 1.3, ease: EASE_OUT })
+      .from(t.lines, { yPercent: 140, duration: 1.3, ease: EASE_OUT })
       .from([$('.mat__n', m), $('.mat__desc', m), $('.mat__count', m)], { autoAlpha: 0, y: 14, duration: 1, stagger: 0.06, ease: EASE_OUT }, 0.1);
     const feats = $$('.feat', m);
     gsap.fromTo($$('.feat__media', m), { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, stagger: 0.08, ease: 'casa', clearProps: 'clipPath', scrollTrigger: { trigger: $('.feat-strip', m), start: 'top 85%' } });
@@ -358,7 +358,7 @@ function initCatalog() {
 function initTexts() {
   if (!reduce) $$('[data-lines]').forEach((el) => {
     const s = new SplitText(el, { type: 'lines', mask: 'lines' });
-    gsap.from(s.lines, { yPercent: 110, duration: 1.3, stagger: 0.1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 85%' } });
+    gsap.from(s.lines, { yPercent: 140, duration: 1.3, stagger: 0.1, ease: EASE_OUT, scrollTrigger: { trigger: el, start: 'top 85%' } });
   });
 }
 
@@ -397,8 +397,8 @@ function drawFooterLogo() {
     });
   };
   render();
-  // el logo se dibuja mientras el footer sube y termina justo al llegar al fondo de la página
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { start: () => ScrollTrigger.maxScroll(window) - window.innerHeight * 0.85, end: 'max', scrub: 0.6, invalidateOnRefresh: true } })
+  // al llegar al fondo de la página el footer queda fijo y en 3 scrolls más el logo se termina de dibujar
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, pinSpacing: true, anticipatePin: 1, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }

@@ -250,3 +250,5 @@
   .door:nth-child(5n+1) a,.door:nth-child(5n) a{transform-origin:50% 60%}
 }
 @media (max-width:900px){.mat__grid .doors{grid-template-columns:repeat(3,minmax(0,1fr))}.fin .sw{width:calc((100% - 30px) / 4)}}
+/* hasta que arranca la entrada, la foto no se ve: primero el nogal con el título y después se abre la imagen */
+.js-wait .lm-intro__media{opacity:0}
