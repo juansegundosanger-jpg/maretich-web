@@ -397,8 +397,15 @@ function drawFooterLogo() {
     });
   };
   render();
-  // al llegar al fondo de la página el footer queda fijo y en 3 scrolls más el logo se termina de dibujar
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, pinSpacing: true, anticipatePin: 1, invalidateOnRefresh: true } })
+  // al llegar al fondo, la página se queda quieta tal como está (el footer en su tamaño, lo de arriba a la vista)
+  // y en 3 scrolls más el logo se termina de dibujar. Un espacio extra al final da el recorrido; mientras se recorre,
+  // todo el contenido baja exactamente lo que sube el scroll, así nada se mueve
+  const spacer = document.createElement('div');
+  spacer.className = 'end-spacer'; spacer.setAttribute('aria-hidden', 'true');
+  $('.footer').after(spacer);
+  const content = [$('main'), $('.footer')];
+  gsap.fromTo(content, { y: 0 }, { y: () => spacer.offsetHeight, ease: 'none', scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: true, invalidateOnRefresh: true } });
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: spacer, start: 'top bottom', end: 'bottom bottom', scrub: 0.5, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }
