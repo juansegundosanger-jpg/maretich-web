@@ -166,9 +166,21 @@ function initIntro() {
   gsap.fromTo($('img', intro), { yPercent: 0, scale: 1.04 }, { yPercent: 28, scale: 1.1, ease: 'none', scrollTrigger: { trigger: intro, start: 'top top', end: 'bottom top', scrub: true } });
   // el camino de migas aparece recién cuando la palabra llegó, para que no se crucen
   gsap.fromTo('.lm-hero__crumb', { autoAlpha: 0 }, { autoAlpha: 1, ease: 'none', scrollTrigger: { start: () => S, end: () => S + 90, scrub: true, invalidateOnRefresh: true } });
-  // entrada al cargar
-  gsap.from($('img', intro), { scale: 1.25, duration: 2, ease: 'expo.out' });
-  gsap.from(title, { autoAlpha: 0, duration: 1.4, delay: 0.25, ease: 'power2.out' });
+  // entrada al cargar, como la del inicio: "Interior" aparece al medio sobre el nogal, se va hacia la izquierda
+  // hasta su lugar y, en el hueco que deja, la foto se abre desde el centro
+  const media = $('.lm-intro__media', intro);
+  const r = title.getBoundingClientRect();
+  const x0 = window.innerWidth / 2 - r.width / 2 - r.left;
+  if (smoother) smoother.paused(true);
+  gsap.set(title, { x: x0 });
+  gsap.set(media, { scale: 0, borderRadius: 2000, opacity: 0 });
+  gsap.set('.nav', { autoAlpha: 0 });
+  gsap.timeline({ onComplete: () => { if (smoother) smoother.paused(false); ScrollTrigger.refresh(); } })
+    .fromTo(title, { autoAlpha: 0, filter: 'blur(4px)' }, { autoAlpha: 1, filter: 'blur(0px)', duration: 1.1, ease: 'power3.out', clearProps: 'filter' }, 0.1)
+    .fromTo(base.parentNode, { yPercent: 30 }, { yPercent: 0, duration: 1.1, ease: 'power3.out' }, 0.1)
+    .to(title, { x: 0, duration: 1.6, ease: 'casa' }, 1.5)
+    .to(media, { scale: 1, borderRadius: 0, opacity: 1, duration: 1.6, ease: 'casa' }, 1.5)
+    .to('.nav', { autoAlpha: 1, duration: 0.9, ease: 'power2.out', clearProps: 'opacity,visibility' }, 2.8);
 }
 
 function initFeatured() {
