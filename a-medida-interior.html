@@ -13,9 +13,9 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
   <link rel="stylesheet" href="css/style.css?v=27">
-  <link rel="stylesheet" href="css/linea.css?v=4">
+  <link rel="stylesheet" href="css/linea.css?v=5">
 </head>
-<body class="page-linea page-cat">
+<body class="page-linea page-cat has-intro js-wait">
 
   <!-- Navegación -->
   <header class="nav" data-theme="dark">
@@ -34,11 +34,6 @@
     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20l1.3-3.9A8 8 0 1 1 8 19z"/><path class="fill" d="M9 9.5c0 2.5 2 4.5 4.5 4.5l1-1.3 2 .9-.4 1.6c-3.6.4-7.6-3.3-7.4-7.1l1.6-.5.9 2z"/></svg>
   </a>
 
-  <nav class="mat-bar" aria-label="Materialidades">
-    <a class="mat-bar__home" href="a-medida.html">Línea a medida</a><span class="mat-bar__sep">/</span><span class="mat-bar__here">Interior</span>
-    <ol><li><a href="#mdf">MDF</a></li><li><a href="#enchapadas">Enchapadas</a></li><li><a href="#melamina">Melamina</a></li><li><a href="#maciza">Madera maciza</a></li></ol>
-  </nav>
-
   <!-- Cursor de arrastre sobre las tiras de fotos -->
   <div class="drag-cursor" aria-hidden="true"><span>Arrastrá</span></div>
 
@@ -46,8 +41,13 @@
   <div id="smooth-content">
   <main>
 
+    <!-- Entrada: foto de una puerta de interior con la palabra "Interior" que baja hasta el título -->
+    <section class="lm-intro" data-nav="light" aria-hidden="true">
+      <div class="lm-intro__media"><img src="assets/img/int/intro.jpg" alt=""></div>
+    </section>
+
     <!-- Encabezado del catálogo -->
-    <section class="lm-hero" id="inicio" data-nav="dark">
+    <section class="lm-hero lm-hero--cat" id="inicio" data-nav="dark">
       <p class="lm-hero__crumb label"><a href="index.html">Inicio</a> · <a href="index.html#lineas">Catálogo</a> · <a href="a-medida.html">Línea a medida</a> · Interior</p>
       <h1 class="lm-hero__title">Interior</h1>
       <div class="lm-hero__foot">
@@ -68,50 +68,140 @@
         <div class="mat__block">
           <p class="mat__label">Destacadas</p>
           <div class="feat-strip" data-drag><div class="feat-track">
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova." target="_blank" rel="noopener" data-model="Nova">
+          <article class="feat" data-gal="nova-1.jpg,nova-2.jpg,nova-3.jpg,nova-4.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Nova">
               <img src="assets/img/int/amb/nova-1.jpg" alt="Puerta Nova instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/nova-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Nova</h3>
             <p class="feat__txt">Un diseño puro y superficie continua, Nova responde a una estética minimalista y contemporánea. Ideal para interiores sobrios donde la puerta se integra a la arquitectura sin competir con el espacio.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova." target="_blank" rel="noopener">Consultar por Nova</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/nova-1.jpg" alt="Puerta Nova"><span class="fd__count"><b>1</b> / 4</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.A · MDF · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/nova-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/nova-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/nova-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/nova-4.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Nova</h3>
+                <p class="fd__txt">Un diseño puro y superficie continua, Nova responde a una estética minimalista y contemporánea. Ideal para interiores sobrios donde la puerta se integra a la arquitectura sin competir con el espacio.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>MDF</dd></div>
+                  <div><dt>Terminación</dt><dd>Laca poliuretánica blanca, negra o gris grafito</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Laca poliuretánica blanca" style="background:#f3f2ee"></span><span class="fd__chip" title="Laca poliuretánica negra" style="background:#1c1a19"></span><span class="fd__chip" title="Laca poliuretánica gris grafito" style="background:#55524f"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova." target="_blank" rel="noopener">Consultar por Nova</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno." target="_blank" rel="noopener" data-model="Legno">
+          <article class="feat" data-gal="legno-1.jpg,legno-2.jpg,legno-3.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Legno">
               <img src="assets/img/int/amb/legno-1.jpg" alt="Puerta Legno instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/legno-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Legno</h3>
             <p class="feat__txt">La disposición horizontal aporta ritmo y enfatiza la calidez de la madera. Un diseño contemporáneo, versátil y de fuerte presencia natural, ideal para interiores modernos y cálidos.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno." target="_blank" rel="noopener">Consultar por Legno</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/legno-1.jpg" alt="Puerta Legno"><span class="fd__count"><b>1</b> / 3</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.A · MDF · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/legno-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/legno-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/legno-3.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Legno</h3>
+                <p class="fd__txt">La disposición horizontal aporta ritmo y enfatiza la calidez de la madera. Un diseño contemporáneo, versátil y de fuerte presencia natural, ideal para interiores modernos y cálidos.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>MDF</dd></div>
+                  <div><dt>Terminación</dt><dd>Laca poliuretánica blanca, negra o gris grafito</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Laca poliuretánica blanca" style="background:#f3f2ee"></span><span class="fd__chip" title="Laca poliuretánica negra" style="background:#1c1a19"></span><span class="fd__chip" title="Laca poliuretánica gris grafito" style="background:#55524f"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno." target="_blank" rel="noopener">Consultar por Legno</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Italia." target="_blank" rel="noopener" data-model="Italia">
+          <article class="feat" data-gal="italia-1.jpg,italia-2.jpg,italia-3.jpg,italia-4.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Italia">
               <img src="assets/img/int/amb/italia-1.jpg" alt="Puerta Italia instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/italia-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Italia</h3>
             <p class="feat__txt">Un diseño de líneas verticales sutiles que estiliza la puerta y aporta orden visual. Su lenguaje limpio funciona especialmente bien en interiores contemporáneos, luminosos y depurados.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Italia." target="_blank" rel="noopener">Consultar por Italia</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/italia-1.jpg" alt="Puerta Italia"><span class="fd__count"><b>1</b> / 4</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.A · MDF · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/italia-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/italia-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/italia-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/italia-4.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Italia</h3>
+                <p class="fd__txt">Un diseño de líneas verticales sutiles que estiliza la puerta y aporta orden visual. Su lenguaje limpio funciona especialmente bien en interiores contemporáneos, luminosos y depurados.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>MDF</dd></div>
+                  <div><dt>Terminación</dt><dd>Laca poliuretánica blanca, negra o gris grafito</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Laca poliuretánica blanca" style="background:#f3f2ee"></span><span class="fd__chip" title="Laca poliuretánica negra" style="background:#1c1a19"></span><span class="fd__chip" title="Laca poliuretánica gris grafito" style="background:#55524f"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Italia." target="_blank" rel="noopener">Consultar por Italia</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%201T." target="_blank" rel="noopener" data-model="Bari 1T">
+          <article class="feat" data-gal="bari-1t-1.jpg,bari-1t-2.jpg,bari-1t-3.jpg,bari-1t-4.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Bari 1T">
               <img src="assets/img/int/amb/bari-1t-1.jpg" alt="Puerta Bari 1T instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/bari-1t-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Bari 1T</h3>
             <p class="feat__txt">Una reinterpretación simple de la puerta clásica, definida por una moldura perimetral limpia. Aporta elegancia sin exceso ornamental y combina especialmente bien con interiores clásicos contemporáneos.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%201T." target="_blank" rel="noopener">Consultar por Bari 1T</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/bari-1t-1.jpg" alt="Puerta Bari 1T"><span class="fd__count"><b>1</b> / 4</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.A · MDF · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/bari-1t-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/bari-1t-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/bari-1t-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/bari-1t-4.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Bari 1T</h3>
+                <p class="fd__txt">Una reinterpretación simple de la puerta clásica, definida por una moldura perimetral limpia. Aporta elegancia sin exceso ornamental y combina especialmente bien con interiores clásicos contemporáneos.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>MDF</dd></div>
+                  <div><dt>Terminación</dt><dd>Laca poliuretánica blanca, negra o gris grafito</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Laca poliuretánica blanca" style="background:#f3f2ee"></span><span class="fd__chip" title="Laca poliuretánica negra" style="background:#1c1a19"></span><span class="fd__chip" title="Laca poliuretánica gris grafito" style="background:#55524f"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%201T." target="_blank" rel="noopener">Consultar por Bari 1T</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Genova%201T." target="_blank" rel="noopener" data-model="Genova 1T">
+          <article class="feat" data-gal="genova-1t-1.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Genova 1T">
               <img src="assets/img/int/amb/genova-1t-1.jpg" alt="Puerta Genova 1T instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/genova-1t-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Genova 1T</h3>
             <p class="feat__txt">De inspiración clásica, sus molduras escalonadas aportan profundidad y carácter. Una opción elegante para interiores de estética tradicional, clásica renovada o europea contemporánea.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Genova%201T." target="_blank" rel="noopener">Consultar por Genova 1T</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/genova-1t-1.jpg" alt="Puerta Genova 1T"><span class="fd__count"><b>1</b> / 1</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.A · MDF · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/genova-1t-1.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Genova 1T</h3>
+                <p class="fd__txt">De inspiración clásica, sus molduras escalonadas aportan profundidad y carácter. Una opción elegante para interiores de estética tradicional, clásica renovada o europea contemporánea.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>MDF</dd></div>
+                  <div><dt>Terminación</dt><dd>Laca poliuretánica blanca, negra o gris grafito</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Laca poliuretánica blanca" style="background:#f3f2ee"></span><span class="fd__chip" title="Laca poliuretánica negra" style="background:#1c1a19"></span><span class="fd__chip" title="Laca poliuretánica gris grafito" style="background:#55524f"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Genova%201T." target="_blank" rel="noopener">Consultar por Genova 1T</a>
+              </div>
+            </div>
           </article>
           </div></div>
         </div>
@@ -121,172 +211,172 @@
           <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova." target="_blank" rel="noopener" aria-label="Consultar por Nova">
             <span class="door__img"><img src="assets/img/int/nova.webp" alt="Puerta Nova" loading="lazy"></span>
-            <span class="door__name">Nova</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova</span><span class="door__cta">Consultar por Nova</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Murano." target="_blank" rel="noopener" aria-label="Consultar por Murano">
             <span class="door__img"><img src="assets/img/int/murano.webp" alt="Puerta Murano" loading="lazy"></span>
-            <span class="door__name">Murano</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Murano</span><span class="door__cta">Consultar por Murano</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Venecia." target="_blank" rel="noopener" aria-label="Consultar por Venecia">
             <span class="door__img"><img src="assets/img/int/venecia.webp" alt="Puerta Venecia" loading="lazy"></span>
-            <span class="door__name">Venecia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Venecia</span><span class="door__cta">Consultar por Venecia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Imola." target="_blank" rel="noopener" aria-label="Consultar por Imola">
             <span class="door__img"><img src="assets/img/int/imola.webp" alt="Puerta Imola" loading="lazy"></span>
-            <span class="door__name">Imola</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Imola</span><span class="door__cta">Consultar por Imola</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bellagio." target="_blank" rel="noopener" aria-label="Consultar por Bellagio">
             <span class="door__img"><img src="assets/img/int/bellagio.webp" alt="Puerta Bellagio" loading="lazy"></span>
-            <span class="door__name">Bellagio</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Bellagio</span><span class="door__cta">Consultar por Bellagio</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Berletta." target="_blank" rel="noopener" aria-label="Consultar por Berletta">
             <span class="door__img"><img src="assets/img/int/berletta.webp" alt="Puerta Berletta" loading="lazy"></span>
-            <span class="door__name">Berletta</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Berletta</span><span class="door__cta">Consultar por Berletta</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno." target="_blank" rel="noopener" aria-label="Consultar por Legno">
             <span class="door__img"><img src="assets/img/int/legno.webp" alt="Puerta Legno" loading="lazy"></span>
-            <span class="door__name">Legno</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Legno</span><span class="door__cta">Consultar por Legno</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno%202." target="_blank" rel="noopener" aria-label="Consultar por Legno 2">
             <span class="door__img"><img src="assets/img/int/legno-2.webp" alt="Puerta Legno 2" loading="lazy"></span>
-            <span class="door__name">Legno 2</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Legno 2</span><span class="door__cta">Consultar por Legno 2</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Florencia." target="_blank" rel="noopener" aria-label="Consultar por Florencia">
             <span class="door__img"><img src="assets/img/int/florencia.webp" alt="Puerta Florencia" loading="lazy"></span>
-            <span class="door__name">Florencia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Florencia</span><span class="door__cta">Consultar por Florencia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Foggia." target="_blank" rel="noopener" aria-label="Consultar por Foggia">
             <span class="door__img"><img src="assets/img/int/foggia.webp" alt="Puerta Foggia" loading="lazy"></span>
-            <span class="door__name">Foggia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Foggia</span><span class="door__cta">Consultar por Foggia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Vicenza." target="_blank" rel="noopener" aria-label="Consultar por Vicenza">
             <span class="door__img"><img src="assets/img/int/vicenza.webp" alt="Puerta Vicenza" loading="lazy"></span>
-            <span class="door__name">Vicenza</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Vicenza</span><span class="door__cta">Consultar por Vicenza</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Capri." target="_blank" rel="noopener" aria-label="Consultar por Capri">
             <span class="door__img"><img src="assets/img/int/capri.webp" alt="Puerta Capri" loading="lazy"></span>
-            <span class="door__name">Capri</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Capri</span><span class="door__cta">Consultar por Capri</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Ravello." target="_blank" rel="noopener" aria-label="Consultar por Ravello">
             <span class="door__img"><img src="assets/img/int/ravello.webp" alt="Puerta Ravello" loading="lazy"></span>
-            <span class="door__name">Ravello</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Ravello</span><span class="door__cta">Consultar por Ravello</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Modena." target="_blank" rel="noopener" aria-label="Consultar por Modena">
             <span class="door__img"><img src="assets/img/int/modena.webp" alt="Puerta Modena" loading="lazy"></span>
-            <span class="door__name">Modena</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Modena</span><span class="door__cta">Consultar por Modena</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Chieri." target="_blank" rel="noopener" aria-label="Consultar por Chieri">
             <span class="door__img"><img src="assets/img/int/chieri.webp" alt="Puerta Chieri" loading="lazy"></span>
-            <span class="door__name">Chieri</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Chieri</span><span class="door__cta">Consultar por Chieri</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Perugia." target="_blank" rel="noopener" aria-label="Consultar por Perugia">
             <span class="door__img"><img src="assets/img/int/perugia.webp" alt="Puerta Perugia" loading="lazy"></span>
-            <span class="door__name">Perugia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Perugia</span><span class="door__cta">Consultar por Perugia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Isola." target="_blank" rel="noopener" aria-label="Consultar por Isola">
             <span class="door__img"><img src="assets/img/int/isola.webp" alt="Puerta Isola" loading="lazy"></span>
-            <span class="door__name">Isola</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Isola</span><span class="door__cta">Consultar por Isola</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Imperia." target="_blank" rel="noopener" aria-label="Consultar por Imperia">
             <span class="door__img"><img src="assets/img/int/imperia.webp" alt="Puerta Imperia" loading="lazy"></span>
-            <span class="door__name">Imperia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Imperia</span><span class="door__cta">Consultar por Imperia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Salerno." target="_blank" rel="noopener" aria-label="Consultar por Salerno">
             <span class="door__img"><img src="assets/img/int/salerno.webp" alt="Puerta Salerno" loading="lazy"></span>
-            <span class="door__name">Salerno</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Salerno</span><span class="door__cta">Consultar por Salerno</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Turin." target="_blank" rel="noopener" aria-label="Consultar por Turin">
             <span class="door__img"><img src="assets/img/int/turin.webp" alt="Puerta Turin" loading="lazy"></span>
-            <span class="door__name">Turin</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Turin</span><span class="door__cta">Consultar por Turin</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Italia." target="_blank" rel="noopener" aria-label="Consultar por Italia">
             <span class="door__img"><img src="assets/img/int/italia.webp" alt="Puerta Italia" loading="lazy"></span>
-            <span class="door__name">Italia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Italia</span><span class="door__cta">Consultar por Italia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Macerata." target="_blank" rel="noopener" aria-label="Consultar por Macerata">
             <span class="door__img"><img src="assets/img/int/macerata.webp" alt="Puerta Macerata" loading="lazy"></span>
-            <span class="door__name">Macerata</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Macerata</span><span class="door__cta">Consultar por Macerata</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Lacio." target="_blank" rel="noopener" aria-label="Consultar por Lacio">
             <span class="door__img"><img src="assets/img/int/lacio.webp" alt="Puerta Lacio" loading="lazy"></span>
-            <span class="door__name">Lacio</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Lacio</span><span class="door__cta">Consultar por Lacio</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Cerde%C3%B1a." target="_blank" rel="noopener" aria-label="Consultar por Cerdeña">
             <span class="door__img"><img src="assets/img/int/cerdena.webp" alt="Puerta Cerdeña" loading="lazy"></span>
-            <span class="door__name">Cerdeña</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Cerdeña</span><span class="door__cta">Consultar por Cerdeña</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Firenze." target="_blank" rel="noopener" aria-label="Consultar por Firenze">
             <span class="door__img"><img src="assets/img/int/firenze.webp" alt="Puerta Firenze" loading="lazy"></span>
-            <span class="door__name">Firenze</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Firenze</span><span class="door__cta">Consultar por Firenze</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Latina." target="_blank" rel="noopener" aria-label="Consultar por Latina">
             <span class="door__img"><img src="assets/img/int/latina.webp" alt="Puerta Latina" loading="lazy"></span>
-            <span class="door__name">Latina</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Latina</span><span class="door__cta">Consultar por Latina</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Lipari." target="_blank" rel="noopener" aria-label="Consultar por Lipari">
             <span class="door__img"><img src="assets/img/int/lipari.webp" alt="Puerta Lipari" loading="lazy"></span>
-            <span class="door__name">Lipari</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Lipari</span><span class="door__cta">Consultar por Lipari</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Napoli." target="_blank" rel="noopener" aria-label="Consultar por Napoli">
             <span class="door__img"><img src="assets/img/int/napoli.webp" alt="Puerta Napoli" loading="lazy"></span>
-            <span class="door__name">Napoli</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Napoli</span><span class="door__cta">Consultar por Napoli</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Novara." target="_blank" rel="noopener" aria-label="Consultar por Novara">
             <span class="door__img"><img src="assets/img/int/novara.webp" alt="Puerta Novara" loading="lazy"></span>
-            <span class="door__name">Novara</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Novara</span><span class="door__cta">Consultar por Novara</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Marsala." target="_blank" rel="noopener" aria-label="Consultar por Marsala">
             <span class="door__img"><img src="assets/img/int/marsala.webp" alt="Puerta Marsala" loading="lazy"></span>
-            <span class="door__name">Marsala</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Marsala</span><span class="door__cta">Consultar por Marsala</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Otranto." target="_blank" rel="noopener" aria-label="Consultar por Otranto">
             <span class="door__img"><img src="assets/img/int/otranto.webp" alt="Puerta Otranto" loading="lazy"></span>
-            <span class="door__name">Otranto</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Otranto</span><span class="door__cta">Consultar por Otranto</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Palermo." target="_blank" rel="noopener" aria-label="Consultar por Palermo">
             <span class="door__img"><img src="assets/img/int/palermo.webp" alt="Puerta Palermo" loading="lazy"></span>
-            <span class="door__name">Palermo</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Palermo</span><span class="door__cta">Consultar por Palermo</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Mesina." target="_blank" rel="noopener" aria-label="Consultar por Mesina">
             <span class="door__img"><img src="assets/img/int/mesina.webp" alt="Puerta Mesina" loading="lazy"></span>
-            <span class="door__name">Mesina</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Mesina</span><span class="door__cta">Consultar por Mesina</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Livorno." target="_blank" rel="noopener" aria-label="Consultar por Livorno">
             <span class="door__img"><img src="assets/img/int/livorno.webp" alt="Puerta Livorno" loading="lazy"></span>
-            <span class="door__name">Livorno</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Livorno</span><span class="door__cta">Consultar por Livorno</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Parma." target="_blank" rel="noopener" aria-label="Consultar por Parma">
             <span class="door__img"><img src="assets/img/int/parma.webp" alt="Puerta Parma" loading="lazy"></span>
-            <span class="door__name">Parma</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Parma</span><span class="door__cta">Consultar por Parma</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Roma." target="_blank" rel="noopener" aria-label="Consultar por Roma">
             <span class="door__img"><img src="assets/img/int/roma.webp" alt="Puerta Roma" loading="lazy"></span>
-            <span class="door__name">Roma</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Roma</span><span class="door__cta">Consultar por Roma</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20M%C3%A1laga%202TR." target="_blank" rel="noopener" aria-label="Consultar por Málaga 2TR">
             <span class="door__img"><img src="assets/img/int/malaga-2tr.webp" alt="Puerta Málaga 2TR" loading="lazy"></span>
-            <span class="door__name">Málaga 2TR</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Málaga 2TR</span><span class="door__cta">Consultar por Málaga 2TR</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20M%C3%A1laga%202%20TC." target="_blank" rel="noopener" aria-label="Consultar por Málaga 2 TC">
             <span class="door__img"><img src="assets/img/int/malaga-2-tc.webp" alt="Puerta Málaga 2 TC" loading="lazy"></span>
-            <span class="door__name">Málaga 2 TC</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Málaga 2 TC</span><span class="door__cta">Consultar por Málaga 2 TC</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Positano." target="_blank" rel="noopener" aria-label="Consultar por Positano">
             <span class="door__img"><img src="assets/img/int/positano.webp" alt="Puerta Positano" loading="lazy"></span>
-            <span class="door__name">Positano</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Positano</span><span class="door__cta">Consultar por Positano</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%201T." target="_blank" rel="noopener" aria-label="Consultar por Bari 1T">
             <span class="door__img"><img src="assets/img/int/bari-1t.webp" alt="Puerta Bari 1T" loading="lazy"></span>
-            <span class="door__name">Bari 1T</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Bari 1T</span><span class="door__cta">Consultar por Bari 1T</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%202T." target="_blank" rel="noopener" aria-label="Consultar por Bari 2T">
             <span class="door__img"><img src="assets/img/int/bari-2t.webp" alt="Puerta Bari 2T" loading="lazy"></span>
-            <span class="door__name">Bari 2T</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Bari 2T</span><span class="door__cta">Consultar por Bari 2T</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Bari%202TC." target="_blank" rel="noopener" aria-label="Consultar por Bari 2TC">
             <span class="door__img"><img src="assets/img/int/bari-2tc.webp" alt="Puerta Bari 2TC" loading="lazy"></span>
-            <span class="door__name">Bari 2TC</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Bari 2TC</span><span class="door__cta">Consultar por Bari 2TC</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Genova%201T." target="_blank" rel="noopener" aria-label="Consultar por Genova 1T">
             <span class="door__img"><img src="assets/img/int/genova-1t.webp" alt="Puerta Genova 1T" loading="lazy"></span>
-            <span class="door__name">Genova 1T</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Genova 1T</span><span class="door__cta">Consultar por Genova 1T</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Genova%202T." target="_blank" rel="noopener" aria-label="Consultar por Genova 2T">
             <span class="door__img"><img src="assets/img/int/genova-2t.webp" alt="Puerta Genova 2T" loading="lazy"></span>
-            <span class="door__name">Genova 2T</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Genova 2T</span><span class="door__cta">Consultar por Genova 2T</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Coranto." target="_blank" rel="noopener" aria-label="Consultar por Coranto">
             <span class="door__img"><img src="assets/img/int/coranto.webp" alt="Puerta Coranto" loading="lazy"></span>
-            <span class="door__name">Coranto</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Coranto</span><span class="door__cta">Consultar por Coranto</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Garda." target="_blank" rel="noopener" aria-label="Consultar por Garda">
             <span class="door__img"><img src="assets/img/int/garda.webp" alt="Puerta Garda" loading="lazy"></span>
-            <span class="door__name">Garda</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Garda</span><span class="door__cta">Consultar por Garda</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Sicilia." target="_blank" rel="noopener" aria-label="Consultar por Sicilia">
             <span class="door__img"><img src="assets/img/int/sicilia.webp" alt="Puerta Sicilia" loading="lazy"></span>
-            <span class="door__name">Sicilia</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Sicilia</span><span class="door__cta">Consultar por Sicilia</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Biella." target="_blank" rel="noopener" aria-label="Consultar por Biella">
             <span class="door__img"><img src="assets/img/int/biella.webp" alt="Puerta Biella" loading="lazy"></span>
-            <span class="door__name">Biella</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Biella</span><span class="door__cta">Consultar por Biella</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20VS." target="_blank" rel="noopener" aria-label="Consultar por Nova VS">
             <span class="door__img"><img src="assets/img/int/nova-vs.webp" alt="Puerta Nova VS" loading="lazy"></span>
-            <span class="door__name">Nova VS</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova VS</span><span class="door__cta">Consultar por Nova VS</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20VV." target="_blank" rel="noopener" aria-label="Consultar por Nova VV">
             <span class="door__img"><img src="assets/img/int/nova-vv.webp" alt="Puerta Nova VV" loading="lazy"></span>
-            <span class="door__name">Nova VV</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova VV</span><span class="door__cta">Consultar por Nova VV</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20VE." target="_blank" rel="noopener" aria-label="Consultar por Nova VE">
             <span class="door__img"><img src="assets/img/int/nova-ve.webp" alt="Puerta Nova VE" loading="lazy"></span>
-            <span class="door__name">Nova VE</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova VE</span><span class="door__cta">Consultar por Nova VE</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Alassio." target="_blank" rel="noopener" aria-label="Consultar por Alassio">
             <span class="door__img"><img src="assets/img/int/alassio.webp" alt="Puerta Alassio" loading="lazy"></span>
-            <span class="door__name">Alassio</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Alassio</span><span class="door__cta">Consultar por Alassio</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Artena." target="_blank" rel="noopener" aria-label="Consultar por Artena">
             <span class="door__img"><img src="assets/img/int/artena.webp" alt="Puerta Artena" loading="lazy"></span>
-            <span class="door__name">Artena</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Artena</span><span class="door__cta">Consultar por Artena</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Amalfi." target="_blank" rel="noopener" aria-label="Consultar por Amalfi">
             <span class="door__img"><img src="assets/img/int/amalfi.webp" alt="Puerta Amalfi" loading="lazy"></span>
-            <span class="door__name">Amalfi</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Amalfi</span><span class="door__cta">Consultar por Amalfi</span></a></li>
           </ul>
         </div>
 
         <div class="mat__block fin">
-          <p class="mat__label">Colores</p>
-          <div class="fin__group"><h4 class="fin__title">Colores</h4><ul class="fin__list"><li class="sw"><span class="sw__chip" style="background:#f3f2ee"></span><span class="sw__name">Laca poliuretánica blanca</span></li><li class="sw"><span class="sw__chip" style="background:#1c1a19"></span><span class="sw__name">Laca poliuretánica negra</span></li><li class="sw"><span class="sw__chip" style="background:#55524f"></span><span class="sw__name">Laca poliuretánica gris grafito</span></li></ul></div>
+          <p class="mat__label">Colores<span>Tocá una terminación para verla en todas las puertas</span></p>
+          <div class="fin__group"><h4 class="fin__title">Colores</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#f3f2ee"><span class="sw__chip" style="background:#f3f2ee"></span><span class="sw__name">Laca poliuretánica blanca</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#1c1a19"><span class="sw__chip" style="background:#1c1a19"></span><span class="sw__name">Laca poliuretánica negra</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#55524f"><span class="sw__chip" style="background:#55524f"></span><span class="sw__name">Laca poliuretánica gris grafito</span></button></li></ul></div>
         </div>
       </section>
       <section class="mat" id="enchapadas" data-nav="dark">
@@ -300,23 +390,59 @@
         <div class="mat__block">
           <p class="mat__label">Destacadas</p>
           <div class="feat-strip" data-drag><div class="feat-track">
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20enchapada." target="_blank" rel="noopener" data-model="Nova enchapada">
+          <article class="feat" data-gal="nova-enchapada-1.jpg,nova-enchapada-2.jpg,nova-enchapada-3.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Nova enchapada">
               <img src="assets/img/int/amb/nova-enchapada-1.jpg" alt="Puerta Nova enchapada instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/nova-enchapada-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Nova enchapada</h3>
             <p class="feat__txt">Una propuesta simple, de estética contemporánea, ideal para hogares que buscan calidez y sobriedad. El enchapado de madera aporta una terminación natural y elegante, integrándose fácilmente en distintos estilos de interior.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20enchapada." target="_blank" rel="noopener">Consultar por Nova enchapada</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/nova-enchapada-1.jpg" alt="Puerta Nova enchapada"><span class="fd__count"><b>1</b> / 3</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.B · Enchapadas · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/nova-enchapada-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/nova-enchapada-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/nova-enchapada-3.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Nova enchapada</h3>
+                <p class="fd__txt">Una propuesta simple, de estética contemporánea, ideal para hogares que buscan calidez y sobriedad. El enchapado de madera aporta una terminación natural y elegante, integrándose fácilmente en distintos estilos de interior.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Enchapadas</dd></div>
+                  <div><dt>Terminación</dt><dd>Enchapado en goiabao, petiribí, kiri o roble americano, y tonos de cedro</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Goiabao"><img src="assets/img/int/sw/goiabao.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Petiribí XA40"><img src="assets/img/int/sw/petiribi-xa40.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kiri"><img src="assets/img/int/sw/kiri.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Roble americano"><img src="assets/img/int/sw/roble-americano.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Cedro con hidrolaca"><img src="assets/img/int/sw/cedro-hidrolaca.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 00"><img src="assets/img/int/sw/ench-tono-00.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 01"><img src="assets/img/int/sw/ench-tono-01.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 02"><img src="assets/img/int/sw/ench-tono-02.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 03"><img src="assets/img/int/sw/ench-tono-03.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 04"><img src="assets/img/int/sw/ench-tono-04.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 05"><img src="assets/img/int/sw/ench-tono-05.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 22"><img src="assets/img/int/sw/ench-tono-22.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20enchapada." target="_blank" rel="noopener">Consultar por Nova enchapada</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Tavolatto%20enchapada." target="_blank" rel="noopener" data-model="Tavolatto enchapada">
+          <article class="feat" data-gal="tavolatto-enchapada-1.jpg,tavolatto-enchapada-2.jpg,tavolatto-enchapada-3.jpg,tavolatto-enchapada-4.jpg,tavolatto-enchapada-5.jpg,tavolatto-enchapada-6.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Tavolatto enchapada">
               <img src="assets/img/int/amb/tavolatto-enchapada-1.jpg" alt="Puerta Tavolatto enchapada instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/tavolatto-enchapada-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Tavolatto enchapada</h3>
             <p class="feat__txt">Una propuesta de líneas simples y estética contemporánea, ideal para hogares que buscan calidez y sobriedad. El enchapado de madera aporta una terminación natural y elegante, integrándose fácilmente en distintos estilos de interior.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Tavolatto%20enchapada." target="_blank" rel="noopener">Consultar por Tavolatto enchapada</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/tavolatto-enchapada-1.jpg" alt="Puerta Tavolatto enchapada"><span class="fd__count"><b>1</b> / 6</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.B · Enchapadas · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/tavolatto-enchapada-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/tavolatto-enchapada-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/tavolatto-enchapada-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/tavolatto-enchapada-4.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="4" aria-label="Foto 5"><img src="assets/img/int/gal/tavolatto-enchapada-5.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="5" aria-label="Foto 6"><img src="assets/img/int/gal/tavolatto-enchapada-6.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Tavolatto enchapada</h3>
+                <p class="fd__txt">Una propuesta de líneas simples y estética contemporánea, ideal para hogares que buscan calidez y sobriedad. El enchapado de madera aporta una terminación natural y elegante, integrándose fácilmente en distintos estilos de interior.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Enchapadas</dd></div>
+                  <div><dt>Terminación</dt><dd>Enchapado en goiabao, petiribí, kiri o roble americano, y tonos de cedro</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Goiabao"><img src="assets/img/int/sw/goiabao.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Petiribí XA40"><img src="assets/img/int/sw/petiribi-xa40.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kiri"><img src="assets/img/int/sw/kiri.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Roble americano"><img src="assets/img/int/sw/roble-americano.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Cedro con hidrolaca"><img src="assets/img/int/sw/cedro-hidrolaca.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 00"><img src="assets/img/int/sw/ench-tono-00.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 01"><img src="assets/img/int/sw/ench-tono-01.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 02"><img src="assets/img/int/sw/ench-tono-02.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 03"><img src="assets/img/int/sw/ench-tono-03.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 04"><img src="assets/img/int/sw/ench-tono-04.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 05"><img src="assets/img/int/sw/ench-tono-05.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 22"><img src="assets/img/int/sw/ench-tono-22.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Tavolatto%20enchapada." target="_blank" rel="noopener">Consultar por Tavolatto enchapada</a>
+              </div>
+            </div>
           </article>
           </div></div>
         </div>
@@ -326,53 +452,53 @@
           <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Vercelli%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Vercelli enchapada">
             <span class="door__img"><img src="assets/img/int/vercelli-enchapada.webp" alt="Puerta Vercelli enchapada" loading="lazy"></span>
-            <span class="door__name">Vercelli <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Vercelli <em>enchapada</em></span><span class="door__cta">Consultar por Vercelli enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Italia%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Italia enchapada">
             <span class="door__img"><img src="assets/img/int/italia-enchapada.webp" alt="Puerta Italia enchapada" loading="lazy"></span>
-            <span class="door__name">Italia <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Italia <em>enchapada</em></span><span class="door__cta">Consultar por Italia enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Taranto%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Taranto enchapada">
             <span class="door__img"><img src="assets/img/int/taranto-enchapada.webp" alt="Puerta Taranto enchapada" loading="lazy"></span>
-            <span class="door__name">Taranto <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Taranto <em>enchapada</em></span><span class="door__cta">Consultar por Taranto enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Murano%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Murano enchapada">
             <span class="door__img"><img src="assets/img/int/murano-enchapada.webp" alt="Puerta Murano enchapada" loading="lazy"></span>
-            <span class="door__name">Murano <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Murano <em>enchapada</em></span><span class="door__cta">Consultar por Murano enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Torino%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Torino enchapada">
             <span class="door__img"><img src="assets/img/int/torino-enchapada.webp" alt="Puerta Torino enchapada" loading="lazy"></span>
-            <span class="door__name">Torino <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Torino <em>enchapada</em></span><span class="door__cta">Consultar por Torino enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Udine%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Udine enchapada">
             <span class="door__img"><img src="assets/img/int/udine-enchapada.webp" alt="Puerta Udine enchapada" loading="lazy"></span>
-            <span class="door__name">Udine <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Udine <em>enchapada</em></span><span class="door__cta">Consultar por Udine enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Trentino%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Trentino enchapada">
             <span class="door__img"><img src="assets/img/int/trentino-enchapada.webp" alt="Puerta Trentino enchapada" loading="lazy"></span>
-            <span class="door__name">Trentino <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Trentino <em>enchapada</em></span><span class="door__cta">Consultar por Trentino enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Trevi%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Trevi enchapada">
             <span class="door__img"><img src="assets/img/int/trevi-enchapada.webp" alt="Puerta Trevi enchapada" loading="lazy"></span>
-            <span class="door__name">Trevi <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Trevi <em>enchapada</em></span><span class="door__cta">Consultar por Trevi enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Trieste%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Trieste enchapada">
             <span class="door__img"><img src="assets/img/int/trieste-enchapada.webp" alt="Puerta Trieste enchapada" loading="lazy"></span>
-            <span class="door__name">Trieste <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Trieste <em>enchapada</em></span><span class="door__cta">Consultar por Trieste enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Legno%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Legno enchapada">
             <span class="door__img"><img src="assets/img/int/legno-enchapada.webp" alt="Puerta Legno enchapada" loading="lazy"></span>
-            <span class="door__name">Legno <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Legno <em>enchapada</em></span><span class="door__cta">Consultar por Legno enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Veneto%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Veneto enchapada">
             <span class="door__img"><img src="assets/img/int/veneto-enchapada.webp" alt="Puerta Veneto enchapada" loading="lazy"></span>
-            <span class="door__name">Veneto <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Veneto <em>enchapada</em></span><span class="door__cta">Consultar por Veneto enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Tavolatto%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Tavolatto enchapada">
             <span class="door__img"><img src="assets/img/int/tavolatto-enchapada.webp" alt="Puerta Tavolatto enchapada" loading="lazy"></span>
-            <span class="door__name">Tavolatto <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Tavolatto <em>enchapada</em></span><span class="door__cta">Consultar por Tavolatto enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20VE%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Nova VE enchapada">
             <span class="door__img"><img src="assets/img/int/nova-ve-enchapada.webp" alt="Puerta Nova VE enchapada" loading="lazy"></span>
-            <span class="door__name">Nova VE <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova VE <em>enchapada</em></span><span class="door__cta">Consultar por Nova VE enchapada</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Nova enchapada">
             <span class="door__img"><img src="assets/img/int/nova-enchapada.webp" alt="Puerta Nova enchapada" loading="lazy"></span>
-            <span class="door__name">Nova <em>enchapada</em></span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Nova <em>enchapada</em></span><span class="door__cta">Consultar por Nova enchapada</span></a></li>
           </ul>
         </div>
 
         <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones</p>
-          <div class="fin__group"><h4 class="fin__title">Maderas para enchapados</h4><ul class="fin__list"><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/goiabao.webp" alt="" loading="lazy"></span><span class="sw__name">Goiabao</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/petiribi-xa40.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí XA40</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/kiri.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/roble-americano.webp" alt="" loading="lazy"></span><span class="sw__name">Roble americano</span></li></ul></div>
-          <div class="fin__group"><h4 class="fin__title">Tonos cedro enchapado</h4><ul class="fin__list"><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/cedro-hidrolaca.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro con hidrolaca</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></li></ul></div>
+          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+          <div class="fin__group"><h4 class="fin__title">Maderas para enchapados</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/goiabao.webp"><span class="sw__chip"><img src="assets/img/int/sw/goiabao.webp" alt="" loading="lazy"></span><span class="sw__name">Goiabao</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/petiribi-xa40.webp"><span class="sw__chip"><img src="assets/img/int/sw/petiribi-xa40.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí XA40</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/kiri.webp"><span class="sw__chip"><img src="assets/img/int/sw/kiri.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/roble-americano.webp"><span class="sw__chip"><img src="assets/img/int/sw/roble-americano.webp" alt="" loading="lazy"></span><span class="sw__name">Roble americano</span></button></li></ul></div>
+          <div class="fin__group"><h4 class="fin__title">Tonos cedro enchapado</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/cedro-hidrolaca.webp"><span class="sw__chip"><img src="assets/img/int/sw/cedro-hidrolaca.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro con hidrolaca</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-00.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-01.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-02.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-03.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-04.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-05.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/ench-tono-22.webp"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></button></li></ul></div>
         </div>
       </section>
       <section class="mat" id="melamina" data-nav="dark">
@@ -386,21 +512,48 @@
         <div class="mat__block">
           <p class="mat__label">Destacada</p>
           <div class="feat-strip" data-drag><div class="feat-track">
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Candeli." target="_blank" rel="noopener" data-model="Candeli">
+          <article class="feat" data-gal="candeli-1.jpg,candeli-2.jpg,candeli-3.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Candeli">
               <img src="assets/img/int/amb/candeli-1.jpg" alt="Puerta Candeli instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/candeli-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Candeli</h3>
             <p class="feat__txt">La uniformidad de sus vetas, colores y brillos define una estética equilibrada y contemporánea. Su diseño esencial, libre de ornamentos, aporta sobriedad y versatilidad, integrándose con naturalidad en interiores modernos, nórdicos o minimalistas.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Candeli." target="_blank" rel="noopener">Consultar por Candeli</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/candeli-1.jpg" alt="Puerta Candeli"><span class="fd__count"><b>1</b> / 3</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.C · Melamina · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/candeli-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/candeli-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/candeli-3.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Candeli</h3>
+                <p class="fd__txt">La uniformidad de sus vetas, colores y brillos define una estética equilibrada y contemporánea. Su diseño esencial, libre de ornamentos, aporta sobriedad y versatilidad, integrándose con naturalidad en interiores modernos, nórdicos o minimalistas.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Melamina</dd></div>
+                  <div><dt>Terminación</dt><dd>Olmo finlandés o Kendall encerado</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Olmo finlandés"><img src="assets/img/int/sw/olmo-finlandes.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kendall encerado"><img src="assets/img/int/sw/kendall-encerado.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Candeli." target="_blank" rel="noopener">Consultar por Candeli</a>
+              </div>
+            </div>
           </article>
           </div></div>
         </div>
 
+        <div class="mat__block">
+          <p class="mat__label">Todos los modelos <span>1</span></p>
+          <ul class="doors">
+          <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Candeli." target="_blank" rel="noopener" aria-label="Consultar por Candeli">
+            <span class="door__img"><img src="assets/img/int/candeli.webp" alt="Puerta Candeli" loading="lazy"></span>
+            <span class="door__name">Candeli</span><span class="door__cta">Consultar por Candeli</span></a></li>
+          </ul>
+        </div>
+
         <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones</p>
-          <div class="fin__group"><h4 class="fin__title">Tipos de melamina</h4><ul class="fin__list"><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/olmo-finlandes.webp" alt="" loading="lazy"></span><span class="sw__name">Olmo finlandés</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/kendall-encerado.webp" alt="" loading="lazy"></span><span class="sw__name">Kendall encerado</span></li></ul></div>
+          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+          <div class="fin__group"><h4 class="fin__title">Tipos de melamina</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/olmo-finlandes.webp"><span class="sw__chip"><img src="assets/img/int/sw/olmo-finlandes.webp" alt="" loading="lazy"></span><span class="sw__name">Olmo finlandés</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/kendall-encerado.webp"><span class="sw__chip"><img src="assets/img/int/sw/kendall-encerado.webp" alt="" loading="lazy"></span><span class="sw__name">Kendall encerado</span></button></li></ul></div>
         </div>
       </section>
       <section class="mat" id="maciza" data-nav="dark">
@@ -414,32 +567,86 @@
         <div class="mat__block">
           <p class="mat__label">Destacadas</p>
           <div class="feat-strip" data-drag><div class="feat-track">
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Pompeya." target="_blank" rel="noopener" data-model="Pompeya">
+          <article class="feat" data-gal="pompeya-1.jpg,pompeya-2.jpg,pompeya-3.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Pompeya">
               <img src="assets/img/int/amb/pompeya-1.jpg" alt="Puerta Pompeya instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/pompeya-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Pompeya</h3>
             <p class="feat__txt">Su composición de paños y molduras rectas recupera códigos de la carpintería tradicional desde una mirada más depurada. Ideal para espacios cálidos que combinan elementos clásicos y contemporáneos.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Pompeya." target="_blank" rel="noopener">Consultar por Pompeya</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/pompeya-1.jpg" alt="Puerta Pompeya"><span class="fd__count"><b>1</b> / 3</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.D · Madera maciza · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/pompeya-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/pompeya-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/pompeya-3.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Pompeya</h3>
+                <p class="fd__txt">Su composición de paños y molduras rectas recupera códigos de la carpintería tradicional desde una mirada más depurada. Ideal para espacios cálidos que combinan elementos clásicos y contemporáneos.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Madera maciza</dd></div>
+                  <div><dt>Terminación</dt><dd>Roble, kiri, petiribí, grandis o cedro arana, en sus tonos</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Roble"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kiri"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Petiribí"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Grandis"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Acabado arenado"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Cedro arenado negro"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Negro veteado"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 00"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 01"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 02"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 03"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 04"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 05"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 22"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural arenado"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Pompeya." target="_blank" rel="noopener">Consultar por Pompeya</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Toscana." target="_blank" rel="noopener" data-model="Toscana">
+          <article class="feat" data-gal="toscana-1.jpg,toscana-2.jpg,toscana-3.jpg,toscana-4.jpg,toscana-5.jpg,toscana-6.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Toscana">
               <img src="assets/img/int/amb/toscana-1.jpg" alt="Puerta Toscana instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/toscana-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Toscana</h3>
             <p class="feat__txt">De marcada inspiración clásica, combina proporciones tradicionales y molduras trabajadas que aportan profundidad. Una puerta con carácter, pensada para interiores elegantes de estética clásica, mediterránea o clásica contemporánea.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Toscana." target="_blank" rel="noopener">Consultar por Toscana</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/toscana-1.jpg" alt="Puerta Toscana"><span class="fd__count"><b>1</b> / 6</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.D · Madera maciza · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/toscana-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/toscana-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/toscana-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/toscana-4.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="4" aria-label="Foto 5"><img src="assets/img/int/gal/toscana-5.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="5" aria-label="Foto 6"><img src="assets/img/int/gal/toscana-6.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Toscana</h3>
+                <p class="fd__txt">De marcada inspiración clásica, combina proporciones tradicionales y molduras trabajadas que aportan profundidad. Una puerta con carácter, pensada para interiores elegantes de estética clásica, mediterránea o clásica contemporánea.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Madera maciza</dd></div>
+                  <div><dt>Terminación</dt><dd>Roble, kiri, petiribí, grandis o cedro arana, en sus tonos</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Roble"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kiri"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Petiribí"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Grandis"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Acabado arenado"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Cedro arenado negro"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Negro veteado"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 00"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 01"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 02"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 03"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 04"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 05"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 22"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural arenado"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Toscana." target="_blank" rel="noopener">Consultar por Toscana</a>
+              </div>
+            </div>
           </article>
-          <article class="feat">
-            <a class="feat__media" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Savena." target="_blank" rel="noopener" data-model="Savena">
+          <article class="feat" data-gal="savena-1.jpg,savena-2.jpg,savena-3.jpg,savena-4.jpg">
+            <button class="feat__media" type="button" aria-expanded="false" aria-label="Ver más de Savena">
               <img src="assets/img/int/amb/savena-1.jpg" alt="Puerta Savena instalada" loading="lazy">
               <img class="feat__alt" src="assets/img/int/amb/savena-2.jpg" alt="" loading="lazy">
-            </a>
+              <span class="feat__more">Ver más</span>
+            </button>
             <h3 class="feat__name">Savena</h3>
             <p class="feat__txt">Una abertura de madera maciza y líneas clásicas, donde la modulación vidriada aporta ritmo y luminosidad. Un diseño cálido y atemporal que combina tradición y simpleza contemporánea.</p>
             <a class="feat__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Savena." target="_blank" rel="noopener">Consultar por Savena</a>
+            <div class="fd" aria-hidden="true">
+              <div class="fd__stage"><img class="fd__main" src="assets/img/int/gal/savena-1.jpg" alt="Puerta Savena"><span class="fd__count"><b>1</b> / 4</span></div>
+              <div class="fd__info">
+                <div class="fd__top"><span class="fd__kicker">04.D · Madera maciza · Destacada</span><button class="fd__close" type="button">Cerrar</button></div>
+                <div class="fd__thumbs"><button class="fd__thumb is-on" type="button" data-i="0" aria-label="Foto 1"><img src="assets/img/int/gal/savena-1.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="1" aria-label="Foto 2"><img src="assets/img/int/gal/savena-2.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="2" aria-label="Foto 3"><img src="assets/img/int/gal/savena-3.jpg" alt="" loading="lazy"></button><button class="fd__thumb" type="button" data-i="3" aria-label="Foto 4"><img src="assets/img/int/gal/savena-4.jpg" alt="" loading="lazy"></button></div>
+                <h3 class="fd__name">Savena</h3>
+                <p class="fd__txt">Una abertura de madera maciza y líneas clásicas, donde la modulación vidriada aporta ritmo y luminosidad. Un diseño cálido y atemporal que combina tradición y simpleza contemporánea.</p>
+                <dl class="fd__specs">
+                  <div><dt>Línea</dt><dd>A medida</dd></div>
+                  <div><dt>Materialidad</dt><dd>Madera maciza</dd></div>
+                  <div><dt>Terminación</dt><dd>Roble, kiri, petiribí, grandis o cedro arana, en sus tonos</dd></div>
+                  <div><dt>Medidas</dt><dd>Se fabrica a la medida del vano</dd></div>
+                </dl>
+                <div class="fd__chips"><span class="fd__chip" title="Roble"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Kiri"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Petiribí"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Grandis"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Acabado arenado"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Cedro arenado negro"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Negro veteado"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 00"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 01"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 02"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 03"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 04"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 05"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Tono 22"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="fd__chip" title="Belleza natural arenado"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span></div>
+                <a class="pill fd__cta" href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Savena." target="_blank" rel="noopener">Consultar por Savena</a>
+              </div>
+            </div>
           </article>
           </div></div>
         </div>
@@ -449,20 +656,20 @@
           <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Pompeya." target="_blank" rel="noopener" aria-label="Consultar por Pompeya">
             <span class="door__img"><img src="assets/img/int/pompeya.webp" alt="Puerta Pompeya" loading="lazy"></span>
-            <span class="door__name">Pompeya</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Pompeya</span><span class="door__cta">Consultar por Pompeya</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Toscana." target="_blank" rel="noopener" aria-label="Consultar por Toscana">
             <span class="door__img"><img src="assets/img/int/toscana.webp" alt="Puerta Toscana" loading="lazy"></span>
-            <span class="door__name">Toscana</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Toscana</span><span class="door__cta">Consultar por Toscana</span></a></li>
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Savena." target="_blank" rel="noopener" aria-label="Consultar por Savena">
             <span class="door__img"><img src="assets/img/int/savena.webp" alt="Puerta Savena" loading="lazy"></span>
-            <span class="door__name">Savena</span><span class="door__cta">Consultar</span></a></li>
+            <span class="door__name">Savena</span><span class="door__cta">Consultar por Savena</span></a></li>
           </ul>
         </div>
 
         <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones</p>
-          <div class="fin__group"><h4 class="fin__title">Maderas macizas</h4><ul class="fin__list"><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="sw__name">Roble</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="sw__name">Grandis</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Acabado arenado</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro arenado negro</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="sw__name">Negro veteado</span></li></ul></div>
-          <div class="fin__group"><h4 class="fin__title">Tonos de cedro arana macizo</h4><ul class="fin__list"><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></li><li class="sw"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural arenado</span></li></ul></div>
+          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+          <div class="fin__group"><h4 class="fin__title">Maderas macizas</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/roble.webp"><span class="sw__chip"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="sw__name">Roble</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/kiri-macizo.webp"><span class="sw__chip"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/petiribi.webp"><span class="sw__chip"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/grandis.webp"><span class="sw__chip"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="sw__name">Grandis</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/acabado-arenado.webp"><span class="sw__chip"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Acabado arenado</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/cedro-arenado-negro.webp"><span class="sw__chip"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro arenado negro</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/negro-veteado.webp"><span class="sw__chip"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="sw__name">Negro veteado</span></button></li></ul></div>
+          <div class="fin__group"><h4 class="fin__title">Tonos de cedro arana macizo</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/belleza-natural.webp"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-00.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-01.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-02.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-03.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-04.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-05.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/maz-tono-22.webp"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/sw/belleza-natural-arenado.webp"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural arenado</span></button></li></ul></div>
         </div>
       </section>
 
@@ -552,6 +759,6 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/linea.js?v=3"></script>
+  <script src="js/linea.js?v=4"></script>
 </body>
 </html>
