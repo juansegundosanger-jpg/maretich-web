@@ -94,7 +94,7 @@ function playIntro() {
     // 3. la marca se vuelve a juntar arriba a la izquierda y se queda: se le suma "aberturas de madera"
     .to([gIso, gWord], { ...s3, duration: 1.6, ease: 'casa' }, 2.9)
     .to(gDesc.children, { autoAlpha: 1, y: 0, duration: 0.6, stagger: 0.025, ease: 'power3.out' }, 4.25)
-    .to('.nav__menu, .nav__burger', { autoAlpha: 1, y: 0, duration: 0.9, ease: EASE_OUT }, 4.3)
+    .to('.nav__menu, .nav__burger', { autoAlpha: 1, y: 0, duration: 0.9, ease: EASE_OUT, clearProps: 'opacity,visibility,transform' }, 4.3)
     .set('.hero__copy', { autoAlpha: 1 }, 4.0)
     .from(copy.lines, { yPercent: 110, duration: 1.2, stagger: 0.1, ease: EASE_OUT }, 4.0)
     .from('.hero__sub', { autoAlpha: 0, y: 14, duration: 1, ease: EASE_OUT }, 4.35);
@@ -399,7 +399,18 @@ function initLineas() {
       .to({}, { duration: 0.35 });
     // si viene otra línea, esta queda fija una pantalla más mientras la siguiente sube por encima
     if (!last) tl.to({}, { duration: tl.duration() * (100 / 140) });
-    playWhileVisible(tl.scrollTrigger);
+    // el video espera en su primer cuadro y arranca desde el principio recién cuando la imagen terminó de abrirse,
+    // así el plano se ve entero al llegar (sin el fundido del loop ni un cuadro a mitad de camino)
+    const openAt = 1.05 / tl.duration();
+    let running = false, outer = null;
+    const sync = () => {
+      const want = outer && outer.isActive && tl.scrollTrigger.progress >= openAt;
+      if (want && !running) { running = true; const p = v.play(); if (p) p.catch(() => {}); }
+      else if (!want && running) { running = false; v.pause(); }
+      if (!want && tl.scrollTrigger.progress < openAt && v.currentTime > 0) v.currentTime = 0;
+    };
+    v.preload = 'auto';
+    outer = ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: () => tl.scrollTrigger.end + window.innerHeight, onUpdate: sync, onToggle: sync });
   });
 }
 
@@ -483,9 +494,6 @@ function initFooter() {
   gsap.fromTo('.footer__logo', { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 12 }, { clipPath: 'inset(0% 0% 0% 0%)', yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer__brand', start: 'top 98%', end: 'bottom 92%', scrub: 0.6 } });
   const up = $('.footer__up');
   if (up) up.addEventListener('click', () => { const sm = ScrollSmoother.get(); if (sm) sm.scrollTo(0, true); else window.scrollTo({ top: 0, behavior: 'smooth' }); });
-  const clock = $('[data-clock]');
-  const tick = () => { clock.textContent = new Intl.DateTimeFormat('es-AR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Argentina/Cordoba' }).format(new Date()); };
-  if (clock) { tick(); setInterval(tick, 30000); }
 }
 
 function initTexts() {

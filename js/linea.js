@@ -21,7 +21,7 @@ async function inlineSvgs() {
 
 // ---------- Scroll suave y anclas internas ----------
 let smoother = null;
-const goTo = (t) => (smoother ? smoother.scrollTo(t, true, 'top 90px') : t.scrollIntoView({ behavior: 'smooth' }));
+const goTo = (t) => (smoother ? smoother.scrollTo(t, true, $('.mat-bar') ? 'top 70px' : 'top 90px') : t.scrollIntoView({ behavior: 'smooth' }));
 function initSmooth() {
   if (!reduce) smoother = ScrollSmoother.create({ wrapper: '#smooth-wrapper', content: '#smooth-content', smooth: 1.1, smoothTouch: 0.1, effects: false });
   $$('a[href^="#"]').forEach((a) => a.addEventListener('click', (e) => {
@@ -34,7 +34,7 @@ function initSmooth() {
     goTo(t);
   }));
   // los catálogos completos de cada categoría son el próximo paso: por ahora no navegan
-  $$('[data-catalog]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
+  $$('[data-catalog]').forEach((a) => a.addEventListener('click', (e) => { if (a.getAttribute('href') === '#') e.preventDefault(); }));
 }
 
 // ---------- Encabezado ----------
@@ -106,12 +106,44 @@ function initCursor() {
   const xTo = gsap.quickTo(c, 'x', { duration: 0.45, ease: 'power3' });
   const yTo = gsap.quickTo(c, 'y', { duration: 0.45, ease: 'power3' });
   window.addEventListener('pointermove', (e) => { xTo(e.clientX); yTo(e.clientY); });
-  $$('.cat__strip').forEach((s) => {
+  $$('.cat__strip, [data-drag]').forEach((s) => {
     s.addEventListener('pointerenter', (e) => { if (e.pointerType !== 'mouse') return; gsap.set(c, { x: e.clientX, y: e.clientY }); xTo(e.clientX); yTo(e.clientY); gsap.to(c, { scale: 1, duration: 0.5, ease: EASE_OUT }); });
     s.addEventListener('pointerleave', () => gsap.to(c, { scale: 0, duration: 0.4, ease: EASE_OUT }));
     s.addEventListener('pointerdown', () => gsap.to(c, { scale: 0.82, duration: 0.3, ease: EASE_OUT }));
     s.addEventListener('pointerup', () => gsap.to(c, { scale: 1, duration: 0.4, ease: EASE_OUT }));
   });
+}
+
+// ---------- Catálogo de una categoría: barra de materialidades, entradas y grilla ----------
+function initCatalog() {
+  const bar = $('.mat-bar');
+  const mats = $$('.mat');
+  if (!mats.length) return;
+  $$('[data-drag]').forEach(initDrag);
+  if (bar) {
+    const setNavH = () => document.documentElement.style.setProperty('--navh', $('.nav').offsetHeight + 'px');
+    setNavH(); window.addEventListener('resize', setNavH);
+    ScrollTrigger.create({ trigger: mats[0], start: 'top 30%', endTrigger: '.lm-cta', end: 'top 60%', toggleClass: { targets: bar, className: 'is-in' } });
+    const links = $$('ol a', bar);
+    mats.forEach((m, i) => ScrollTrigger.create({ trigger: m, start: 'top 45%', end: 'bottom 45%', onToggle: (st) => { if (st.isActive) links.forEach((l, j) => l.classList.toggle('is-on', j === i)); } }));
+    links.forEach((a) => a.addEventListener('click', (e) => { const t = $(a.getAttribute('href')); if (t) { e.preventDefault(); goTo(t); } }));
+  }
+  if (reduce) return;
+  mats.forEach((m) => {
+    const t = new SplitText($('.mat__title', m), { type: 'lines', mask: 'lines' });
+    gsap.timeline({ scrollTrigger: { trigger: m, start: 'top 82%' } })
+      .from(t.lines, { yPercent: 110, duration: 1.3, ease: EASE_OUT })
+      .from([$('.mat__n', m), $('.mat__desc', m), $('.mat__count', m)], { autoAlpha: 0, y: 14, duration: 1, stagger: 0.06, ease: EASE_OUT }, 0.1);
+    const feats = $$('.feat', m);
+    gsap.fromTo($$('.feat__media', m), { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.3, stagger: 0.08, ease: 'casa', clearProps: 'clipPath', scrollTrigger: { trigger: $('.feat-strip', m), start: 'top 85%' } });
+    gsap.from(feats.map((f) => [$('.feat__name', f), $('.feat__txt', f), $('.feat__cta', f)]).flat(), { autoAlpha: 0, y: 14, duration: 1, stagger: 0.03, ease: EASE_OUT, scrollTrigger: { trigger: $('.feat-strip', m), start: 'top 75%' } });
+    gsap.fromTo($('.feat-track', m), { x: () => window.innerWidth * 0.1 }, { x: 0, ease: 'none', scrollTrigger: { trigger: $('.feat-strip', m), start: 'top bottom', end: 'center center', scrub: 0.8, invalidateOnRefresh: true } });
+  });
+  // la grilla entra de a filas a medida que aparece
+  gsap.set('.door', { autoAlpha: 0, y: 40 });
+  ScrollTrigger.batch('.door', { start: 'top 92%', once: true, onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 1, stagger: 0.05, ease: EASE_OUT }) });
+  gsap.set('.sw', { autoAlpha: 0, y: 20 });
+  ScrollTrigger.batch('.sw', { start: 'top 94%', once: true, onEnter: (els) => gsap.to(els, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.035, ease: EASE_OUT }) });
 }
 
 // ---------- Textos y footer (iguales a la home) ----------
@@ -132,9 +164,6 @@ function initFooter() {
   }
   const up = $('.footer__up');
   if (up) up.addEventListener('click', () => (smoother ? smoother.scrollTo(0, true) : window.scrollTo({ top: 0, behavior: 'smooth' })));
-  const clock = $('[data-clock]');
-  const tick = () => { clock.textContent = new Intl.DateTimeFormat('es-AR', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Argentina/Cordoba' }).format(new Date()); };
-  if (clock) { tick(); setInterval(tick, 30000); }
 }
 
 // ---------- Navegación: se esconde al bajar, aparece al subir, cambia de color según el fondo ----------
@@ -174,6 +203,7 @@ function initNav() {
   initSmooth();
   initHero();
   initCats();
+  initCatalog();
   initCursor();
   initTexts();
   initFooter();
