@@ -307,12 +307,36 @@ function initTint() {
   });
 }
 
+// "Ver los N modelos" y panel de terminaciones que acompaña el scroll al costado de la grilla
+function initModelsGrid() {
+  const wide = window.matchMedia('(min-width: 1101px)');
+  $$('.mat__grid').forEach((grid) => {
+    const doors = $('.doors', grid);
+    const panel = $('.fin__panel', grid);
+    const more = $('.doors__more', grid);
+    if (more) more.addEventListener('click', () => {
+      const all = doors.classList.toggle('is-all');
+      more.setAttribute('aria-expanded', all);
+      $('.doors__more-t', more).textContent = all ? 'Ver menos' : `Ver los ${doors.children.length} modelos`;
+      if (all) gsap.fromTo($$('.door:nth-child(n+11)', doors), { autoAlpha: 0, y: 30 }, { autoAlpha: 1, y: 0, duration: 0.9, stagger: 0.025, ease: EASE_OUT, clearProps: 'transform' });
+      else if (smoother) smoother.scrollTo(grid, true, 'top 100px');
+      ScrollTrigger.refresh();
+    });
+    // el panel queda fijo mientras se recorre la grilla (solo en pantallas anchas, con la grilla más alta que el panel)
+    if (wide.matches) ScrollTrigger.create({
+      trigger: grid, start: 'top 100px', end: () => '+=' + Math.max(0, grid.offsetHeight - panel.offsetHeight),
+      pin: panel, pinSpacing: false, invalidateOnRefresh: true,
+    });
+  });
+}
+
 function initCatalog() {
   const mats = $$('.mat');
   if (!mats.length) return;
   $$('[data-drag]').forEach(initDrag);
   initFeatured();
   initTint();
+  initModelsGrid();
   if (reduce) return;
   mats.forEach((m) => {
     const t = new SplitText($('.mat__title', m), { type: 'lines', mask: 'lines' });
@@ -338,13 +362,53 @@ function initTexts() {
   });
 }
 
+// el logo del footer se dibuja como si se escribiera (igual que el de "Cada obra tiene su puerta"):
+// una máscara recorre las líneas centrales de la hoja, de MARETICH y de "aberturas de madera"
+function drawFooterLogo() {
+  const svg = $('.footer__logo svg');
+  const ST = window.LOGO_STROKES;
+  if (!svg || !ST) return;
+  const NS = 'http://www.w3.org/2000/svg';
+  const paths = $$('path', svg);
+  const vb = svg.viewBox.baseVal;
+  const mask = document.createElementNS(NS, 'mask');
+  mask.setAttribute('id', 'footDraw'); mask.setAttribute('maskUnits', 'userSpaceOnUse');
+  mask.setAttribute('x', vb.x - 5); mask.setAttribute('y', vb.y - 5); mask.setAttribute('width', vb.width + 10); mask.setAttribute('height', vb.height + 10);
+  const pens = ST.map(([d, w]) => {
+    const m = document.createElementNS(NS, 'path');
+    m.setAttribute('d', d); m.setAttribute('fill', 'none'); m.setAttribute('stroke', '#fff'); m.setAttribute('stroke-width', w);
+    m.setAttribute('stroke-linecap', 'round'); m.setAttribute('stroke-linejoin', 'round');
+    mask.appendChild(m); return m;
+  });
+  const fills = paths.map((p) => { const f = p.cloneNode(); f.removeAttribute('fill-opacity'); f.setAttribute('fill', '#fff'); f.setAttribute('opacity', '0'); mask.appendChild(f); return f; });
+  let defs = $('defs', svg); if (!defs) { defs = document.createElementNS(NS, 'defs'); svg.prepend(defs); }
+  defs.appendChild(mask);
+  const g = document.createElementNS(NS, 'g'); g.setAttribute('mask', 'url(#footDraw)');
+  paths.forEach((p) => g.appendChild(p)); svg.appendChild(g);
+  const lens = pens.map((m) => m.getTotalLength());
+  const total = lens.reduce((s, l) => s + l, 0);
+  const st = { p: 0 };
+  const render = () => {
+    let left = st.p * total;
+    pens.forEach((m, i) => {
+      const d = Math.max(0, Math.min(lens[i], left)); left -= lens[i];
+      m.setAttribute('stroke-dasharray', `${d} ${lens[i] + 10}`);
+      m.style.visibility = d > 0.01 ? 'visible' : 'hidden';
+    });
+  };
+  render();
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer__brand', start: 'top 95%', end: 'bottom bottom', scrub: 0.6 } })
+    .to(st, { p: 1, duration: 1, onUpdate: render })
+    .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
+}
+
 function initFooter() {
   const f = $('.footer');
   if (!f) return;
   if (!reduce) {
     gsap.fromTo('.footer__inner', { yPercent: -28 }, { yPercent: 0, ease: 'none', scrollTrigger: { trigger: f, start: 'top bottom', end: 'bottom bottom', scrub: true } });
-    gsap.from('.footer__col', { y: 30, autoAlpha: 0, duration: 1, stagger: 0.07, ease: EASE_OUT, scrollTrigger: { trigger: '.footer__cols', start: 'top 85%' } });
-    gsap.fromTo('.footer__logo', { clipPath: 'inset(0% 0% 100% 0%)', yPercent: 12 }, { clipPath: 'inset(0% 0% 0% 0%)', yPercent: 0, ease: 'none', scrollTrigger: { trigger: '.footer__brand', start: 'top 98%', end: 'bottom 92%', scrub: 0.6 } });
+    gsap.fromTo('.footer__quick a, .footer__contact', { y: 30, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 1, stagger: 0.07, ease: EASE_OUT, scrollTrigger: { trigger: f, start: 'top 70%', once: true } });
+    drawFooterLogo();
   }
   const up = $('.footer__up');
   if (up) up.addEventListener('click', () => (smoother ? smoother.scrollTo(0, true) : window.scrollTo({ top: 0, behavior: 'smooth' })));

@@ -12,8 +12,8 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=27">
-  <link rel="stylesheet" href="css/linea.css?v=7">
+  <link rel="stylesheet" href="css/style.css?v=29">
+  <link rel="stylesheet" href="css/linea.css?v=9">
 </head>
 <body class="page-linea page-cat has-intro js-wait">
 
@@ -49,7 +49,7 @@
     <!-- Encabezado del catálogo -->
     <section class="lm-hero lm-hero--cat" id="inicio" data-nav="dark">
       <p class="lm-hero__crumb label"><a href="index.html">Inicio</a> · <a href="index.html#lineas">Catálogo</a> · <a href="a-medida.html">Línea a medida</a> · Interior</p>
-      <h1 class="lm-hero__title">Interior</h1>
+      <h1 class="lm-hero__title">A medida interior</h1>
       <div class="lm-hero__foot">
         <p class="lm-hero__lead">72 modelos en cuatro materialidades. Cada puerta se fabrica a la medida de su vano, con la terminación y el herraje que pide la obra.</p>
         <ol class="lm-index" aria-label="Materialidades"><li><a href="#mdf"><span class="lm-index__n">A</span>MDF<sup>54</sup></a></li><li><a href="#enchapadas"><span class="lm-index__n">B</span>Enchapadas<sup>14</sup></a></li><li><a href="#melamina"><span class="lm-index__n">C</span>Melamina<sup>1</sup></a></li><li><a href="#maciza"><span class="lm-index__n">D</span>Madera maciza<sup>3</sup></a></li></ol>
@@ -206,9 +206,10 @@
           </div></div>
         </div>
 
-        <div class="mat__block">
-          <p class="mat__label">Todos los modelos <span>54</span></p>
-          <ul class="doors">
+        <div class="mat__block mat__grid">
+          <div class="mat__models">
+            <p class="mat__label">Todos los modelos <span>54</span></p>
+            <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova." target="_blank" rel="noopener" aria-label="Consultar por Nova">
             <span class="door__img"><img src="assets/img/int/nova.webp" alt="Puerta Nova" loading="lazy"></span>
             <span class="door__name">Nova</span><span class="door__cta">Consultar por Nova</span></a></li>
@@ -371,12 +372,16 @@
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Amalfi." target="_blank" rel="noopener" aria-label="Consultar por Amalfi">
             <span class="door__img"><img src="assets/img/int/amalfi.webp" alt="Puerta Amalfi" loading="lazy"></span>
             <span class="door__name">Amalfi</span><span class="door__cta">Consultar por Amalfi</span></a></li>
-          </ul>
-        </div>
-
-        <div class="mat__block fin">
-          <p class="mat__label">Colores<span>Tocá una terminación para verla en todas las puertas</span></p>
+            </ul>
+            <button class="doors__more" type="button" aria-expanded="false"><span class="doors__more-t">Ver los 54 modelos</span><span class="doors__more-i" aria-hidden="true">+</span></button>
+          </div>
+          <aside class="fin" aria-label="Colores">
+            <div class="fin__panel">
+              <p class="mat__label">Colores</p>
+              <p class="fin__hint">Tocá una terminación para verla en todas las puertas.</p>
           <div class="fin__group"><h4 class="fin__title">Colores</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#f3f2ee"><span class="sw__chip" style="background:#f3f2ee"></span><span class="sw__name">Laca poliuretánica blanca</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#1c1a19"><span class="sw__chip" style="background:#1c1a19"></span><span class="sw__name">Laca poliuretánica negra</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-color="#55524f"><span class="sw__chip" style="background:#55524f"></span><span class="sw__name">Laca poliuretánica gris grafito</span></button></li></ul></div>
+            </div>
+          </aside>
         </div>
       </section>
       <section class="mat" id="enchapadas" data-nav="dark">
@@ -447,9 +452,10 @@
           </div></div>
         </div>
 
-        <div class="mat__block">
-          <p class="mat__label">Todos los modelos <span>14</span></p>
-          <ul class="doors">
+        <div class="mat__block mat__grid">
+          <div class="mat__models">
+            <p class="mat__label">Todos los modelos <span>14</span></p>
+            <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Vercelli%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Vercelli enchapada">
             <span class="door__img"><img src="assets/img/int/vercelli-enchapada.webp" alt="Puerta Vercelli enchapada" loading="lazy"></span>
             <span class="door__name">Vercelli <em>enchapada</em></span><span class="door__cta">Consultar por Vercelli enchapada</span></a></li>
@@ -492,13 +498,17 @@
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Nova%20enchapada." target="_blank" rel="noopener" aria-label="Consultar por Nova enchapada">
             <span class="door__img"><img src="assets/img/int/nova-enchapada.webp" alt="Puerta Nova enchapada" loading="lazy"></span>
             <span class="door__name">Nova <em>enchapada</em></span><span class="door__cta">Consultar por Nova enchapada</span></a></li>
-          </ul>
-        </div>
-
-        <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+            </ul>
+            <button class="doors__more" type="button" aria-expanded="false"><span class="doors__more-t">Ver los 14 modelos</span><span class="doors__more-i" aria-hidden="true">+</span></button>
+          </div>
+          <aside class="fin" aria-label="Materialidades y terminaciones">
+            <div class="fin__panel">
+              <p class="mat__label">Materialidades y terminaciones</p>
+              <p class="fin__hint">Tocá una terminación para verla en todas las puertas.</p>
           <div class="fin__group"><h4 class="fin__title">Maderas para enchapados</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-goiabao.jpg"><span class="sw__chip"><img src="assets/img/int/sw/goiabao.webp" alt="" loading="lazy"></span><span class="sw__name">Goiabao</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-petiribi-xa40.jpg"><span class="sw__chip"><img src="assets/img/int/sw/petiribi-xa40.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí XA40</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-kiri.jpg"><span class="sw__chip"><img src="assets/img/int/sw/kiri.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-roble-americano.jpg"><span class="sw__chip"><img src="assets/img/int/sw/roble-americano.webp" alt="" loading="lazy"></span><span class="sw__name">Roble americano</span></button></li></ul></div>
           <div class="fin__group"><h4 class="fin__title">Tonos cedro enchapado</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-cedro-hidrolaca.jpg"><span class="sw__chip"><img src="assets/img/int/sw/cedro-hidrolaca.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro con hidrolaca</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-00.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-01.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-02.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-03.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-04.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-05.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-ench-tono-22.jpg"><span class="sw__chip"><img src="assets/img/int/sw/ench-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></button></li></ul></div>
+            </div>
+          </aside>
         </div>
       </section>
       <section class="mat" id="melamina" data-nav="dark">
@@ -542,18 +552,22 @@
           </div></div>
         </div>
 
-        <div class="mat__block">
-          <p class="mat__label">Todos los modelos <span>1</span></p>
-          <ul class="doors">
+        <div class="mat__block mat__grid">
+          <div class="mat__models">
+            <p class="mat__label">Todos los modelos <span>1</span></p>
+            <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Candeli." target="_blank" rel="noopener" aria-label="Consultar por Candeli">
             <span class="door__img"><img src="assets/img/int/candeli.webp" alt="Puerta Candeli" loading="lazy"></span>
             <span class="door__name">Candeli</span><span class="door__cta">Consultar por Candeli</span></a></li>
-          </ul>
-        </div>
-
-        <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+            </ul>
+          </div>
+          <aside class="fin" aria-label="Materialidades y terminaciones">
+            <div class="fin__panel">
+              <p class="mat__label">Materialidades y terminaciones</p>
+              <p class="fin__hint">Tocá una terminación para verla en todas las puertas.</p>
           <div class="fin__group"><h4 class="fin__title">Tipos de melamina</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-olmo-finlandes.jpg"><span class="sw__chip"><img src="assets/img/int/sw/olmo-finlandes.webp" alt="" loading="lazy"></span><span class="sw__name">Olmo finlandés</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-kendall-encerado.jpg"><span class="sw__chip"><img src="assets/img/int/sw/kendall-encerado.webp" alt="" loading="lazy"></span><span class="sw__name">Kendall encerado</span></button></li></ul></div>
+            </div>
+          </aside>
         </div>
       </section>
       <section class="mat" id="maciza" data-nav="dark">
@@ -651,9 +665,10 @@
           </div></div>
         </div>
 
-        <div class="mat__block">
-          <p class="mat__label">Todos los modelos <span>3</span></p>
-          <ul class="doors">
+        <div class="mat__block mat__grid">
+          <div class="mat__models">
+            <p class="mat__label">Todos los modelos <span>3</span></p>
+            <ul class="doors">
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Pompeya." target="_blank" rel="noopener" aria-label="Consultar por Pompeya">
             <span class="door__img"><img src="assets/img/int/pompeya.webp" alt="Puerta Pompeya" loading="lazy"></span>
             <span class="door__name">Pompeya</span><span class="door__cta">Consultar por Pompeya</span></a></li>
@@ -663,13 +678,16 @@
           <li class="door"><a href="https://wa.me/5493516505913?text=Hola.%20Vengo%20del%20cat%C3%A1logo%20de%20interior%20de%20la%20l%C3%ADnea%20a%20medida%20y%20quiero%20consultar%20por%20el%20modelo%20Savena." target="_blank" rel="noopener" aria-label="Consultar por Savena">
             <span class="door__img"><img src="assets/img/int/savena.webp" alt="Puerta Savena" loading="lazy"></span>
             <span class="door__name">Savena</span><span class="door__cta">Consultar por Savena</span></a></li>
-          </ul>
-        </div>
-
-        <div class="mat__block fin">
-          <p class="mat__label">Materialidades y terminaciones<span>Tocá una terminación para verla en todas las puertas</span></p>
+            </ul>
+          </div>
+          <aside class="fin" aria-label="Materialidades y terminaciones">
+            <div class="fin__panel">
+              <p class="mat__label">Materialidades y terminaciones</p>
+              <p class="fin__hint">Tocá una terminación para verla en todas las puertas.</p>
           <div class="fin__group"><h4 class="fin__title">Maderas macizas</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-roble.jpg"><span class="sw__chip"><img src="assets/img/int/sw/roble.webp" alt="" loading="lazy"></span><span class="sw__name">Roble</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-kiri-macizo.jpg"><span class="sw__chip"><img src="assets/img/int/sw/kiri-macizo.webp" alt="" loading="lazy"></span><span class="sw__name">Kiri</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-petiribi.jpg"><span class="sw__chip"><img src="assets/img/int/sw/petiribi.webp" alt="" loading="lazy"></span><span class="sw__name">Petiribí</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-grandis.jpg"><span class="sw__chip"><img src="assets/img/int/sw/grandis.webp" alt="" loading="lazy"></span><span class="sw__name">Grandis</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-acabado-arenado.jpg"><span class="sw__chip"><img src="assets/img/int/sw/acabado-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Acabado arenado</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-cedro-arenado-negro.jpg"><span class="sw__chip"><img src="assets/img/int/sw/cedro-arenado-negro.webp" alt="" loading="lazy"></span><span class="sw__name">Cedro arenado negro</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-negro-veteado.jpg"><span class="sw__chip"><img src="assets/img/int/sw/negro-veteado.webp" alt="" loading="lazy"></span><span class="sw__name">Negro veteado</span></button></li></ul></div>
           <div class="fin__group"><h4 class="fin__title">Tonos de cedro arana macizo</h4><ul class="fin__list"><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-belleza-natural.jpg"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-00.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-00.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 00</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-01.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-01.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 01</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-02.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-02.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 02</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-03.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-03.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 03</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-04.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-04.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 04</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-05.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-05.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 05</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-maz-tono-22.jpg"><span class="sw__chip"><img src="assets/img/int/sw/maz-tono-22.webp" alt="" loading="lazy"></span><span class="sw__name">Tono 22</span></button></li><li class="sw"><button type="button" class="sw__btn" aria-pressed="false" data-tex="assets/img/int/tex/sheet-belleza-natural-arenado.jpg"><span class="sw__chip"><img src="assets/img/int/sw/belleza-natural-arenado.webp" alt="" loading="lazy"></span><span class="sw__name">Belleza natural arenado</span></button></li></ul></div>
+            </div>
+          </aside>
         </div>
       </section>
 
@@ -684,58 +702,14 @@
     <footer class="footer" id="contacto" data-nav="light">
       <div class="footer__inner">
         <div class="footer__main">
-        <nav class="footer__cols" aria-label="Mapa del sitio">
-          <div class="footer__col">
-            <h4>Catálogo</h4>
-            <ul>
-              <li><a href="a-medida.html">Línea a medida</a></li>
-              <li><a href="index.html#lineas">Línea pre-diseñada</a></li>
-              <li><a href="a-medida-interior.html">Aberturas de interior</a></li>
-              <li><a href="a-medida.html#exterior">Aberturas de exterior</a></li>
-              <li><a href="a-medida.html#herrajes">Herrajes</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Proyectos</h4>
-            <ul>
-              <li><a href="index.html#proyectos">Casa El Terrón</a></li>
-              <li><a href="index.html#proyectos">Casa Henry</a></li>
-              <li><a href="index.html#proyectos">Casa Bosch</a></li>
-              <li><a href="index.html#proyectos">Condominio Foresta</a></li>
-              <li><a href="index.html#proyectos">Ver todos</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Tu obra</h4>
-            <ul>
-              <li><a href="index.html#tu-obra">Viviendas</a></li>
-              <li><a href="index.html#tu-obra">Arquitectos</a></li>
-              <li><a href="index.html#tu-obra">Grandes obras</a></li>
-              <li><a href="index.html#tu-obra">Inversores</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Empresa</h4>
-            <ul>
-              <li><a href="index.html#empresa">Nosotros</a></li>
-              <li><a href="index.html#empresa">La fábrica</a></li>
-              <li><a href="index.html#empresa">Sustentabilidad</a></li>
-              <li><a href="index.html#empresa">Trabajá con nosotros</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Contacto</h4>
-            <ul>
-              <li><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a></li>
-              <li><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a></li>
-              <li><a href="https://maps.google.com/?q=Raul+Gorordo+820+Cordoba" target="_blank" rel="noopener">Raúl Gorordo 820<br>Córdoba, Argentina</a></li>
-            </ul>
-          </div>
-        </nav>
-          <div class="footer__cta">
-            <a class="pill pill--light" href="https://wa.me/5493516505913" target="_blank" rel="noopener">Hablemos de tu obra</a>
-            <button class="footer__up" type="button" aria-label="Volver arriba"><span>Volver arriba</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-          </div>
+          <nav class="footer__quick" aria-label="Accesos">
+            <a href="a-medida.html"><sup>01</sup><span>Línea a medida</span></a>
+            <a href="index.html#lineas"><sup>02</sup><span>Línea pre-diseñada</span></a>
+            <a href="index.html#proyectos"><sup>03</sup><span>Proyectos</span></a>
+            <a href="https://wa.me/5493516505913" target="_blank" rel="noopener"><sup>04</sup><span>Consultar por WhatsApp</span></a>
+          </nav>
+          <p class="footer__contact"><a href="https://maps.google.com/?q=Raul+Gorordo+820+Cordoba" target="_blank" rel="noopener">Raúl Gorordo 820, Córdoba</a><span>·</span><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a><span>·</span><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a></p>
+          <button class="footer__up" type="button" aria-label="Volver arriba"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
         </div>
 
         <a class="footer__brand" href="index.html" aria-label="Maretich, volver al inicio"><span class="footer__logo" data-svg="assets/logo-full.svg?v=8"></span></a>
@@ -759,6 +733,7 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/linea.js?v=6"></script>
+  <script src="js/logo-strokes.js?v=1"></script>
+  <script src="js/linea.js?v=8"></script>
 </body>
 </html>

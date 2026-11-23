@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baskervville:ital@0;1&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans:wght@300;400;500;600&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500&display=swap">
-  <link rel="stylesheet" href="css/style.css?v=27">
+  <link rel="stylesheet" href="css/style.css?v=29">
   <script>
     // la intro siempre arranca arriba de todo, sobre el hero (sin recordar el scroll ni saltar a un #ancla)
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -101,7 +101,6 @@
 
         <div class="ob__shade" aria-hidden="true"></div>
         <div class="ob__hero">
-          <span class="mask"><span class="ob__hp label">Tu obra</span></span>
           <p class="ob__hero-title"><span class="mask"><span class="ob__hp">Una puerta</span></span><span class="mask"><span class="ob__hp">para cada escala.</span></span></p>
         </div>
 
@@ -114,7 +113,7 @@
           </div>
           <div class="ob__text">
             <span class="mask ob__lab"><span class="ob__p label">02 · Arquitectos</span></span>
-            <h3><span class="mask"><span class="ob__p">Diseño la obra</span></span><span class="mask"><span class="ob__p">y especifico.</span></span></h3>
+            <h3><span class="mask"><span class="ob__p">Diseño la obra.</span></span></h3>
             <span class="mask"><span class="ob__p ob__body">Acompañamos al estudio desde el proyecto: fichas técnicas, muestras y piezas a medida para que lo dibujado se construya tal cual.</span></span>
             <span class="mask"><a class="ob__p obra__cta" href="https://wa.me/?text=Hola.%20Soy%20arquitecto%20y%20quiero%20consultar%20por%20un%20proyecto." target="_blank" rel="noopener">Consultar por mi estudio</a></span>
           </div>
@@ -215,58 +214,14 @@
     <footer class="footer" id="contacto" data-nav="light">
       <div class="footer__inner">
         <div class="footer__main">
-        <nav class="footer__cols" aria-label="Mapa del sitio">
-          <div class="footer__col">
-            <h4>Catálogo</h4>
-            <ul>
-              <li><a href="a-medida.html">Línea a medida</a></li>
-              <li><a href="#lineas">Línea pre-diseñada</a></li>
-              <li><a href="#lineas">Aberturas de interior</a></li>
-              <li><a href="#lineas">Aberturas de exterior</a></li>
-              <li><a href="#lineas">Herrajes</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Proyectos</h4>
-            <ul>
-              <li><a href="#casa-el-terron">Casa El Terrón</a></li>
-              <li><a href="#casa-henry">Casa Henry</a></li>
-              <li><a href="#casa-bosch">Casa Bosch</a></li>
-              <li><a href="#condominio-foresta">Condominio Foresta</a></li>
-              <li><a href="#proyectos">Ver todos</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Tu obra</h4>
-            <ul>
-              <li><a href="#tu-obra">Viviendas</a></li>
-              <li><a href="#tu-obra">Arquitectos</a></li>
-              <li><a href="#tu-obra">Grandes obras</a></li>
-              <li><a href="#tu-obra">Inversores</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Empresa</h4>
-            <ul>
-              <li><a href="#empresa">Nosotros</a></li>
-              <li><a href="#empresa">La fábrica</a></li>
-              <li><a href="#empresa">Sustentabilidad</a></li>
-              <li><a href="#empresa">Trabajá con nosotros</a></li>
-            </ul>
-          </div>
-          <div class="footer__col">
-            <h4>Contacto</h4>
-            <ul>
-              <li><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a></li>
-              <li><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a></li>
-              <li><a href="https://maps.google.com/?q=Raul+Gorordo+820+Cordoba" target="_blank" rel="noopener">Raúl Gorordo 820<br>Córdoba, Argentina</a></li>
-            </ul>
-          </div>
-        </nav>
-          <div class="footer__cta">
-            <a class="pill pill--light" href="https://wa.me/5493516505913" target="_blank" rel="noopener">Hablemos de tu obra</a>
-            <button class="footer__up" type="button" aria-label="Volver arriba"><span>Volver arriba</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
-          </div>
+          <nav class="footer__quick" aria-label="Accesos">
+            <a href="a-medida.html"><sup>01</sup><span>Línea a medida</span></a>
+            <a href="#lineas"><sup>02</sup><span>Línea pre-diseñada</span></a>
+            <a href="#proyectos"><sup>03</sup><span>Proyectos</span></a>
+            <a href="https://wa.me/5493516505913" target="_blank" rel="noopener"><sup>04</sup><span>Consultar por WhatsApp</span></a>
+          </nav>
+          <p class="footer__contact"><a href="https://maps.google.com/?q=Raul+Gorordo+820+Cordoba" target="_blank" rel="noopener">Raúl Gorordo 820, Córdoba</a><span>·</span><a href="https://wa.me/5493516505913" target="_blank" rel="noopener">+54 9 351 6505913</a><span>·</span><a href="mailto:info@maretich.com.ar">info@maretich.com.ar</a></p>
+          <button class="footer__up" type="button" aria-label="Volver arriba"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></button>
         </div>
 
         <a class="footer__brand" href="#inicio" aria-label="Maretich, volver al inicio"><span class="footer__logo" data-svg="assets/logo-full.svg?v=8"></span></a>
@@ -290,6 +245,7 @@
   <script src="vendor/ScrollSmoother.min.js"></script>
   <script src="vendor/SplitText.min.js"></script>
   <script src="vendor/CustomEase.min.js"></script>
-  <script src="js/main.js?v=27"></script>
+  <script src="js/logo-strokes.js?v=1"></script>
+  <script src="js/main.js?v=29"></script>
 </body>
 </html>
