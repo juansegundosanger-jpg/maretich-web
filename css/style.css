@@ -244,3 +244,4 @@ body.is-loading .nav{z-index:101}
 
 /* las máscaras de las animaciones de texto no cortan acentos ni letras con cola (¿, p, j, g) */
 div[aria-hidden="true"][style*="overflow: clip"]{padding-top:.1em;padding-bottom:.22em;margin-top:-.1em;margin-bottom:-.22em}
+.linea__still{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}

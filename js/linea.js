@@ -397,8 +397,8 @@ function drawFooterLogo() {
     });
   };
   render();
-  // al llegar al fondo, el footer queda fijo y en unos 3 scrolls el logo se dibuja (como en "Cada obra tiene su puerta")
-  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { trigger: '.footer', start: 'bottom bottom', end: () => '+=' + window.innerHeight * 0.6, scrub: 0.5, pin: true, invalidateOnRefresh: true } })
+  // el logo se dibuja mientras el footer sube y termina justo al llegar al fondo de la página
+  gsap.timeline({ defaults: { ease: 'none' }, scrollTrigger: { start: () => ScrollTrigger.maxScroll(window) - window.innerHeight * 0.85, end: 'max', scrub: 0.6, invalidateOnRefresh: true } })
     .to(st, { p: 1, duration: 1, onUpdate: render })
     .to(fills, { attr: { opacity: 1 }, duration: 0.05 }, 0.96);
 }
