@@ -54,44 +54,44 @@ function initHero() {
     .from(['.lm-hero__lead'], { autoAlpha: 0, y: 18, duration: 1.1, stagger: 0.06, ease: EASE_OUT }, 0.6);
 }
 
-// ---------- Proyectos: la pantalla queda fija y con el scroll se pasa de una obra a la siguiente ----------
-// p va de 0 a N-1: la parte entera es el proyecto, la fracción es el paso al siguiente
+// ---------- Proyectos: la pantalla queda fija y cada scroll pasa a la obra siguiente ----------
+// p va de 0 a N-1: la parte entera es la obra, la fracción es el paso a la siguiente
 function initProjects() {
   const sec = $('.pjx');
   if (!sec) return;
   const stage = $('.pjx__stage', sec);
   const bgs = $$('.pjx__bg', sec);
   const rows = $$('.pjx__names li', sec);
-  const sets = $$('.pjx__set', sec);
   const texts = $$('.pjx__text', sec);
   const N = texts.length;
   const mob = window.matchMedia('(max-width: 900px)');
   const clamp = gsap.utils.clamp(0, 1);
-  const shows = sets.map(slideshow);
+  const cK = $('.pjx__k', sec), cT = $('.pjx__t', sec), cB = $('.pjx__count b', sec), count = $('.pjx__count', sec);
+  const pad = (n) => String(n).padStart(2, '0');
+  const shows = bgs.map((b) => slideshow(b, (i, n) => { cK.textContent = pad(i + 1); cT.textContent = pad(n); }, cB));
   const vh = () => window.innerHeight;
-  let active = -1, seen = false, st = null;
+  let active = -1, seen = false, st = null, busy = false, obs = null, lastWheel = 0, swiped = false;
 
-
-  // nombres: el activo al 140% (56px sobre 40px), 56px hasta el vecino y 41,6px entre los demás (medidas del frame a 1440)
+  // nombres: el activo bien grande; el resto, más chico y casi transparente
   const render = (p) => {
-    const k = Math.min(1, window.innerWidth / 1440) * (mob.matches ? 0.7 : 1);
-    const big = mob.matches ? 1.25 : 1.4;
+    const k = Math.max(0.62, Math.min(1, window.innerWidth / 1440)) * (mob.matches ? 0.78 : 1);
+    const big = mob.matches ? 1.45 : 1.75;
     const lim = mob.matches ? 1 : 2;
     rows.forEach((r, i) => {
       const d = i - p, a = Math.abs(d), sg = Math.sign(d);
-      const y = sg * (Math.min(a, 1) * 56 + Math.max(a - 1, 0) * 41.6) * Math.max(k, 0.62);
+      const y = sg * (Math.min(a, 1) * 66 + Math.max(a - 1, 0) * 40) * k;
       const sc = big - (big - 1) * Math.min(a, 1);
-      const op = a <= 1 ? 1 - 0.55 * a : a <= lim ? 0.45 : Math.max(0, 0.45 * (lim + 0.6 - a) / 0.6);
+      const op = a <= 1 ? 1 - 0.78 * a : a <= lim ? 0.22 : Math.max(0, 0.22 * (lim + 0.6 - a) / 0.6);
       r.style.transform = `translate3d(0,${y.toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
       r.style.opacity = op.toFixed(3);
-      r.style.pointerEvents = op > 0.2 ? '' : 'none';
+      r.style.pointerEvents = op > 0.15 ? '' : 'none';
     });
-    // fondos: el siguiente sube desde abajo y se asienta
+    // fondos: la obra siguiente sube desde abajo y se asienta
     bgs.forEach((b, i) => {
       if (!i) return;
       const r = clamp(p - (i - 1));
       b.style.clipPath = `inset(${((1 - r) * 100).toFixed(2)}% 0 0 0)`;
-      b.firstElementChild.style.transform = `scale(${(1.14 - 0.14 * r).toFixed(4)})`;
+      b.style.transform = `scale(${(1.12 - 0.12 * r).toFixed(4)})`;
       b.style.visibility = r > 0 ? 'visible' : 'hidden';
     });
     setActive(Math.round(p));
@@ -107,55 +107,98 @@ function initProjects() {
     if (k === active) return;
     const prev = active;
     active = k;
-    rows.forEach((r, i) => r.classList.toggle('is-on', i === k));
     const nb = $('video', bgs[k + 1] || bgs[k]); if (nb) nb.preload = 'auto';
-    // texto: se va el anterior, entra el nuevo
+    $$('img[loading="lazy"]', bgs[k + 1] || bgs[k]).slice(0, 2).forEach((im) => (im.loading = 'eager'));
     if (prev >= 0) {
       const o = texts[prev];
-      gsap.to(o, { autoAlpha: 0, y: -14, duration: 0.45, ease: 'power2.in', onComplete: () => o.classList.remove('is-on') });
+      gsap.to(o, { autoAlpha: 0, y: -14, duration: 0.4, ease: 'power2.in', overwrite: true, onComplete: () => o.classList.remove('is-on') });
+      shows[prev].pause();
     }
     const t = texts[k];
     t.classList.add('is-on');
     gsap.killTweensOf(t);
     gsap.set(t, { autoAlpha: 1, y: 0 });
-    if (!reduce && prev >= 0) gsap.fromTo(t.children, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.07, ease: EASE_OUT, delay: 0.3, overwrite: true });
-    // recuadro: la nueva tanda de fotos tapa a la anterior desde abajo
-    const ns = sets[k];
+    if (!reduce && prev >= 0) gsap.fromTo(t.children, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.07, ease: EASE_OUT, delay: 0.25, overwrite: true });
     shows[k].reset();
-    ns.classList.add('is-on');
-    sets.forEach((s, i) => (s.style.zIndex = i === k ? 2 : i === prev ? 1 : 0));
-    if (prev >= 0 && !reduce) {
-      gsap.fromTo(ns, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.1, ease: 'casa', overwrite: true,
-        onComplete: () => sets.forEach((s, i) => { if (i !== active) s.classList.remove('is-on'); }) });
-      gsap.fromTo($('.pjx__slide', ns), { scale: 1.18 }, { scale: 1, duration: 1.6, ease: 'expo.out' });
-    } else sets.forEach((s, i) => { if (i !== k) s.classList.remove('is-on'); });
-    if (seen) playActive();
+    count.style.visibility = shows[k].n > 1 ? 'visible' : 'hidden';
+    playActive();
   }
+
   st = ScrollTrigger.create({
-    trigger: sec, start: 'top top', end: () => '+=' + (N - 1) * vh(), pin: stage, anticipatePin: 1,
-    onUpdate: (s) => render(s.progress * (N - 1)),
-    snap: reduce ? false : { snapTo: 1 / (N - 1), duration: { min: 0.45, max: 0.9 }, delay: 0.1, ease: 'power3.inOut', directional: true, inertia: false },
+    trigger: sec, start: 'top top', end: () => '+=' + ((N - 1) * vh() + 3), pin: stage, anticipatePin: 1,
+    onUpdate: (s) => { render(Math.min(N - 1, (s.scroll() - s.start) / vh())); if (!reduce && obs && !obs.isEnabled && !busy && s.progress > 0.003 && s.progress < 0.997) enter(); },
+    onToggle: (s) => { if (!obs) return; if (s.isActive) enter(s.direction > 0 ? 0 : N - 1); else obs.disable(); },
   });
-  texts.forEach((t, i) => pjStart.set(t, () => st.start + i * vh()));
+  texts.forEach((t, i) => pjStart.set(t, () => st.start + i * vh() + 1)); // +1: dentro del tramo fijo, también en la primera
   ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'bottom top', onToggle: (s) => { seen = s.isActive; if (seen) playActive(); else pauseAll(); } });
+
+  // un gesto = una obra: mientras la pantalla está fija, la rueda y el dedo no desplazan la página,
+  // sólo piden la obra anterior o la siguiente. En la primera y la última, el gesto hacia afuera sale de la sección
+  const go = (i) => {
+    busy = true;
+    goTo(texts[i]);
+    gsap.delayedCall(1.3, () => (busy = false));
+  };
+  const step = (dir) => {
+    if (busy) return;
+    const cur = Math.round(st.progress * (N - 1));
+    const nx = cur + dir;
+    if (nx < 0 || nx > N - 1) {
+      // en la primera o la última obra, el gesto hacia afuera devuelve el scroll normal y ya avanza un tramo
+      obs.disable();
+      busy = true; gsap.delayedCall(0.8, () => (busy = false));
+      const y = nx < 0 ? st.start - vh() * 0.6 : st.end + vh() * 0.6;
+      if (smoother) smoother.scrollTo(y, true); else window.scrollTo({ top: y, behavior: 'smooth' });
+      return;
+    }
+    go(nx);
+  };
+  // la rueda manda un chorro de eventos por gesto (y el trackpad sigue por inercia): sólo cuenta el primero
+  // de cada gesto, es decir, el que llega después de un silencio. Con el dedo, uno por toque
+  obs = ScrollTrigger.observe({
+    target: window, type: 'wheel,touch', tolerance: 10, preventDefault: true,
+    onPress: () => { swiped = false; },
+    onChangeY: (self) => {
+      const e = self.event;
+      const touch = !e.type.startsWith('wheel');
+      if (touch) {
+        if (swiped || Math.abs(self.deltaY) < 6) return;
+        swiped = true;
+        step(self.deltaY < 0 ? 1 : -1);
+        return;
+      }
+      const now = performance.now(), gap = now - lastWheel;
+      lastWheel = now;
+      if (gap < 220 || Math.abs(self.deltaY) < 2) return;
+      step(self.deltaY > 0 ? 1 : -1);
+    },
+  });
+  obs.disable();
+  // al entrar a la sección (desde arriba o desde abajo), se acomoda en la obra más cercana y toma el control
+  function enter(to) {
+    if (reduce || !obs) return;
+    const i = to === undefined ? Math.round(st.progress * (N - 1)) : to;
+    // con el scroll suave, la página puede venir con inercia más allá: se compara contra el destino real (scrollY)
+    if (Math.abs(window.scrollY - pjStart.get(texts[i])()) > 2) { busy = true; requestAnimationFrame(() => go(i)); }
+    lastWheel = performance.now(); // el gesto que trajo hasta acá no cuenta como pedido de la siguiente obra
+    obs.enable();
+  }
+
   render(0);
   if (!reduce) {
-    const intro = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 65%', once: true } });
-    intro.from($('.pjx__names ol', sec), { autoAlpha: 0, x: -24, duration: 1.1, ease: EASE_OUT }, 0)
-      .from($('.pjx__box', sec), { clipPath: 'inset(100% 0% 0% 0% round 18px)', duration: 1.3, ease: 'casa', clearProps: 'clipPath' }, 0.1)
-      .from(texts[0].children, { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.07, ease: EASE_OUT }, 0.35);
+    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 65%', once: true } })
+      .from($('.pjx__names ol', sec), { autoAlpha: 0, x: -24, duration: 1.1, ease: EASE_OUT }, 0)
+      .from(texts[0].children, { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.07, ease: EASE_OUT }, 0.25);
   }
   mob.addEventListener('change', () => render(st.progress * (N - 1)));
   window.addEventListener('resize', () => render(st.progress * (N - 1)));
 }
 
-// fotos dentro del recuadro: pasan solas, una sobre otra, de abajo hacia arriba
-function slideshow(set) {
-  const slides = $$('.pjx__slide', set);
-  const k = $('.pjx__k', set), bar = $('.pjx__bar i', set);
-  const HOLD = 3.4;
+// fotos de fondo de cada obra: pasan solas, una sobre otra, de abajo hacia arriba
+function slideshow(bg, onChange, bar) {
+  const slides = $$('.pjx__ph', bg);
+  const HOLD = 4;
   let i = 0, prog = null, running = false;
-  const pad = (n) => String(n).padStart(2, '0');
   const eager = (img) => { if (img && img.loading === 'lazy') img.loading = 'eager'; };
   const advance = () => {
     const prev = slides[i];
@@ -164,29 +207,30 @@ function slideshow(set) {
     slides.forEach((s) => (s.style.zIndex = s === cur ? 3 : s === prev ? 2 : 1));
     cur.style.visibility = 'visible';
     eager(slides[(i + 1) % slides.length]);
-    gsap.fromTo(cur, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.25, ease: 'casa',
+    gsap.fromTo(cur, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'casa',
       onComplete: () => slides.forEach((s) => { if (s !== cur) s.style.visibility = 'hidden'; }) });
-    gsap.fromTo(cur, { scale: 1.16 }, { scale: 1, duration: 1.8, ease: 'expo.out' });
-    gsap.to(prev, { scale: 1.06, duration: 1.25, ease: 'casa' });
-    if (k) k.textContent = pad(i + 1);
+    gsap.fromTo(cur, { scale: 1.12 }, { scale: 1, duration: 2.2, ease: 'expo.out' });
+    gsap.to(prev, { scale: 1.05, duration: 1.4, ease: 'casa' });
+    onChange(i, slides.length);
     cycle();
   };
   const cycle = () => {
     if (prog) prog.kill();
     prog = gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: HOLD, ease: 'none', paused: !running, onComplete: advance });
   };
-  const api = {
-    play() { if (slides.length < 2 || reduce || running) return; running = true; eager(slides[0]); eager(slides[1]); if (prog) prog.play(); else cycle(); },
+  return {
+    n: slides.length,
+    play() { if (slides.length < 2 || reduce || running) return; running = true; eager(slides[1]); if (prog) prog.play(); else cycle(); },
     pause() { running = false; if (prog) prog.pause(); },
     reset() {
       if (prog) prog.kill(); prog = null; i = 0;
-      slides.forEach((s, j) => { gsap.killTweensOf(s); gsap.set(s, { clearProps: 'clipPath,transform,scale' }); s.style.zIndex = j ? 1 : 2; s.style.visibility = j ? 'hidden' : 'visible'; });
+      slides.forEach((s, j) => { gsap.killTweensOf(s); gsap.set(s, { clearProps: 'clipPath,transform' }); s.style.zIndex = j ? 1 : 2; s.style.visibility = j ? 'hidden' : 'visible'; });
       eager(slides[0]); eager(slides[1]);
-      if (k) k.textContent = '01'; gsap.set(bar, { scaleX: 0 });
+      if (slides.length) onChange(0, slides.length);
+      gsap.set(bar, { scaleX: 0 });
       if (running) cycle();
     },
   };
-  return api;
 }
 
 // ---------- Textos y footer (iguales a la home) ----------
