@@ -58,22 +58,19 @@ function initProjects() {
   const vh = () => window.innerHeight;
   let active = -1, seen = false, st = null, busy = false, obs = null, lastWheel = 0, swiped = false;
 
-  // nombres: están los diez siempre a la vista; el activo crece en su lugar y los demás le hacen espacio
+  // nombres: el activo bien grande; el resto, más chico y casi transparente
   const render = (p) => {
-    const m = mob.matches;
-    const k = m ? 1 : Math.max(0.7, Math.min(1, window.innerWidth / 1440));
-    const S = (m ? 24 : 42) * k, big = m ? 1.45 : 1.6;
-    const w = rows.map((r, i) => Math.max(0, 1 - Math.abs(i - p)));
-    const h = w.map((x) => S * (1 + (big - 1) * x * 1.25));
-    let c = h[0] / 2;
-    const ys = h.map((hh, i) => { if (i) c += h[i - 1] / 2 + hh / 2; return c; });
-    const total = c + h[h.length - 1] / 2;
-    const off = m ? 0 : -total / 2;
+    const k = Math.max(0.62, Math.min(1, window.innerWidth / 1440)) * (mob.matches ? 0.78 : 1);
+    const big = mob.matches ? 1.2 : 1.75;
+    const lim = mob.matches ? 1 : 2;
     rows.forEach((r, i) => {
-      const sc = 1 + (big - 1) * w[i];
-      r.style.transform = `translate3d(0,${(ys[i] + off).toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
-      r.style.opacity = (0.32 + 0.68 * w[i]).toFixed(3);
-      r.classList.toggle('is-on', w[i] > 0.5);
+      const d = i - p, a = Math.abs(d), sg = Math.sign(d);
+      const y = sg * (Math.min(a, 1) * 66 + Math.max(a - 1, 0) * 40) * k;
+      const sc = big - (big - 1) * Math.min(a, 1);
+      const op = a <= 1 ? 1 - 0.78 * a : a <= lim ? 0.22 : Math.max(0, 0.22 * (lim + 0.6 - a) / 0.6);
+      r.style.transform = `translate3d(0,${y.toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
+      r.style.opacity = op.toFixed(3);
+      r.style.pointerEvents = op > 0.15 ? '' : 'none';
     });
     // fondos: la obra siguiente sube desde abajo y se asienta
     bgs.forEach((b, i) => {

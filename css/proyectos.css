@@ -22,12 +22,13 @@
 .pjx__names{position:absolute;left:var(--pad);top:50%;width:38vw;z-index:3}
 .pjx__names ol{list-style:none;margin:0;padding:0;position:relative}
 .pjx__names li{position:absolute;left:0;top:0;white-space:nowrap;transform-origin:0 0}
-@media (hover:hover){.pjx__names li:not(.is-on):hover{opacity:.75 !important}}
+@media (hover:hover){.pjx__names a:hover{opacity:.8}}
 .pjx__names a{display:block;transition:opacity .3s;font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.78vw,40px);line-height:.8;padding:.1em 0 .14em;color:var(--gris);transform:translateY(-50%)}
 
 /* texto de la obra, a la derecha del recuadro */
-.pjx__texts{position:absolute;z-index:3;right:var(--pad);top:50%;width:min(30vw,440px)}
-.pjx__text{position:absolute;left:0;right:0;top:0;transform:translateY(-50%);visibility:hidden}
+.pjx__texts{position:absolute;z-index:3;right:var(--pad);top:0;bottom:0;width:min(30vw,440px);display:grid;align-items:center}
+/* todas las obras apiladas en la misma celda: cada texto queda centrado en alto, sea cual sea su largo */
+.pjx__text{grid-area:1/1;visibility:hidden}
 .pjx__text.is-on{visibility:visible}
 .pjx__n{opacity:.75;margin-bottom:clamp(14px,1.4vw,22px)}
 .pjx__txt{font-size:clamp(13.5px,1vw,16px);line-height:1.55;color:rgba(230,229,224,.94);max-width:28em}
@@ -47,10 +48,9 @@
 @media (hover:hover){.pjx__arrow:hover{background:var(--gris);border-color:var(--gris);color:var(--nogal)}}
 
 @media (max-width:900px){
-  .pjx__names{top:112px;width:auto;right:var(--pad)}
-  .pjx__names a{font-size:21px}
-  .pjx__texts{left:var(--pad);right:var(--pad);width:auto;top:auto;bottom:92px}
-  .pjx__text{top:auto;bottom:0;transform:none}
+  .pjx__names{top:30%;width:auto;right:var(--pad)}
+  .pjx__names a{font-size:26px}
+  .pjx__texts{left:var(--pad);right:var(--pad);width:auto;top:auto;bottom:92px;align-items:end}
   .pjx__n{margin-bottom:10px}
   .pjx__txt{font-size:13px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
   .pjx__nav{left:var(--pad);right:auto;bottom:28px}
