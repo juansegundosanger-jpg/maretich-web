@@ -1,9 +1,9 @@
 /* =========================================================
    Maretich · Proyectos — según el frame "PROYECTOS" (1440×900):
-   fondo a pantalla completa (video, o las fotos de la obra pasando solas), nombres a la izquierda
-   (el activo más grande) y el texto de la obra a la derecha. Cada scroll pasa a la obra siguiente
+   fondo a pantalla completa (video, o las fotos de la obra pasando solas y con flechas para pasarlas),
+   los diez nombres a la izquierda (el activo más grande) y el texto de la obra a la derecha, centrado en alto.
+   Cada scroll pasa a la obra siguiente
    ========================================================= */
-.pj-hero .lm-hero__foot{align-items:flex-start}
 
 .pjx{position:relative;background:var(--nogal)}
 .pjx__stage{position:relative;height:100vh;min-height:600px;overflow:hidden;color:var(--gris)}
@@ -12,24 +12,22 @@
 .pjx__bgs,.pjx__bg{position:absolute;inset:0}
 .pjx__bg{overflow:hidden;will-change:clip-path}
 .pjx__bg video,.pjx__ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;will-change:transform}
-.pjx__ph{visibility:hidden;will-change:clip-path,transform}
-.pjx__ph:first-child{visibility:visible}
-.pjx__count{position:absolute;right:var(--pad);bottom:clamp(26px,3vw,44px);z-index:3;display:flex;align-items:center;gap:12px;font-family:var(--wide);font-size:10px;letter-spacing:.06em;color:var(--gris)}
-.pjx__count i{position:relative;display:block;width:clamp(60px,6vw,96px);height:1px;background:rgba(230,229,224,.3);overflow:hidden}
-.pjx__count b{position:absolute;inset:0;background:var(--gris);transform-origin:left;transform:scaleX(0)}
+.pjx__ph{opacity:0;will-change:opacity,transform}
+.pjx__ph:first-child{opacity:1}
 .pjx__shade{position:absolute;inset:0;pointer-events:none;background:
   linear-gradient(90deg,rgba(24,16,11,.6) 0%,rgba(24,16,11,.22) 40%,rgba(24,16,11,.25) 60%,rgba(24,16,11,.62) 100%),
   linear-gradient(180deg,rgba(24,16,11,.35) 0%,rgba(24,16,11,0) 25%,rgba(24,16,11,0) 70%,rgba(24,16,11,.45) 100%)}
 
 /* nombres: la línea del proyecto activo queda fija y la lista pasa por ella */
-.pjx__names{position:absolute;left:var(--pad);top:45.3%;width:36vw;z-index:3}
+.pjx__names{position:absolute;left:var(--pad);top:50%;width:38vw;z-index:3}
 .pjx__names ol{list-style:none;margin:0;padding:0;position:relative}
 .pjx__names li{position:absolute;left:0;top:0;white-space:nowrap;transform-origin:0 0}
-.pjx__names a{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.78vw,40px);line-height:.8;padding:.1em 0 .14em;color:var(--gris);transform:translateY(-50%)}
+@media (hover:hover){.pjx__names li:not(.is-on):hover{opacity:.75 !important}}
+.pjx__names a{display:block;transition:opacity .3s;font-family:var(--serif);font-weight:500;font-size:clamp(24px,2.78vw,40px);line-height:.8;padding:.1em 0 .14em;color:var(--gris);transform:translateY(-50%)}
 
 /* texto de la obra, a la derecha del recuadro */
-.pjx__texts{position:absolute;z-index:3;right:var(--pad);bottom:calc(clamp(26px,3vw,44px) + 40px);width:min(30vw,440px);height:60vh}
-.pjx__text{position:absolute;left:0;right:0;bottom:0;visibility:hidden}
+.pjx__texts{position:absolute;z-index:3;right:var(--pad);top:50%;width:min(30vw,440px)}
+.pjx__text{position:absolute;left:0;right:0;top:0;transform:translateY(-50%);visibility:hidden}
 .pjx__text.is-on{visibility:visible}
 .pjx__n{opacity:.75;margin-bottom:clamp(14px,1.4vw,22px)}
 .pjx__txt{font-size:clamp(13.5px,1vw,16px);line-height:1.55;color:rgba(230,229,224,.94);max-width:28em}
@@ -37,16 +35,24 @@
 .pjx__data div{display:grid;grid-template-columns:8.5em 1fr;gap:12px;padding-top:9px;border-top:1px solid rgba(230,229,224,.26)}
 .pjx__data dt{font-family:var(--wide);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;padding-top:2px}
 .pjx__data dd{margin:0;font-size:12.5px;line-height:1.35}
-.pjx__cta{margin-top:clamp(18px,1.7vw,26px)}
 
 @media (max-width:1100px){ .pjx__data{display:none} }
+
+.pjx__h1{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* flechas para pasar las fotos a mano */
+.pjx__nav{position:absolute;right:var(--pad);bottom:clamp(26px,3vw,44px);z-index:4;display:flex;gap:10px;transition:opacity .4s}
+.pjx__nav.is-off{opacity:0;pointer-events:none}
+.pjx__arrow{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;border:1px solid rgba(230,229,224,.45);background:transparent;color:var(--gris);cursor:pointer;transition:background-color .3s,border-color .3s,color .3s}
+.pjx__arrow svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.5}
+@media (hover:hover){.pjx__arrow:hover{background:var(--gris);border-color:var(--gris);color:var(--nogal)}}
+
 @media (max-width:900px){
-  .pjx__names{top:34%;width:auto;right:var(--pad)}
-  .pjx__names a{font-size:26px}
-  .pjx__texts{left:var(--pad);right:var(--pad);width:auto;bottom:76px;height:auto}
-  .pjx__text{position:absolute;bottom:0}
+  .pjx__names{top:112px;width:auto;right:var(--pad)}
+  .pjx__names a{font-size:21px}
+  .pjx__texts{left:var(--pad);right:var(--pad);width:auto;top:auto;bottom:92px}
+  .pjx__text{top:auto;bottom:0;transform:none}
   .pjx__n{margin-bottom:10px}
   .pjx__txt{font-size:13px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
-  .pjx__cta{margin-top:14px}
-  .pjx__count{left:var(--pad);right:auto;bottom:28px}
+  .pjx__nav{left:var(--pad);right:auto;bottom:28px}
+  .pjx__arrow{width:40px;height:40px}
 }

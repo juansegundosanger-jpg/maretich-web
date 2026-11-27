@@ -40,20 +40,6 @@ function initSmooth() {
   }));
 }
 
-// ---------- Encabezado ----------
-function initHero() {
-  if (reduce) return;
-  if (document.body.classList.contains('has-intro')) {
-    gsap.from(['.lm-hero__lead'], { autoAlpha: 0, y: 16, duration: 1.1, stagger: 0.06, ease: EASE_OUT, scrollTrigger: { trigger: '.lm-hero', start: 'top 70%' } });
-    return;
-  }
-  const title = new SplitText('.lm-hero__title', { type: 'lines', mask: 'lines' });
-  const tl = gsap.timeline({ delay: 0.15 });
-  tl.from(title.lines, { yPercent: 140, duration: 1.4, ease: 'casa' })
-    .from('.lm-hero__crumb', { autoAlpha: 0, y: 10, duration: 1, ease: EASE_OUT }, 0.3)
-    .from(['.lm-hero__lead'], { autoAlpha: 0, y: 18, duration: 1.1, stagger: 0.06, ease: EASE_OUT }, 0.6);
-}
-
 // ---------- Proyectos: la pantalla queda fija y cada scroll pasa a la obra siguiente ----------
 // p va de 0 a N-1: la parte entera es la obra, la fracción es el paso a la siguiente
 function initProjects() {
@@ -66,25 +52,28 @@ function initProjects() {
   const N = texts.length;
   const mob = window.matchMedia('(max-width: 900px)');
   const clamp = gsap.utils.clamp(0, 1);
-  const cK = $('.pjx__k', sec), cT = $('.pjx__t', sec), cB = $('.pjx__count b', sec), count = $('.pjx__count', sec);
-  const pad = (n) => String(n).padStart(2, '0');
-  const shows = bgs.map((b) => slideshow(b, (i, n) => { cK.textContent = pad(i + 1); cT.textContent = pad(n); }, cB));
+  const shows = bgs.map(slideshow);
+  const arrows = $('.pjx__nav', sec);
+  $$('.pjx__arrow', sec).forEach((b) => b.addEventListener('click', () => { if (active >= 0) shows[active].go(+b.dataset.dir); }));
   const vh = () => window.innerHeight;
   let active = -1, seen = false, st = null, busy = false, obs = null, lastWheel = 0, swiped = false;
 
-  // nombres: el activo bien grande; el resto, más chico y casi transparente
+  // nombres: están los diez siempre a la vista; el activo crece en su lugar y los demás le hacen espacio
   const render = (p) => {
-    const k = Math.max(0.62, Math.min(1, window.innerWidth / 1440)) * (mob.matches ? 0.78 : 1);
-    const big = mob.matches ? 1.45 : 1.75;
-    const lim = mob.matches ? 1 : 2;
+    const m = mob.matches;
+    const k = m ? 1 : Math.max(0.7, Math.min(1, window.innerWidth / 1440));
+    const S = (m ? 24 : 42) * k, big = m ? 1.45 : 1.6;
+    const w = rows.map((r, i) => Math.max(0, 1 - Math.abs(i - p)));
+    const h = w.map((x) => S * (1 + (big - 1) * x * 1.25));
+    let c = h[0] / 2;
+    const ys = h.map((hh, i) => { if (i) c += h[i - 1] / 2 + hh / 2; return c; });
+    const total = c + h[h.length - 1] / 2;
+    const off = m ? 0 : -total / 2;
     rows.forEach((r, i) => {
-      const d = i - p, a = Math.abs(d), sg = Math.sign(d);
-      const y = sg * (Math.min(a, 1) * 66 + Math.max(a - 1, 0) * 40) * k;
-      const sc = big - (big - 1) * Math.min(a, 1);
-      const op = a <= 1 ? 1 - 0.78 * a : a <= lim ? 0.22 : Math.max(0, 0.22 * (lim + 0.6 - a) / 0.6);
-      r.style.transform = `translate3d(0,${y.toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
-      r.style.opacity = op.toFixed(3);
-      r.style.pointerEvents = op > 0.15 ? '' : 'none';
+      const sc = 1 + (big - 1) * w[i];
+      r.style.transform = `translate3d(0,${(ys[i] + off).toFixed(2)}px,0) scale(${sc.toFixed(4)})`;
+      r.style.opacity = (0.32 + 0.68 * w[i]).toFixed(3);
+      r.classList.toggle('is-on', w[i] > 0.5);
     });
     // fondos: la obra siguiente sube desde abajo y se asienta
     bgs.forEach((b, i) => {
@@ -120,16 +109,16 @@ function initProjects() {
     gsap.set(t, { autoAlpha: 1, y: 0 });
     if (!reduce && prev >= 0) gsap.fromTo(t.children, { autoAlpha: 0, y: 26 }, { autoAlpha: 1, y: 0, duration: 1.1, stagger: 0.07, ease: EASE_OUT, delay: 0.25, overwrite: true });
     shows[k].reset();
-    count.style.visibility = shows[k].n > 1 ? 'visible' : 'hidden';
+    arrows.classList.toggle('is-off', shows[k].n < 2);
     playActive();
   }
 
   st = ScrollTrigger.create({
-    trigger: sec, start: 'top top', end: () => '+=' + ((N - 1) * vh() + 3), pin: stage, anticipatePin: 1,
+    trigger: sec, start: 'top top+=2', end: () => '+=' + ((N - 1) * vh() + 3), pin: stage, anticipatePin: 1,
     onUpdate: (s) => { render(Math.min(N - 1, (s.scroll() - s.start) / vh())); if (!reduce && obs && !obs.isEnabled && !busy && s.progress > 0.003 && s.progress < 0.997) enter(); },
     onToggle: (s) => { if (!obs) return; if (s.isActive) enter(s.direction > 0 ? 0 : N - 1); else obs.disable(); },
   });
-  texts.forEach((t, i) => pjStart.set(t, () => st.start + i * vh() + 1)); // +1: dentro del tramo fijo, también en la primera
+  texts.forEach((t, i) => pjStart.set(t, () => Math.max(0, st.start + 3) + i * vh())); // +1: dentro del tramo fijo, también en la primera
   ScrollTrigger.create({ trigger: sec, start: 'top bottom', end: 'bottom top', onToggle: (s) => { seen = s.isActive; if (seen) playActive(); else pauseAll(); } });
 
   // un gesto = una obra: mientras la pantalla está fija, la rueda y el dedo no desplazan la página,
@@ -143,11 +132,12 @@ function initProjects() {
     if (busy) return;
     const cur = Math.round(st.progress * (N - 1));
     const nx = cur + dir;
-    if (nx < 0 || nx > N - 1) {
-      // en la primera o la última obra, el gesto hacia afuera devuelve el scroll normal y ya avanza un tramo
+    if (nx < 0) return; // arriba de la primera obra no hay nada: queda en su lugar
+    if (nx > N - 1) {
+      // en la última obra, el gesto hacia abajo devuelve el scroll normal y baja hasta ver el footer entero
       obs.disable();
       busy = true; gsap.delayedCall(0.8, () => (busy = false));
-      const y = nx < 0 ? st.start - vh() * 0.6 : st.end + vh() * 0.6;
+      const y = st.end + $('.footer').offsetHeight; // abajo de la última: el footer entero a la vista
       if (smoother) smoother.scrollTo(y, true); else window.scrollTo({ top: y, behavior: 'smooth' });
       return;
     }
@@ -156,24 +146,35 @@ function initProjects() {
   // la rueda manda un chorro de eventos por gesto (y el trackpad sigue por inercia): sólo cuenta el primero
   // de cada gesto, es decir, el que llega después de un silencio. Con el dedo, uno por toque
   obs = ScrollTrigger.observe({
-    target: window, type: 'wheel,touch', tolerance: 10, preventDefault: true,
+    target: window, type: 'wheel,touch', tolerance: 8, preventDefault: true,
     onPress: () => { swiped = false; },
-    onChangeY: (self) => {
+    onChange: (self) => {
       const e = self.event;
       const touch = !e.type.startsWith('wheel');
+      const dx = self.deltaX, dy = self.deltaY;
+      const horiz = Math.abs(dx) > Math.abs(dy) * 1.2;
       if (touch) {
-        if (swiped || Math.abs(self.deltaY) < 6) return;
+        if (swiped || Math.max(Math.abs(dx), Math.abs(dy)) < 8) return;
         swiped = true;
-        step(self.deltaY < 0 ? 1 : -1);
+        if (horiz) shows[active].go(dx < 0 ? 1 : -1); else step(dy < 0 ? 1 : -1);
         return;
       }
+      // la rueda manda un chorro de eventos por gesto (y el trackpad sigue por inercia): cuenta sólo el primero
       const now = performance.now(), gap = now - lastWheel;
       lastWheel = now;
-      if (gap < 220 || Math.abs(self.deltaY) < 2) return;
-      step(self.deltaY > 0 ? 1 : -1);
+      if (gap < 200) return;
+      if (horiz) shows[active].go(dx > 0 ? 1 : -1); else if (Math.abs(dy) >= 1) step(dy > 0 ? 1 : -1);
     },
   });
+  // con el teclado: ↑ ↓ cambian de obra, ← → pasan las fotos
+  window.addEventListener('keydown', (e) => {
+    if (!obs.isEnabled || e.target.closest('input, textarea')) return;
+    const d = { ArrowDown: 1, PageDown: 1, ' ': 1, ArrowUp: -1, PageUp: -1 }[e.key];
+    if (d) { e.preventDefault(); step(d); return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowLeft') { e.preventDefault(); shows[active].go(e.key === 'ArrowRight' ? 1 : -1); }
+  });
   obs.disable();
+  gsap.delayedCall(0.05, () => { if (st.isActive) enter(); }); // la página arranca dentro del tramo fijo
   // al entrar a la sección (desde arriba o desde abajo), se acomoda en la obra más cercana y toma el control
   function enter(to) {
     if (reduce || !obs) return;
@@ -186,7 +187,7 @@ function initProjects() {
 
   render(0);
   if (!reduce) {
-    gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 65%', once: true } })
+    gsap.timeline({ delay: 0.2 })
       .from($('.pjx__names ol', sec), { autoAlpha: 0, x: -24, duration: 1.1, ease: EASE_OUT }, 0)
       .from(texts[0].children, { autoAlpha: 0, y: 24, duration: 1.1, stagger: 0.07, ease: EASE_OUT }, 0.25);
   }
@@ -194,41 +195,46 @@ function initProjects() {
   window.addEventListener('resize', () => render(st.progress * (N - 1)));
 }
 
-// fotos de fondo de cada obra: pasan solas, una sobre otra, de abajo hacia arriba
-function slideshow(bg, onChange, bar) {
+// fotos de fondo de cada obra: se funden una en otra y, mientras están, se acercan y se corren apenas,
+// como una toma de cámara lenta. Pasan solas y también con las flechas (o deslizando, o con ← →)
+function slideshow(bg) {
   const slides = $$('.pjx__ph', bg);
-  const HOLD = 4;
-  let i = 0, prog = null, running = false;
+  const HOLD = 5.2, FADE = 1.6;
+  let i = 0, timer = null, running = false, drift = null;
   const eager = (img) => { if (img && img.loading === 'lazy') img.loading = 'eager'; };
-  const advance = () => {
-    const prev = slides[i];
-    i = (i + 1) % slides.length;
-    const cur = slides[i];
-    slides.forEach((s) => (s.style.zIndex = s === cur ? 3 : s === prev ? 2 : 1));
-    cur.style.visibility = 'visible';
-    eager(slides[(i + 1) % slides.length]);
-    gsap.fromTo(cur, { clipPath: 'inset(100% 0% 0% 0%)' }, { clipPath: 'inset(0% 0% 0% 0%)', duration: 1.4, ease: 'casa',
-      onComplete: () => slides.forEach((s) => { if (s !== cur) s.style.visibility = 'hidden'; }) });
-    gsap.fromTo(cur, { scale: 1.12 }, { scale: 1, duration: 2.2, ease: 'expo.out' });
-    gsap.to(prev, { scale: 1.05, duration: 1.4, ease: 'casa' });
-    onChange(i, slides.length);
-    cycle();
+  const move = (el, n) => {
+    if (drift) drift.kill();
+    const dx = n % 2 ? -2.2 : 2.2;
+    drift = gsap.fromTo(el, { scale: 1.09, xPercent: -dx / 2 }, { scale: 1, xPercent: dx / 2, duration: HOLD + FADE + 1.5, ease: 'sine.out' });
   };
-  const cycle = () => {
-    if (prog) prog.kill();
-    prog = gsap.fromTo(bar, { scaleX: 0 }, { scaleX: 1, duration: HOLD, ease: 'none', paused: !running, onComplete: advance });
+  const schedule = () => {
+    if (timer) timer.kill();
+    timer = running ? gsap.delayedCall(HOLD + FADE, () => show(i + 1)) : null;
+  };
+  const show = (n) => {
+    const prev = slides[i];
+    i = (n + slides.length) % slides.length;
+    const cur = slides[i];
+    if (cur === prev) return;
+    eager(cur); eager(slides[(i + 1) % slides.length]);
+    slides.forEach((s) => (s.style.zIndex = s === cur ? 3 : s === prev ? 2 : 1));
+    gsap.killTweensOf(cur, 'opacity');
+    gsap.fromTo(cur, { opacity: 0 }, { opacity: 1, duration: FADE, ease: 'power2.inOut',
+      onComplete: () => slides.forEach((s) => { if (s !== cur) gsap.set(s, { opacity: 0 }); }) });
+    move(cur, i);
+    schedule();
   };
   return {
     n: slides.length,
-    play() { if (slides.length < 2 || reduce || running) return; running = true; eager(slides[1]); if (prog) prog.play(); else cycle(); },
-    pause() { running = false; if (prog) prog.pause(); },
+    go(d) { if (slides.length > 1) show(i + d); },
+    play() { if (slides.length < 2 || reduce || running) return; running = true; eager(slides[1]); if (drift) drift.play(); else move(slides[i], i); schedule(); },
+    pause() { running = false; if (timer) timer.kill(); timer = null; if (drift) drift.pause(); },
     reset() {
-      if (prog) prog.kill(); prog = null; i = 0;
-      slides.forEach((s, j) => { gsap.killTweensOf(s); gsap.set(s, { clearProps: 'clipPath,transform' }); s.style.zIndex = j ? 1 : 2; s.style.visibility = j ? 'hidden' : 'visible'; });
+      if (timer) timer.kill(); timer = null; i = 0;
+      slides.forEach((s, j) => { gsap.killTweensOf(s); gsap.set(s, { opacity: j ? 0 : 1, scale: 1.09, xPercent: 0, zIndex: j ? 1 : 3 }); });
+      if (drift) drift.kill(); drift = null;
       eager(slides[0]); eager(slides[1]);
-      if (slides.length) onChange(0, slides.length);
-      gsap.set(bar, { scaleX: 0 });
-      if (running) cycle();
+      if (running) { move(slides[0], 0); schedule(); }
     },
   };
 }
@@ -336,7 +342,6 @@ function initNav() {
   await inlineSvgs();
   try { await Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 2500))]); } catch (_) {}
   initSmooth();
-  initHero();
   initProjects();
   initTexts();
   initFooter();
