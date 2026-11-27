@@ -1,0 +1,59 @@
+/* =========================================================
+   Maretich · Proyectos — según el frame "PROYECTOS" (1440×900):
+   fondo a pantalla completa (video o foto), nombres a la izquierda (el activo más grande),
+   recuadro de 345×500 con las fotos que pasan solas y el texto de la obra a su derecha
+   ========================================================= */
+.pj-hero .lm-hero__foot{align-items:flex-start}
+
+.pjx{position:relative;background:var(--nogal)}
+.pjx__stage{position:relative;height:100vh;min-height:600px;overflow:hidden;color:var(--gris);--h:min(55.6vh, 34.7vw);--bw:calc(var(--h) * .69)}
+
+/* fondo */
+.pjx__bgs,.pjx__bg{position:absolute;inset:0}
+.pjx__bg{overflow:hidden;will-change:clip-path}
+.pjx__bg img,.pjx__bg video{width:100%;height:100%;object-fit:cover;will-change:transform}
+.pjx__shade{position:absolute;inset:0;pointer-events:none;background:
+  linear-gradient(90deg,rgba(24,16,11,.62) 0%,rgba(24,16,11,.3) 38%,rgba(24,16,11,.22) 62%,rgba(24,16,11,.6) 100%),
+  linear-gradient(180deg,rgba(24,16,11,.35) 0%,rgba(24,16,11,0) 25%,rgba(24,16,11,0) 70%,rgba(24,16,11,.45) 100%)}
+
+/* nombres: la línea del proyecto activo queda fija y la lista pasa por ella */
+.pjx__names{position:absolute;left:var(--pad);top:45.3%;width:36vw;z-index:3}
+.pjx__names ol{list-style:none;margin:0;padding:0;position:relative}
+.pjx__names li{position:absolute;left:0;top:0;white-space:nowrap;transform-origin:0 0;will-change:transform}
+.pjx__names a{display:block;font-family:var(--serif);font-weight:500;font-size:clamp(26px,2.78vw,40px);line-height:.8;padding:.1em 0 .14em;color:var(--gris);transform:translateY(-50%)}
+
+/* recuadro de fotos (345×500 en el frame) */
+.pjx__box{position:absolute;left:42.36%;top:50%;height:var(--h);aspect-ratio:345/500;transform:translateY(-44%);
+  border-radius:var(--radius);overflow:hidden;z-index:3;background:rgba(0,0,0,.25);box-shadow:0 40px 80px -40px rgba(0,0,0,.65)}
+.pjx__set{position:absolute;inset:0;visibility:hidden}
+.pjx__set.is-on{visibility:visible}
+.pjx__slide{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;visibility:hidden;will-change:clip-path,transform}
+.pjx__slide:first-child{visibility:visible}
+.pjx__count{position:absolute;left:14px;bottom:18px;z-index:20;font-family:var(--wide);font-size:10px;letter-spacing:.06em;color:var(--gris);text-shadow:0 1px 6px rgba(0,0,0,.45)}
+.pjx__bar{position:absolute;left:14px;right:14px;bottom:12px;height:1px;z-index:20;background:rgba(230,229,224,.3)}
+.pjx__bar i{position:absolute;inset:0;background:var(--gris);transform-origin:left;transform:scaleX(0)}
+
+/* texto de la obra, a la derecha del recuadro */
+.pjx__texts{position:absolute;z-index:3;left:calc(42.36% + var(--bw) + clamp(28px,3.4vw,56px));right:var(--pad);top:50%;transform:translateY(-44%);height:var(--h)}
+.pjx__text{position:absolute;left:0;right:0;bottom:0;visibility:hidden}
+.pjx__text.is-on{visibility:visible}
+.pjx__n{opacity:.75;margin-bottom:clamp(14px,1.4vw,22px)}
+.pjx__txt{font-size:clamp(13.5px,1vw,16px);line-height:1.55;color:rgba(230,229,224,.94);max-width:28em}
+.pjx__data{margin:clamp(16px,1.5vw,22px) 0 0;display:grid;gap:10px}
+.pjx__data div{display:grid;grid-template-columns:8.5em 1fr;gap:12px;padding-top:9px;border-top:1px solid rgba(230,229,224,.26)}
+.pjx__data dt{font-family:var(--wide);font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;opacity:.6;padding-top:2px}
+.pjx__data dd{margin:0;font-size:12.5px;line-height:1.35}
+.pjx__cta{margin-top:clamp(18px,1.7vw,26px)}
+
+@media (max-width:1100px){ .pjx__data{display:none} }
+@media (max-width:900px){
+  .pjx__stage{--h:min(38vh, 64vw)}
+  .pjx__names{top:150px;width:auto;right:var(--pad)}
+  .pjx__names a{font-size:28px}
+  .pjx__box{left:var(--pad);top:236px;transform:none}
+  .pjx__texts{left:var(--pad);right:var(--pad);top:calc(236px + var(--h) + 22px);bottom:28px;height:auto;transform:none}
+  .pjx__text{top:0;bottom:auto}
+  .pjx__n{margin-bottom:10px}
+  .pjx__txt{font-size:13px;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+  .pjx__cta{margin-top:14px}
+}
